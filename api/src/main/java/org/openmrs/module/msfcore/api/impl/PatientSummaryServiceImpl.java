@@ -1,11 +1,13 @@
 package org.openmrs.module.msfcore.api.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.AllergyReaction;
@@ -14,9 +16,11 @@ import org.openmrs.ConceptDatatype;
 import org.openmrs.ConceptNumeric;
 import org.openmrs.Diagnosis;
 import org.openmrs.Encounter;
+import org.openmrs.EncounterProvider;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.msfcore.MSFCoreConfig;
@@ -31,12 +35,14 @@ import org.openmrs.module.msfcore.patientSummary.Allergy.AllergyBuilder;
 import org.openmrs.module.msfcore.patientSummary.ClinicalHistory;
 import org.openmrs.module.msfcore.patientSummary.Demographics;
 import org.openmrs.module.msfcore.patientSummary.Disease;
+import org.openmrs.module.msfcore.patientSummary.Medication;
 import org.openmrs.module.msfcore.patientSummary.Disease.DiseaseBuilder;
 import org.openmrs.module.msfcore.patientSummary.Observation;
 import org.openmrs.module.msfcore.patientSummary.Observation.ObservationBuilder;
 import org.openmrs.module.msfcore.patientSummary.PatientSummary;
 import org.openmrs.module.msfcore.patientSummary.PatientSummary.PatientSummaryBuilder;
 import org.openmrs.module.msfcore.patientSummary.PatientSummary.Representation;
+import org.openmrs.module.msfcore.patientSummary.PlannedAppointment;
 import org.openmrs.module.msfcore.patientSummary.Vitals;
 import org.openmrs.module.msfcore.patientSummary.Vitals.VitalsBuilder;
 import org.openmrs.parameter.EncounterSearchCriteria;
@@ -60,6 +66,17 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             ob.unit(getConceptUnit(obs.getConcept()));
             if (obs.getValueNumeric() != null) {
                 ob.value(cleanObservationValue(Double.toString(obs.getValueNumeric())));
+
+                //Added for full patient record
+                try {
+                    ConceptNumeric cn = Context.getConceptService().getConceptNumeric(obs.getConcept().getConceptId());
+                    if (cn != null && (obs.getValueNumeric() > cn.getHiNormal() || obs.getValueNumeric() < cn.getLowNormal())) {
+                        ob.refRange("Abnormal");
+                    } else
+                        ob.refRange("Normal");
+                } catch (Exception e) {
+                    ob.refRange("Range not provided");
+                }
             }
         } else if (obs.getConcept().getDatatype().getUuid().equals(ConceptDatatype.TEXT_UUID) && obs.getValueText() != null) {
             ob.value(cleanObservationValue(obs.getValueText()));
@@ -76,12 +93,14 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             // see: https://wiki.openmrs.org/display/docs/Complex+Obs+Support
         }
 
+        //Full representation
+        //TODO: Drug order
+        ob.encounterDate(obs.getEncounter().getDateCreated().toString());;
         if (Representation.FULL.equals(representation)) {
             // TODO set both visit and encounter dates
         }
         return ob.build();
     }
-
     /*
      * retrieve concept unit from messages.properties, else concept if numeric
      * in the future
@@ -205,10 +224,10 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
         for (int i = 0; i < vitalsObs.size(); i++) {
             Obs obs = vitalsObs.get(i);
-
             if (vitalsBuilder == null) {
                 vitalsBuilder = Vitals.builder();
             }
+            vitalsBuilder.dateCreated(Context.getDateFormat().format(obs.getDateCreated()));
             if (obsEncounter == null || obsEncounter.equals(obs.getEncounter())) {
                 if (missedObs != null) {
                     setVital(vitalsBuilder, missedObs);
@@ -288,7 +307,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
     }
 
     private List<Concept> getLabResultsConcepts() {
-        return getConcepts(OMRSConstants.GP_CONCEPT_ID_LAB_RESULTS);
+        return getConcepts(OMRSConstants.GP_CONCEPT_ID_LAB_RESULTS_LATEST);
     }
 
     private void addObsToHistory(Patient patient, List<Observation> clinicalHistoryObs, String gp) {
@@ -296,6 +315,60 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                         null, null, null, null, null, false)) {
             clinicalHistoryObs.add(convertObs(obs));
         }
+    }
+
+    private void addObsToFullHistory(Patient patient, List<Observation> clinicalHistoryObs, String gp, Date startDate, Date endDate) {
+        for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getConcepts(gp), null, null, null,
+                        null, null, null, startDate, endDate, false)) {
+            clinicalHistoryObs.add(convertObs(obs));
+        }
+    }
+
+    private void setFullClinicalHistory(Patient patient, PatientSummary patientSummary) {
+        List<Visit> visits = Context.getVisitService().getVisitsByPatient(patient);
+        int index = 0;
+        for (Visit visit : visits) {
+            ClinicalHistory clinicalHistory = ClinicalHistory.builder().build();
+            clinicalHistory.setDate(Context.getDateFormat().format(visit.getStartDatetime()));
+            addObsToFullHistory(patient, clinicalHistory.getMedical(), OMRSConstants.GP_CONCEPT_ID_PAST_MEDICATION_HISTORY, visit
+                            .getStartDatetime(), visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getSocial(), OMRSConstants.GP_CONCEPT_ID_SOCIAL_HISTORY, visit.getStartDatetime(),
+                            visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getFamily(), OMRSConstants.GP_CONCEPT_ID_FAMILY_HISTORY, visit.getStartDatetime(),
+                            visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getComplications(), OMRSConstants.GP_CONCEPT_ID_COMPLICATIONS, visit
+                            .getStartDatetime(), visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getTargetOrganDamages(),
+                            OMRSConstants.GP_CONCEPT_ID_HISTORY_OF_TARGET_ORGAN_DAMAGE, visit.getStartDatetime(), visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getCardiovascularCholesterolScore(),
+                            OMRSConstants.GP_CONCEPT_ID_CARDIOVASCULAR_RISK_SCORE, visit.getStartDatetime(), visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getBloodGlucose(), OMRSConstants.GP_CONCEPT_ID_BLOOD_GLUCOSE, visit
+                            .getStartDatetime(), visit.getStopDatetime());
+            addObsToFullHistory(patient, clinicalHistory.getPatientEducation(), OMRSConstants.GP_CONCEPT_ID_PATIENT_EDUCATION, visit
+                            .getStartDatetime(), visit.getStopDatetime());
+            patientSummary.getClinicalHistoryList().add(clinicalHistory);
+        }
+        for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(
+                        patient,
+                        Context.getConceptService().getConcept(
+                                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
+                                                        OMRSConstants.GP_CONCEPT_ID_NOTES))))) {
+            patientSummary.getClinicalNotes().add(convertObs(obs));
+        }
+        for (int i = 0; i < patientSummary.getClinicalHistoryList().size() - 1; i++) {
+            if (patientSummary.getClinicalNotes().size() > i)
+                patientSummary.getClinicalHistoryList().get(i).setClinicalNote(patientSummary.getClinicalNotes().get(i).getValue());
+            else
+                patientSummary.getClinicalHistoryList().get(i).setClinicalNote("_");
+            patientSummary.getClinicalHistoryListFup().add(patientSummary.getClinicalHistoryList().get(i));
+        }
+        try {
+            patientSummary.getClinicalHistoryList().get(patientSummary.getClinicalHistoryList().size() - 1).setClinicalNote(
+                            patientSummary.getClinicalNotes().get(patientSummary.getClinicalNotes().size() - 1).getValue());
+        } catch (Exception e) {
+            patientSummary.getClinicalHistoryList().get(patientSummary.getClinicalHistoryList().size() - 1).setClinicalNote("_");
+        }
+        patientSummary.setClinicalHistory(patientSummary.getClinicalHistoryList().get(patientSummary.getClinicalHistoryList().size() - 1));
     }
 
     private void setClinicalHistory(Patient patient, PatientSummary patientSummary) {
@@ -311,70 +384,194 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         patientSummary.setClinicalHistory(clinicalHistory);
     }
 
+    private void setMedicationDetails(Patient patient, PatientSummary patientSummary) {
+        //    	int i=0;
+        StringBuilder sb;
+        for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(patient.getPerson(),
+                        getConcepts(OMRSConstants.GP_CONCEPT_ID_MEDICATION_GROUP).get(0)/*7000008*/)) {
+            sb = new StringBuilder();
+            Medication medication = Medication.builder().build();
+            //Get obsGroup
+            for (Obs member : obs.getGroupMembers()) {
+                Observation ob = convertObs(member);
+                if (member.getConcept().getConceptId() == 1000093)
+                    medication.setName(ob.getValue());
+                else if (member.getConcept().getConceptId() == 160855)
+                    medication.setFrequency(ob.getValue());
+                else if (member.getConcept().getConceptId() == 160856)
+                    medication.setQuantity(ob.getValue());
+                else if (member.getConcept().getConceptId() == 159368) {
+                    if (sb != null && !(sb.equals("")))
+                        sb.insert(0, ob.getValue() + " ");
+                    else
+                        sb.append(ob.getValue() + " ");
+                } else if (member.getConcept().getConceptId() == 161244) {
+                    sb.append(ob.getValue());
+                }
+            }
+            medication.setDuration(sb.toString());
+            medication.setPrescriptionDate(Context.getDateFormat().format(obs.getEncounter().getEncounterDatetime()));
+            patientSummary.getMedicationList().add(medication);
+        }
+    }
+
+    private void setPlannedAppointments(Patient patient, PatientSummary patientSummary) {
+        PlannedAppointment appointment;
+        for (Encounter encounter : Context.getEncounterService().getEncountersByPatient(patient)) {
+            appointment = PlannedAppointment.builder().build();
+            for (Obs ob : encounter.getObs()) {
+                if (ob.getConcept().getConceptId() == 6000009) {
+                    Observation o = convertObs(ob);
+                    appointment.setType(o.getValue());
+                } else if (ob.getConcept().getConceptId() == 463411) {
+                    Observation o = convertObs(ob);
+                    appointment.setDate(o.getValue());
+                }
+            }
+            if (appointment.getType() != null || appointment.getDate() != null)
+                patientSummary.getAppointmentList().add(appointment);
+        }
+    }
+
     public PatientSummary generatePatientSummary(Patient patient) {
         // TODO probably on summary pull first set of items than all???
         PatientSummaryBuilder patientSummarybuilder = PatientSummary.builder();
+        PatientSummary patientSummary = null;
         if (representation != null) {
             patientSummarybuilder.representation(representation);
         }
+        if (Representation.SUMMARY.equals(representation)) {
+            // set facility
+            setFacility(patientSummarybuilder);
 
-        // set facility
-        setFacility(patientSummarybuilder);
+            // set demographics
+            patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
+                            new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
 
-        // set demographics
-        patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
-                        new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
+            patientSummary = patientSummarybuilder.build();
 
-        PatientSummary patientSummary = patientSummarybuilder.build();
+            // set recent vitals and observations
+            List<Vitals> vitals = getVitals(patient);
+            patientSummary.getVitals().addAll(vitals.isEmpty() ? Arrays.asList(Vitals.builder().build()) : vitals);
 
-        // set recent vitals and observations
-        List<Vitals> vitals = getVitals(patient);
-        patientSummary.getVitals().addAll(vitals.isEmpty() ? Arrays.asList(Vitals.builder().build()) : vitals);
+            // set working diagnoses
+            for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
+                String d = diagnosis.getDiagnosis().getCoded() != null
+                                ? diagnosis.getDiagnosis().getCoded().getName().getName()
+                                : diagnosis.getDiagnosis().getNonCoded();
+                DiseaseBuilder dB = Disease.builder().name(d);
+                patientSummary.getDiagnoses().add(dB.build());
+            }
 
-        // set working diagnoses
-        for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
-            String d = diagnosis.getDiagnosis().getCoded() != null ? diagnosis.getDiagnosis().getCoded().getName().getName() : diagnosis
-                            .getDiagnosis().getNonCoded();
-            DiseaseBuilder dB = Disease.builder().name(d);
-            patientSummary.getDiagnoses().add(dB.build());
-        }
+            // set allergies
+            setAllergies(patient, patientSummary);
 
-        // set allergies
-        setAllergies(patient, patientSummary);
+            // add clinical history
+            //        setClinicalHistory(patient, patientSummary);
 
-        // add clinical history
-        setClinicalHistory(patient, patientSummary);
+            // set medications
+            for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getMedicationsConcepts(),
+                            null, null, null, null, null, null, null, null, false)) {
+                patientSummary.getCurrentMedications().add(convertObs(obs));
+            }
 
-        // set medications
-        for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getMedicationsConcepts(), null,
-                        null, null, null, null, null, null, null, false)) {
-            patientSummary.getCurrentMedications().add(convertObs(obs));
-        }
+            // set clinical notes
+            for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(
+                            patient,
+                            Context.getConceptService().getConcept(
+                                            Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
+                                                            OMRSConstants.GP_CONCEPT_ID_NOTES))))) {
+                patientSummary.getClinicalNotes().add(convertObs(obs));
+            }
 
-        // set clinical notes
-        for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(
-                        patient,
-                        Context.getConceptService().getConcept(
-                                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
-                                                        OMRSConstants.GP_CONCEPT_ID_NOTES))))) {
-            patientSummary.getClinicalNotes().add(convertObs(obs));
-        }
+            // set lab results
+            for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getLabResultsConcepts(), null,
+                            null, null, null, null, null, null, null, false)) {
+                patientSummary.getRecentLabResults().add(convertObs(obs));
+            }
 
-        // set lab results
-        for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getLabResultsConcepts(), null,
-                        null, null, null, null, null, null, null, false)) {
-            patientSummary.getRecentLabResults().add(convertObs(obs));
-        }
+            // TODO add clinical history here, tied into forms
 
-        // TODO add clinical history here, tied into forms
+            /**
+             * ADDING FULL PATIENT RECORDS HERE - START
+             */
+            // set Visits
+            setVisits(patient, patientSummary);
 
-        if (Representation.FULL.equals(representation)) {
+            // set Encounters
+            setEncounters(patient, patientSummary);
+
+            //set Full clinical history
+            setFullClinicalHistory(patient, patientSummary);
+
+            //set medications details
+            setMedicationDetails(patient, patientSummary);
+
+            // set lab results
+            for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getLabResultsConcepts(), null,
+                            null, null, null, null, null, null, null, false)) {
+                patientSummary.getRecentLabResults().add(convertObs(obs));
+            }
+
+            //set Planned Appointments
+            setPlannedAppointments(patient, patientSummary);
+
+            /**
+             * ADDING FULL PATIENT RECORDS HERE -END
+             */
+            return patientSummary;
+        } else if (Representation.FULL.equals(representation)) {
             // TODO after adding extra properties for full, set them here
-        }
+            // set facility
+            setFacility(patientSummarybuilder);
 
+            // set demographics
+            patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
+                            new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
+
+            patientSummary = patientSummarybuilder.build();
+
+            // set recent vitals and observations
+            List<Vitals> vitals = getVitals(patient);
+            patientSummary.getVitals().addAll(vitals.isEmpty() ? Arrays.asList(Vitals.builder().build()) : vitals);
+
+            // set working diagnoses
+            for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
+                String d = diagnosis.getDiagnosis().getCoded() != null
+                                ? diagnosis.getDiagnosis().getCoded().getName().getName()
+                                : diagnosis.getDiagnosis().getNonCoded();
+                DiseaseBuilder dB = Disease.builder().name(d);
+                patientSummary.getDiagnoses().add(dB.build());
+            }
+
+            // set Visits
+            setVisits(patient, patientSummary);
+
+            // set Encounters
+            setEncounters(patient, patientSummary);
+
+            //set Full clinical history
+            setFullClinicalHistory(patient, patientSummary);
+
+            //set medications details
+            setMedicationDetails(patient, patientSummary);
+
+            // set allergies
+            setAllergies(patient, patientSummary);
+
+            // set lab results
+            for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getLabResultsConcepts(), null,
+                            null, null, null, null, null, null, null, false)) {
+                patientSummary.getRecentLabResults().add(convertObs(obs));
+            }
+
+            //set Planned Appointments
+            setPlannedAppointments(patient, patientSummary);
+
+            return patientSummary;
+        }
         return patientSummary;
     }
-
     public PatientSummary requestPatientSummary(Patient patient) {
         PatientSummary summary = generatePatientSummary(patient);
         // log audit log
@@ -387,5 +584,32 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                         Context.getAuthenticatedUser()).patient(patient).build();
         Context.getService(AuditService.class).saveAuditLog(requestLog);
         return summary;
+    }
+
+    private void setVisits(Patient patient, PatientSummary patientSummary) {
+        //            patientSummary.getVisits().add(v);
+        for (Diagnosis diagnosis : Context.getDiagnosisService().getDiagnoses(patient, null)) {
+            String d = diagnosis.getDiagnosis().getCoded() != null ? diagnosis.getDiagnosis().getCoded().getName().getName() : diagnosis
+                            .getDiagnosis().getNonCoded();
+            DiseaseBuilder dB = Disease.builder().name(d).status(
+                            diagnosis.getCertainty().name() != null ? diagnosis.getCertainty().name() : "None").visitDate(
+                            diagnosis.getDateCreated() != null ? Context.getDateFormat().format(diagnosis.getDateCreated()) : "None");
+            //                System.out.println(Disease);
+            patientSummary.getVisitDiagnosis().add(dB.build());
+        }
+    }
+
+    private void setEncounters(Patient patient, PatientSummary patientSummary) {
+        for (Encounter encounter : Context.getEncounterService().getEncountersByPatient(patient)) {
+            org.openmrs.module.msfcore.patientSummary.Encounter enc = org.openmrs.module.msfcore.patientSummary.Encounter.builder().build();
+            enc.setDate(Context.getDateFormat().format(encounter.getDateCreated()));
+            enc.setType(encounter.getEncounterType().getName());
+            try {
+                enc.setProvider(((EncounterProvider) encounter.getEncounterProviders().iterator().next()).getProvider().getName());
+            } catch (Exception e) {
+                enc.setProvider("No provider");
+            }
+            patientSummary.getEncounters().add(enc);
+        }
     }
 }

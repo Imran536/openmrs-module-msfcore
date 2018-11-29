@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Vitals {
+    //Date added for full patient record
+    @Builder.Default
+    private String dateCreated;
     @Builder.Default
     private Observation height = Observation.builder().name("Height").unit("cm").build();
     @Builder.Default

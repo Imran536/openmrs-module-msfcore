@@ -16,7 +16,10 @@ public class Observation {
     private String value = "_";
     // use these 2 on full representation
     private String visitDate;
+    @Builder.Default
     private String encounterDate;
+    @Builder.Default
+    private String refRange;
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

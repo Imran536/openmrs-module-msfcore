@@ -3,6 +3,9 @@ package org.openmrs.module.msfcore.patientSummary;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmrs.Encounter;
+import org.openmrs.Visit;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -29,6 +32,24 @@ public class PatientSummary {
     private List<Observation> currentMedications = new ArrayList<Observation>();
     @Builder.Default
     private List<Observation> clinicalNotes = new ArrayList<Observation>();
+
+    //Full Patient Record Variables
+    @Builder.Default
+    private List<Disease> visitDiagnosis = new ArrayList<Disease>();
+    @Builder.Default
+    private List<org.openmrs.module.msfcore.patientSummary.Encounter> encounters = new ArrayList<>();
+    @Builder.Default
+    private List<Visit> visits = new ArrayList<Visit>();
+    @Builder.Default
+    private List<ClinicalHistory> clinicalHistoryList = new ArrayList<ClinicalHistory>();
+    @Builder.Default
+    private List<ClinicalHistory> clinicalHistoryListBaseline = new ArrayList<ClinicalHistory>();
+    @Builder.Default
+    private List<ClinicalHistory> clinicalHistoryListFup = new ArrayList<ClinicalHistory>();
+    @Builder.Default
+    private List<Medication> medicationList = new ArrayList<Medication>();
+    @Builder.Default
+    private List<PlannedAppointment> appointmentList = new ArrayList<PlannedAppointment>();
 
     @Builder.Default
     private String provider = "";

@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ClinicalHistory {
     @Builder.Default
+    private String date;
+    @Builder.Default
     private List<Observation> medical = new ArrayList<Observation>();
     @Builder.Default
     private List<Observation> social = new ArrayList<Observation>();
@@ -32,4 +34,8 @@ public class ClinicalHistory {
     private List<Observation> analysisType = new ArrayList<Observation>();
     @Builder.Default
     private List<Observation> patientEducation = new ArrayList<Observation>();
+
+    //Added for full representation
+    @Builder.Default
+    private String clinicalNote;
 }
