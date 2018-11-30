@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class Demographics {
     private String name;
     private Age age;
+    private String gender;
 }

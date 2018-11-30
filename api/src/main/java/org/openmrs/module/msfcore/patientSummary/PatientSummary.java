@@ -18,6 +18,8 @@ public class PatientSummary {
     private Representation representation;
     @Builder.Default
     private String facility = "";
+    @Builder.Default
+    private String patientIdentifier = "";
     private Demographics demographics;
     @Builder.Default
     private List<Vitals> vitals = new ArrayList<Vitals>();

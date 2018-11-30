@@ -346,27 +346,19 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                             .getStartDatetime(), visit.getStopDatetime());
             addObsToFullHistory(patient, clinicalHistory.getPatientEducation(), OMRSConstants.GP_CONCEPT_ID_PATIENT_EDUCATION, visit
                             .getStartDatetime(), visit.getStopDatetime());
+
+            try {
+                clinicalHistory.setClinicalNote(Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null,
+                                getConcepts(OMRSConstants.GP_CONCEPT_ID_NOTES), null, null, null, null, null, null,
+                                visit.getStartDatetime(), visit.getStopDatetime(), false).get(0).getValueText());
+            } catch (Exception e) {
+                clinicalHistory.setClinicalNote("");
+            }
+
             patientSummary.getClinicalHistoryList().add(clinicalHistory);
         }
-        for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(
-                        patient,
-                        Context.getConceptService().getConcept(
-                                        Integer.parseInt(Context.getAdministrationService().getGlobalProperty(
-                                                        OMRSConstants.GP_CONCEPT_ID_NOTES))))) {
-            patientSummary.getClinicalNotes().add(convertObs(obs));
-        }
         for (int i = 0; i < patientSummary.getClinicalHistoryList().size() - 1; i++) {
-            if (patientSummary.getClinicalNotes().size() > i)
-                patientSummary.getClinicalHistoryList().get(i).setClinicalNote(patientSummary.getClinicalNotes().get(i).getValue());
-            else
-                patientSummary.getClinicalHistoryList().get(i).setClinicalNote("_");
             patientSummary.getClinicalHistoryListFup().add(patientSummary.getClinicalHistoryList().get(i));
-        }
-        try {
-            patientSummary.getClinicalHistoryList().get(patientSummary.getClinicalHistoryList().size() - 1).setClinicalNote(
-                            patientSummary.getClinicalNotes().get(patientSummary.getClinicalNotes().size() - 1).getValue());
-        } catch (Exception e) {
-            patientSummary.getClinicalHistoryList().get(patientSummary.getClinicalHistoryList().size() - 1).setClinicalNote("_");
         }
         patientSummary.setClinicalHistory(patientSummary.getClinicalHistoryList().get(patientSummary.getClinicalHistoryList().size() - 1));
     }
@@ -443,7 +435,6 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         if (Representation.SUMMARY.equals(representation)) {
             // set facility
             setFacility(patientSummarybuilder);
-
             // set demographics
             patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
                             new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
@@ -492,33 +483,6 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
             // TODO add clinical history here, tied into forms
 
-            /**
-             * ADDING FULL PATIENT RECORDS HERE - START
-             */
-            // set Visits
-            setVisits(patient, patientSummary);
-
-            // set Encounters
-            setEncounters(patient, patientSummary);
-
-            //set Full clinical history
-            setFullClinicalHistory(patient, patientSummary);
-
-            //set medications details
-            setMedicationDetails(patient, patientSummary);
-
-            // set lab results
-            for (Obs obs : Context.getObsService().getObservations(Arrays.asList(patient.getPerson()), null, getLabResultsConcepts(), null,
-                            null, null, null, null, null, null, null, false)) {
-                patientSummary.getRecentLabResults().add(convertObs(obs));
-            }
-
-            //set Planned Appointments
-            setPlannedAppointments(patient, patientSummary);
-
-            /**
-             * ADDING FULL PATIENT RECORDS HERE -END
-             */
             return patientSummary;
         } else if (Representation.FULL.equals(representation)) {
             // TODO after adding extra properties for full, set them here
@@ -527,10 +491,12 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
             // set demographics
             patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
-                            new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).build());
+                            new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).gender(patient.getGender()).build());
 
             patientSummary = patientSummarybuilder.build();
 
+            //set patient identifier
+            patientSummary.setPatientIdentifier(patient.getIdentifiers().iterator().next().getIdentifier());
             // set recent vitals and observations
             List<Vitals> vitals = getVitals(patient);
             patientSummary.getVitals().addAll(vitals.isEmpty() ? Arrays.asList(Vitals.builder().build()) : vitals);
@@ -594,22 +560,27 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             DiseaseBuilder dB = Disease.builder().name(d).status(
                             diagnosis.getCertainty().name() != null ? diagnosis.getCertainty().name() : "None").visitDate(
                             diagnosis.getDateCreated() != null ? Context.getDateFormat().format(diagnosis.getDateCreated()) : "None");
-            //                System.out.println(Disease);
             patientSummary.getVisitDiagnosis().add(dB.build());
         }
     }
 
     private void setEncounters(Patient patient, PatientSummary patientSummary) {
+        int encTypeId = 0;
         for (Encounter encounter : Context.getEncounterService().getEncountersByPatient(patient)) {
-            org.openmrs.module.msfcore.patientSummary.Encounter enc = org.openmrs.module.msfcore.patientSummary.Encounter.builder().build();
-            enc.setDate(Context.getDateFormat().format(encounter.getDateCreated()));
-            enc.setType(encounter.getEncounterType().getName());
-            try {
-                enc.setProvider(((EncounterProvider) encounter.getEncounterProviders().iterator().next()).getProvider().getName());
-            } catch (Exception e) {
-                enc.setProvider("No provider");
+            if (encounter.getEncounterType().getEncounterTypeId() != encTypeId) {
+                org.openmrs.module.msfcore.patientSummary.Encounter enc = org.openmrs.module.msfcore.patientSummary.Encounter.builder()
+                                .build();
+                enc.setDate(Context.getDateFormat().format(encounter.getEncounterDatetime()));
+                enc.setType(encounter.getEncounterType().getName());
+                try {
+                    enc.setProvider(((EncounterProvider) encounter.getEncounterProviders().iterator().next()).getProvider().getName());
+                } catch (Exception e) {
+                    enc.setProvider("No provider");
+                }
+                patientSummary.getEncounters().add(enc);
+                encTypeId = encounter.getEncounterType().getEncounterTypeId();
             }
-            patientSummary.getEncounters().add(enc);
         }
+        Collections.reverse(patientSummary.getEncounters());
     }
 }

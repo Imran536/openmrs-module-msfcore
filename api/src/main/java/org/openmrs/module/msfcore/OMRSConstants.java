@@ -32,5 +32,5 @@ public class OMRSConstants {
     public static String MESSAGE_UNITS_BLOOD_GLUCOSE = "msfcore.units.bloodGlucose";
 
     public static String GP_CONCEPT_ID_MEDICATION_GROUP = "concept.medicationGroup";
-    public static String GP_CONCEPT_ID_LAB_RESULTS_LATEST = "concept.labResultsLatest";
+    public static String GP_CONCEPT_ID_LAB_RESULTS_LATEST = "concept.labResultsUpdated";
 }
