@@ -279,6 +279,31 @@
                   "cssClasses":[
 
                   ]
+                },{
+                  "type":"personAttribute",
+                  "label":"msfcore.education.abletoread",
+                  "uuid":"ebb49035-b40b-4659-a1c6-0cb3ceade639",
+                  "formFieldName":"abletoread",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/ableToRead"
+                  },
+                  "cssClasses":[
+
+                  ]
+                },
+                {
+                  "type":"personAttribute",
+                  "label":"msfcore.education.abletowrite",
+                  "uuid":"ccf9a5cf-c6ff-456c-b8f3-3cf3f02b4150",
+                  "formFieldName":"abletowrite",
+                  "widget":{
+                    "providerName":"msfcore",
+                    "fragmentId":"field/ableToWrite"
+                  },
+                  "cssClasses":[
+
+                  ]
                 }
               ]
             }
@@ -325,21 +350,82 @@
         {
           "id":"relationships-info",
           "label":"registrationapp.person.relationship",
-          "questions":[
-            {
-              "legend":"registrationapp.person.relationship.label",
-              "header":"registrationapp.person.relationship.question",
-              "fields":[
-                {
-                  "type":"personRelationships",
-                  "widget":{
-                    "providerName":"registrationapp",
-                    "fragmentId":"field/personRelationship"
-                  }
-                }
-              ]
-            }
-          ]
+          "questions":[{
+        	    "legend":"registrationapp.person.relationship.label",
+        	    "header":"registrationapp.person.relationship.question",
+        	    "fields":[
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.father",
+        	            "formFieldName":"father",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd7",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/father"
+        	            }
+        	        },
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.mother",
+        	            "formFieldName":"mother",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd6",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/mother"
+        	            }
+        	        },
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.sister",
+        	            "formFieldName":"sister",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd5",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/sister"
+        	            }
+        	        },
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.brother",
+        	            "formFieldName":"brother",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd4",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/brother"
+        	            }
+        	        },
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.uncle",
+        	            "formFieldName":"uncle",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd3",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/uncle"
+        	            }
+        	        },
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.aunt",
+        	            "formFieldName":"aunt",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd2",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/aunt"
+        	            }
+        	        },
+        	        {
+        	            "type":"personAttribute",
+        	            "label":"msfcore.other",
+        	            "formFieldName":"other",
+        	            "uuid":"0cd7e060-ec40-11e8-8eb2-f2801f1b9fd1",
+        	            "widget":{
+        	                "providerName":"msfcore",
+        	                "fragmentId":"field/other"
+        	            }
+        	        }
+        	    ]
+        	}]
         },
         {
           "id":"msfcore.registration.others",

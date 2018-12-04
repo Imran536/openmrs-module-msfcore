@@ -34,6 +34,21 @@
 	<script type="text/javascript">
 
 		if (jQuery) {
+            // validation of the request appointment date
+            beforeSubmit.push(function () {
+                <!-- clear the previous errors -->
+                setValue('appointment_next_date.error', '');
+
+                var encounterDate = new Date((getValue('encounterDate.value')));
+                var appointment_next_date = new Date((getValue('appointment_next_date.value')));
+
+                if (encounterDate &gt;= appointment_next_date) {
+                    getField('appointment_next_date.error').html('The appointment date must be after the date of this visit ' + encounterDate).show();
+                    return false;
+                }
+
+                return true;
+            });
 
 			jq(document).ready(function () {
 
@@ -42,7 +57,6 @@
 					jq("#msf-operation").attr("value", this.value);
 					return true;
 				});
-
 			});
 
 		}

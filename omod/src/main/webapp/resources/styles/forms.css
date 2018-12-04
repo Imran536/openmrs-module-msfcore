@@ -120,6 +120,11 @@ daterangepicker button {
     padding:2px;
 }
 
+.angular-datepicker .datepicker-input,
+.angular-datepicker .icon-calendar {
+    top: -1px;
+}
+
 /*
 #appointmentscheduling-patientAppointments i.icon-calendar.small.add-on {
     margin-left: -32px;
@@ -130,14 +135,15 @@ daterangepicker button {
     margin-left: 0.25rem;
 }
 
-div#active-visits_filter.dataTables_filter,
-form#patient-search-form {
-    background: #55D6BE;
-    border-radius: 8px 8px 0 0;
+form#patient-search-form,
+div#active-visits_filter.dataTables_filter {
+    background: #424C55;
+    border-radius: 8px;
     box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
     box-sizing: border-box;
-    margin-bottom: 0;
-    padding: 16px;
+    color: #fff;
+    margin-bottom: -8px;
+    padding: 16px 16px 24px 16px;
     width: 100%;
 }
 
@@ -151,7 +157,7 @@ form#patient-search-form {
 }
 
 form input#patient-search {
-    min-width: 56%;
+    min-width: 50%;
     box-sizing: border-box;
     margin-top:28px;
 }
@@ -199,18 +205,45 @@ ul#formBreadcrumb li:last-child {
 .selectedAppointmentTypesList,
 .selectedAppointmentTypesList > .add-on {
     background: #55D6BE;
-    box-shadow: rgba(0,0,0,0.3) 0 1px 4px;
     border-radius: 0 4px 4px 0;
-    color:#fff;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     padding: 9px 8px;
+    margin-left: -6px;
+    border-bottom: 2px solid #4EC3AD;
+    height: 20px;
 }
 
 .selectedAppointmentTypesList {
-    border:none;
-    border-radius: 4px 0 0 4px;
-    padding:0;
+    border: none;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 3px;
+    height: 24px;
+}
+.selectedAppointmentTypesList > .add-on {
+    margin: -3px -3px 0px 0;
+    height: 12px;
+    border: none;
+}
+
+a.date-range-picker-clear-link.add-on:hover,
+i.icon-remove.add-on:hover {
+    background: #ff4747;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.date-range-picker-clear-link.add-on:hover {
+    border-bottom: 2px solid #ff4747;
+}
+
+.selectmultipleInput {
+    border: inherit;
+    margin-bottom: 8px;
+    clear: right;
 }
 
 .selectedAppointmentTypesList span {
@@ -222,14 +255,27 @@ ul#formBreadcrumb li:last-child {
     left:-6px !important;
 }
 
+span[id*="startDate"] span.add-on, 
+span[id*="stopDate"] span.add-on {
+    left: 0px !important;
+    top: 1px;
+}
 
 a.date-range-picker-clear-link.add-on {
-    margin-left: -5px;
-    padding: 10px 8px;
-    top: -2px;
-    background: #fff;
-    color: red;
+    margin-left: -6px;
+    padding: 9px 8px;
+    top: -3px;
+    color: #fff;
+    font-family: 'OpenSansSemiBold';
+    border-left: 1px solid #4EC3AD;
 }
+
+
+.date-range-picker-div .angular-datepicker .icon-calendar, 
+a.date-range-picker-clear-link.add-on {
+    left: -77px !important;
+}
+
 
 input#retrospectiveVisitStartDate-display,
 input#retrospectiveVisitStartDate-field {
@@ -384,4 +430,15 @@ div#actions {
 
 #appointment-block-form table {
     box-shadow: none;
+}
+
+span.error, label.error {
+    border: 2px dotted #fb0303;
+    color: #fb0303;
+}
+
+input.error {
+    background-color: #ffffff;
+    border: 1px solid #0808fd;
+    border-radius: 0;
 }

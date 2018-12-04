@@ -92,7 +92,23 @@
             <ref bean="transactionAttributeSource" />
         </property>
     </bean>
-
+    <bean id="formActionService"
+            class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager">
+            <ref bean="transactionManager" />
+        </property>
+        <property name="target">
+            <bean class="org.openmrs.module.msfcore.api.impl.FormActionServiceImpl">
+                <property name="dao" ref="msfcore.MSFCoreDao" />
+            </bean>
+        </property>
+        <property name="preInterceptors">
+            <ref bean="serviceInterceptors" />
+        </property>
+        <property name="transactionAttributeSource">
+            <ref bean="transactionAttributeSource" />
+        </property>
+    </bean>
     <bean parent="serviceContext">
         <property name="moduleService">
             <list>
@@ -122,6 +138,14 @@
             <list>
                 <value>org.openmrs.module.msfcore.api.PatientSummaryService</value>
                 <ref bean="patientSummaryService" />
+            </list>
+        </property>
+    </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.msfcore.api.FormActionService</value>
+                <ref bean="formActionService" />
             </list>
         </property>
     </bean>

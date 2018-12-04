@@ -15,4 +15,5 @@ public class ResultFilters {
     private String name;
     private List<ResultStatus> statuses;
     private List<String> dates;
+    private List<CodedOption> providers;
 }

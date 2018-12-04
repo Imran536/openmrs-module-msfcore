@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.openmrs.CareSetting;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
@@ -32,10 +31,6 @@ import org.openmrs.PatientState;
 import org.openmrs.Person;
 import org.openmrs.Program;
 import org.openmrs.ProgramWorkflowState;
-import org.openmrs.Provider;
-import org.openmrs.TestOrder;
-import org.openmrs.api.EncounterService;
-import org.openmrs.api.OrderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
@@ -54,8 +49,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreService {
 
-    private static final String ORDER_VOID_REASON = "Obs was voided";
-
     MSFCoreDao dao;
 
     /**
@@ -65,10 +58,12 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         this.dao = dao;
     }
 
+    @Override
     public List<Concept> getAllConceptAnswers(Concept question) {
         return dao.getAllConceptAnswers(question);
     }
 
+    @Override
     public List<DropDownFieldOption> getAllConceptAnswerNames(String uuid) {
         List<DropDownFieldOption> answerNames = new ArrayList<DropDownFieldOption>();
         for (Concept answer : getAllConceptAnswers(Context.getConceptService().getConceptByUuid(uuid))) {
@@ -86,11 +81,13 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return configured;
     }
 
+    @Override
     public String getInstanceId() {
         String instanceId = Context.getAdministrationService().getGlobalProperty(MSFCoreConfig.GP_INSTANCE_ID);
         return StringUtils.isBlank(instanceId) ? "" : instanceId;
     }
 
+    @Override
     public void saveInstanceId(String instanceId) {
         setGlobalProperty(MSFCoreConfig.GP_INSTANCE_ID, instanceId);
     }
@@ -99,6 +96,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         Context.getAdministrationService().setGlobalProperty(property, propertyValue);
     }
 
+    @Override
     public List<Location> getMSFLocations() {
         List<Location> locations = new ArrayList<Location>();
         locations.addAll(Context.getLocationService().getLocationsByTag(
@@ -114,6 +112,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return locations;
     }
 
+    @Override
     public String getLocationCode(Location location) {
         if (location == null) {
             return null;
@@ -128,6 +127,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return "";
     }
 
+    @Override
     public LocationAttribute getLocationCodeAttribute(Location location) {
         return getLocationAttribute(location, MSFCoreConfig.LOCATION_ATTR_TYPE_CODE_UUID);
     }
@@ -143,14 +143,17 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return null;
     }
 
+    @Override
     public void saveDefaultLocation(Location location) {
         setGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCATION_NAME, location.getName());
     }
 
+    @Override
     public void msfIdentifierGeneratorInstallation() {
         MSFIdentifierGenerator.installation();
     }
 
+    @Override
     public void saveSequencyPrefix(SequentialIdentifierGenerator generator) {
         dao.saveSequencyPrefix(generator);
     }
@@ -166,6 +169,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
     }
 
     // TODO using sync2 has bean failures
+    @Override
     public void overwriteSync2Configuration() {
         Location defaultLocation = Context.getLocationService().getDefaultLocation();
         ObjectMapper mapper = new ObjectMapper();
@@ -190,6 +194,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
     }
 
+    @Override
     public String getCurrentLocationIdentity() {
         if (isConfigured()) {
             return Context.getMessageSourceService().getMessage("msfcore.currentLocationIdentity",
@@ -198,6 +203,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return "";
     }
 
+    @Override
     public PatientProgram generatePatientProgram(boolean enrollment, Map<String, ProgramWorkflowState> states,
                     PatientProgram patientProgram, Encounter encounter) {
         if (patientProgram == null || states.isEmpty()) {
@@ -247,6 +253,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
     }
 
+    @Override
     public Map<String, ProgramWorkflowState> getMsfStages() {
         Map<String, ProgramWorkflowState> stages = new HashMap<String, ProgramWorkflowState>();
         stages.put(MSFCoreConfig.WORKFLOW_STATE_UUID_ENROLL, Context.getProgramWorkflowService().getStateByUuid(
@@ -260,6 +267,7 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         return stages;
     }
 
+    @Override
     public void manageNCDProgram(Encounter encounter) {
         Patient patient = encounter.getPatient();
         Program ncdPrgram = Context.getProgramWorkflowService().getProgramByUuid(MSFCoreConfig.NCD_PROGRAM_UUID);
@@ -284,61 +292,11 @@ public class MSFCoreServiceImpl extends BaseOpenmrsService implements MSFCoreSer
         }
     }
 
-    @Override
-    public void saveTestOrders(Encounter encounter) {
-        OrderService orderService = Context.getOrderService();
-        EncounterService encounterService = Context.getEncounterService();
-        OrderType orderType = orderService.getOrderTypeByUuid(OrderType.TEST_ORDER_TYPE_UUID);
-        Provider provider = encounter.getEncounterProviders().iterator().next().getProvider();
-        CareSetting careSetting = orderService.getCareSettingByName(CareSetting.CareSettingType.OUTPATIENT.name());
-        List<Obs> allObs = new ArrayList<Obs>(encounter.getAllObs(true));
-        for (Obs obs : allObs) {
-            if (obs.getOrder() == null) {
-                Concept concept = obs.getConcept();
-                TestOrder order = createTestOrder(encounter, orderType, provider, careSetting, concept);
-                orderService.saveOrder(order, null);
-
-                /*
-                 * So, now we are supposed to link the test order with the obs
-                 * by setting obs.setOrder() but that will not work because
-                 * OpenMRS is not allowing to set Orders to existing Obs. The
-                 * method Obs.newInstance() that is called behind the scenes
-                 * when you update an Obs, does not copy over the Order. So what
-                 * we do next is manually copying the existing Obs and set the
-                 * order on that copy that is not yet persisted. Then we manualy
-                 * void the current Obs and create the copy. I did try to change
-                 * openmrs-core code to make Obs.newInstance() copy the Order
-                 * but that broke the test
-                 * transferEncounter_shouldTransferAnEncounterWithObservationsButNotOrdersToGivenPatient
-                 * so I will just leave it alone.
-                 */
-                Obs newObs = Obs.newInstance(obs);
-                newObs.setOrder(order);
-                obs.setVoided(true);
-                encounter.addObs(newObs);
-            } else if (obs.getVoided() && obs.getOrder() != null && !obs.getOrder().getVoided()) {
-                orderService.voidOrder(obs.getOrder(), ORDER_VOID_REASON);
-            }
-        }
-        encounterService.saveEncounter(encounter);
-    }
-
-    private TestOrder createTestOrder(Encounter encounter, OrderType orderType, Provider provider, CareSetting careSetting, Concept concept) {
-        TestOrder order = new TestOrder();
-        order.setOrderType(orderType);
-        order.setConcept(concept);
-        order.setPatient(encounter.getPatient());
-        order.setEncounter(encounter);
-        order.setOrderer(provider);
-        order.setCareSetting(careSetting);
-        return order;
-    }
-
     public List<Order> getOrders(Patient patient, OrderType type, List<Concept> concepts, Pagination pagination) {
         return dao.getOrders(patient, type, concepts, pagination);
     }
 
-    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
-        return dao.getObservationsByPersonAndOrderAndConcept(person, order, concept);
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept) {
+        return dao.getObservationsByOrderAndConcept(order, concept);
     }
 }

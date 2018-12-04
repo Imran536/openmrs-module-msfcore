@@ -3,7 +3,7 @@
 	background-color: #acacac;
 }
 
-.icon-edit,.icon-ok,.icon-trash,.page {
+.icon-edit,.icon-ok,.icon-trash,.page,.actionable {
 	cursor:pointer;
 }
 

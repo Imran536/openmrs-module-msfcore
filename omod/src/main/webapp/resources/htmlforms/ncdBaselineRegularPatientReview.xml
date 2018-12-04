@@ -182,33 +182,34 @@
 				    	<template>
 							<div id="{entry}-toggleContainer">
 								<obsgroup groupingConceptId="62d411d1-78c7-4c4d-9104-abe0f4bf9bab">
-
-                  <div>
-                    <h4><lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" /></h4>
-                    <obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
-                  </div>
-                  <div>
-                    <h4><lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" /></h4>
-                    <obs
-                      id="{entry}-duration"
-                      conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a"
-                      answers="1,2,3"
-                      answerLabels="1 year,2 years,3 years" style="dropdown" />
-                  </div>
-                  <div>
-                    <h4><lookup expression="fn.getConcept('82138d7b-0765-4d57-8433-463aeec1f441').name" /></h4>
-                    <obs
-                      id="{entry}-frequency"
-                      conceptId="82138d7b-0765-4d57-8433-463aeec1f441"
-                      answers="3,6,9,12"
-                      answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
-                      style="dropdown" />
-                    <ul id="{entry}-dates"></ul>
-                  </div>
-                  <div class="hide-on-view">
-                    <button class="addEntry no-print" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
-                    <button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
-                  </div>
+					<div class="flex-row">
+						<div class="flex-col">
+							<h4><lookup expression="fn.getConcept('e61aff3f-52f2-42b9-b382-6afcb2a44c48').name" /></h4>
+							<obs id="{entry}-measure" conceptId="e61aff3f-52f2-42b9-b382-6afcb2a44c48" />
+						</div>
+						<div class="flex-col">
+							<h4><lookup expression="fn.getConcept('8a20bf07-8541-4b16-ac65-db3c564c0e8a').name" /></h4>
+							<obs
+							id="{entry}-duration"
+							conceptId="8a20bf07-8541-4b16-ac65-db3c564c0e8a"
+							answers="1,2,3"
+							answerLabels="1 year,2 years,3 years" style="dropdown" />
+						</div>
+						<div class="flex-col">
+							<h4><lookup expression="fn.getConcept('82138d7b-0765-4d57-8433-463aeec1f441').name" /></h4>
+							<obs
+							id="{entry}-frequency"
+							conceptId="82138d7b-0765-4d57-8433-463aeec1f441"
+							answers="3,6,9,12"
+							answerLabels="Every 3 months,Every 6 months,Every 9 months,Once a year"
+							style="dropdown" />
+							<ul id="{entry}-dates"></ul>
+						</div>
+					</div>
+					<div class="hide-on-view">
+						<button class="addEntry no-print" id="{entry}-addEntry" actual="{entry}"><lookup expression="fn.message('msfcore.ncdbaseline.addanother')"/></button>
+						<button class="removeEntry no-print" id="{entry}-removeEntry"><lookup expression="fn.message('msfcore.ncdbaseline.remove')"/></button>
+					</div>
 
 								</obsgroup>
 							</div>

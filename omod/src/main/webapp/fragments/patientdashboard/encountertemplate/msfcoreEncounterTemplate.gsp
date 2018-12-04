@@ -40,6 +40,35 @@
 
 <script type="text/javascript">
 
+	function mergeWithPreviousItem(array, index) {
+		array[index-1] = array[index-1] + ',' + array[index]
+		array.splice(index, 1)
+	}
+
+	function mergeElementsWithNoColon(array) {
+		var i = 1
+		while(i < array.length - 1) {
+			if (!array[i].includes(':')) {
+				mergeWithPreviousItem(array, i)
+			}
+			i++
+		}
+		return array
+	}
+
+	function reorderContent(content) {
+		var values = content.split(',')
+
+		values.forEach (function (value, index) {
+			values[index] = value.trim()
+		})
+
+		mergeElementsWithNoColon(values)
+
+		var sortedValues = values.sort()
+		return sortedValues.join()
+	}
+
 	function replaceAllValues(content, searchValue, newValue) {
 		var currentContent = content;
 		var changed;
@@ -48,7 +77,7 @@
 			changed = newContent !== currentContent;
 			currentContent = newContent;
 		} while (changed);
-		return currentContent;
+		return reorderContent(currentContent);
 	}
 
 	function removeObservationRedundancy(o) {

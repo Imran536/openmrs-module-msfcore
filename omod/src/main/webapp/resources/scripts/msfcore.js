@@ -1,5 +1,32 @@
 jQuery(document).ready(function() {
 
+    function getParameterByName( name ){
+        var regexS = "[\\?&]"+name+"=([^&#]*)", 
+      regex = new RegExp( regexS ),
+      results = regex.exec( window.location.search );
+      if( results == null ){
+        return "";
+      } else{
+        return decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+    }
+
+    // Add the patient details view
+    var url = window.location.href;
+    var arr = url.split("/");
+    var serverPath = arr[0] + "//" + arr[2] + "/" + arr[3];
+    jQuery('.identifiers').after("<div id='patient_details' class='hidden'></div>");
+    jQuery('#patient_details').load(serverPath + "/msfcore/patientDetails.page?patientId=" + getParameterByName('patientId'));
+    jQuery('.identifiers').prepend("<span id='info_patient_detail' style='cursor:pointer'><small>INFO</small></span>");
+    
+    jQuery('#info_patient_detail').click(function() {
+        if (jQuery('#patient_details').is(':visible')) {
+            jQuery('#patient_details').hide();
+        } else {
+            jQuery('#patient_details').show();
+        }
+    })
+
     // Patient Search widget handling
     if (jQuery('#patient-search-register-patient').length == 1) {
         // add a header section just above the form
@@ -95,5 +122,28 @@ function enableFn(group){
     jq(group).removeClass('hidden');
     jq(group).children("#disabled").fadeTo(250,1);
     jq(group).children("#disabled").find("input").attr("disabled",false);
+}
+
+function validateRequiredFields(requiredFieldIds, requiredMessage) {
+    var allValid = true;
+    var allRequiredFieldsAreMissing = true;
+    requiredFieldIds.forEach(function(id) {
+        var valid = validateRequiredField(id, requiredMessage);
+        if (valid) {
+            allRequiredFieldsAreMissing = false;
+        }
+        allValid = allValid && valid;
+    });
+    return allValid || allRequiredFieldsAreMissing;
+}
+
+function validateRequiredField(id, requiredMessage) {
+    if (getValue(`${id}.value`) == '') {
+        getField(`${id}.error`).html(requiredMessage).show();
+        return false;
+    } else {
+        getField(`${id}.error`).html('').show();
+        return true;
+    }
 }
 

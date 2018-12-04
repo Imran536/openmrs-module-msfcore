@@ -87,6 +87,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
+			<artifactId>metadatadeploy-api-1.10</artifactId>
+			<version>${metadatadeployVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
 			<artifactId>metadatamapping-api</artifactId>
 		</dependency>
 		<dependency>
@@ -100,6 +106,11 @@
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>reporting-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>reporting-api-2.0</artifactId>
+			<version>1.16.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>

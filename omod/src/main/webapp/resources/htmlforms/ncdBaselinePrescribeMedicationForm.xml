@@ -61,13 +61,55 @@
                         jq('#' + i + '-toggleContainer').show();
                     }
                 }
+                
+                beforeSubmit.push(function() {
+					var duplicatedIds = getDulpicatedMedicationIds()
+					
+					if(duplicatedIds.length > 0){
+						
+						var errorMessage = '<lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.error.duplicationprescription')"/> : '
+
+						duplicatedIds.forEach(function(medicationId){
+							errorMessage += $("select[id^=w] option[value='" + medicationId + "']").first().text() + ','
+						});
+
+						jq('#duplication-prescription-error').html(errorMessage)
+						jq('#duplication-prescription-error').show()
+                		return false;
+                	}
+                	return true;
+				});
+
+				beforeSubmit.push(function() {
+					var requiredMessage = '<lookup expression="fn.message('msfcore.required')"/>';
+					return validateRequiredFields(getRequiredFieldIds(), requiredMessage);
+				});
+
             });
-            
+
+			function getIndexFromId(id) {
+				return parseInt(id.split('-')[0]);
+			}
+
+			function getRequiredFieldIds() {
+				var requiredFieldIds = [];
+				getUsedContainers().forEach(function(container) {
+					var index = getIndexFromId(container.attr('id'));
+					requiredFieldIds.push(`name-${index}`);
+					requiredFieldIds.push(`dose${index}`);
+					requiredFieldIds.push(`doseUnit${index}`);
+					requiredFieldIds.push(`frequencyCoded${index}`);
+					requiredFieldIds.push(`duration${index}`);
+					requiredFieldIds.push(`durationUnit${index}`);
+				});
+				return requiredFieldIds;
+			}
+
             function getUsedContainers() {
                 var usedContainers = [];
                 for (var i = 1; i &lt;= NUMBER_ENTRIES; i++) {
                     var containerId = `${i}-toggleContainer`;
-                    if (i == 1 || isPrescriptionFilled(i)) {
+                    if (i == 1 || isPrescriptionFilled(i) || jq(`#${i}-toggleContainer`).is(':visible')) {
                         usedContainers.push(jq(`#${i}-toggleContainer`));
                     }
                 }
@@ -83,6 +125,29 @@
                 }
                 return filled;
             }
+                       
+            function getPrescribedMedicationIds(){
+           		return getUsedContainers()
+           			    .map((container) => getValue(`name-${getIndexFromId(container.attr('id'))}.value`))
+           			    .filter((r) => r !== "");
+            }
+           
+            function getDulpicatedMedicationIds() {
+		    	var object = {};
+		        var result = [];
+		
+		        getPrescribedMedicationIds().forEach(function (item) {
+		          if(!object[item])
+		              object[item] = 0;
+		            object[item] += 1;
+		        })
+		        for (var prop in object) {
+		           if(object[prop] >= 2) {
+		               result.push(prop);
+		           }
+		        }
+		        return result;
+		    }
         }
 	</script>
 
@@ -121,29 +186,38 @@
 						<template>
 							<div id="{prescription}-toggleContainer" style="display: none;">
 								<obsgroup groupingConceptId="f1af211e-64e0-46e6-bc9d-e848935e2202"> 
-									<div class="input-group">
+									<div class="flex-col">
 										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></h4>
 										<obs id="name-{prescription}" class="medication-name" conceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"/>
 									</div>
-									<div class="input-group">
-										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></h4>
-										<obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
-										<obs id="doseUnit{prescription}" class="doseInput select-arrow" conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33"
-												answerConceptIds="161553,161554,162263,162376,1608,1513,162356,162366,162370,162264" />
+									<div class="flex-row">
+										<div class="flex-col">
+											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></h4>
+											<obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
+										</div>
+										<div class="flex-col">
+											<h4>Dose Unit</h4>
+											<obs id="doseUnit{prescription}" answerConceptSetIds="d09764da-2bf1-4ab6-933f-07a50add8f33" 
+												conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33" class="doseInput select-arrow"  />
+										</div>
 									</div>
-									<div class="input-group">
-										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></h4>
-										<obs id="frequencyCoded{prescription}" class="frequency select-arrow" conceptId="160855" />
+									<div class="flex-row">
+										<div class="flex-col">
+											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></h4>
+											<obs id="frequencyCoded{prescription}" class="frequency select-arrow" conceptId="160855" />
+										</div>
+										<div class="flex-col">
+											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/></h4>
+											<obs id="duration{prescription}" class="duration doseInput" conceptId="159368"/>
+										</div>
+										<div class="flex-col">
+											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
+											<obs id="durationUnit{prescription}" answerConceptSetIds="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" 
+												conceptId="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" class="duration-unit select-arrow" />
+										</div>
 									</div>
-									<div class="input-group">
-										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/></h4>
-										<obs id="duration{prescription}" class="duration doseInput" conceptId="159368"/>
-									</div>
-									<div class="input-group">
-										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
-										<obs id="durationUnit{prescription}" class="duration-unit select-arrow" conceptId="161244"/>
-									</div>
-									<div class="input-group">
+
+									<div class="flex-col">
 										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></h4>
 										<obs id="instructions{prescription}" class="medication-instructions" conceptId="163106" style="textarea" rows="3" cols="80"/>
 									</div>
@@ -166,6 +240,9 @@
 						<render prescription="9"/>
 						<render prescription="10"/>
 					</repeat>
+                    <div class="note-container">
+                        <div id="duplication-prescription-error" class="note error" style="display: none;"></div>
+                    </div>
 
 		            <!-- Submit -->
 					<div class="bottom-of-form">

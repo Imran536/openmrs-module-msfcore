@@ -94,6 +94,14 @@
 							<td><obs conceptId="5000018AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" labelNameTag="default" id="test_required_inr" style="checkbox"/></td>
 						</tr>
 						<tr>
+                            <!-- Comment name=PEFR -->
+							<td><obs conceptId="a7006634-c841-41d3-a264-3878422f4046" labelNameTag="default" id="test_required_PEFR" style="checkbox"/></td>
+                            <!-- Comment name=Fasting glucose - mg/ dL order -->
+							<td><obs conceptId="123fa5c6-35a3-40cf-8943-fe2a03a99537" labelNameTag="default" id="test_required_fg" style="checkbox"/></td>
+                            <!-- Comment name=Random glucose - mg / dL order -->
+							<td><obs conceptId="e12c6213-63f0-4747-84ff-c06773e9622b" labelNameTag="default" id="test_required_rg" style="checkbox"/></td>
+						</tr>
+						<tr>
                             <!-- Comment name=LDL -->
 							<td><obs conceptId="5000034AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" labelNameTag="default" id="test_required_ldl" style="checkbox"/></td>
 						</tr>

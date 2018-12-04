@@ -285,14 +285,15 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
 
 /* 6. Prescribe Medication */
 
-div[id*="-toggleContainer"],
+div[id*="-toggleContainer"], 
 .right-form-display .sections-container .section .add-box {
   padding: 32px;
   border-radius: 8px;
-  /*box-shadow: rgba(0,0,0,0.2) 0px 3px 4px;*/
+  box-shadow: inset #D1DFE8 0px 1px 1px;
   margin-bottom: 24px;
   min-height: 200px;
-  background: #D0FEF5;
+  border: 1px solid #D1DFE8;
+  background: #EFF4F7;
   color: #373F46;
 }
 
@@ -350,11 +351,16 @@ td.cv-risk-options input[type="radio"] + label{
 .section .obs-field {
   margin-top:5px;
 }
-#htmlform .section div[id*="-toggleContainer"] div {
+/*#htmlform .section div[id*="-toggleContainer"] div {
   margin-bottom: 32px;
-}
+}*/
 
 #htmlform .section div[id*="-toggleContainer"] div.hide-on-view,#htmlform .section div[id*="-toggleContainer"] div.column, #htmlform .section div[id*="-toggleContainer"] div.column div.input-group, #htmlform .section div[id*="-toggleContainer"] div.section {
   margin-bottom: 0;
 }
 .obs-field.select-arrow {margin-top:0;}
+
+/* 11. Request appointment */
+span#appointment_next_date .hasDatepicker {
+  min-width: 232px;
+}

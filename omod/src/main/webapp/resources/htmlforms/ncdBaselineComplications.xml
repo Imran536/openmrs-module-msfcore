@@ -71,7 +71,7 @@
 
 					<table class="baseline-aligned">
 						<tr>
-    	  	    			<td width="30%"><obs conceptId="463619" answerConceptId="120148" answerLabel="Arrhythmia" style="checkbox" /></td>
+    	  	    			<td width="30%"><obs conceptId="463619" answerConceptId="120148" answerLabel="Arrhythmias" style="checkbox" /></td>
 			  		  	  	<td width="30%"><obs conceptId="463619" answerConceptId="463375" answerLabel="Angina" style="checkbox" /></td>
   	  	  					<td width="30%"><obs conceptId="463619" answerConceptId="463442" answerLabel="Heart Attack" style="checkbox" /></td>
   	    	  			</tr>

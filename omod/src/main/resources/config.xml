@@ -218,9 +218,12 @@
 		<class>org.openmrs.module.msfcore.aop.RegisterPatientAdvice</class>
 	</advice>
 	<advice>
+		<point>org.openmrs.module.reporting.report.service.ReportService</point>
+		<class>org.openmrs.module.msfcore.aop.ReportAuditLogAdvice</class>
+	</advice>
+	<advice>
 		<point>org.openmrs.api.ProgramWorkflowService</point>
 		<class>org.openmrs.module.msfcore.aop.SavePatientProgramAdvice</class>
 	</advice>
-	
 </module>
 

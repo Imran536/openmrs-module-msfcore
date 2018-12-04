@@ -285,4 +285,283 @@ public class PersonAttributeTypes {
             return true;
         }
     };
+
+    public static PersonAttributeTypeDescriptor FATHER = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Father";
+        }
+
+        @Override
+        public String description() {
+            return "Father's name";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_FATHER_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor MOTHER = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Mother";
+        }
+
+        @Override
+        public String description() {
+            return "Mother's name";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_MOTHER_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor SISTER = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Sister";
+        }
+
+        @Override
+        public String description() {
+            return "Sister's name";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_SISTER_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor BROTHER = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Brother";
+        }
+
+        @Override
+        public String description() {
+            return "Brother's name";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_BROTHER_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor UNCLE = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Uncle";
+        }
+
+        @Override
+        public String description() {
+            return "Uncle's name";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_UNCLE_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor AUNT = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Aunt";
+        }
+
+        @Override
+        public String description() {
+            return "Aunt's name";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_AUNT_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor OTHER = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return String.class;
+        }
+
+        @Override
+        public String name() {
+            return "Other";
+        }
+
+        @Override
+        public String description() {
+            return "Other relationship besides father, mother, sister, brother, uncle and aunt";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_OTHER_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return true;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor MSF_EDUCATION_ABLE_TO_READ = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return Boolean.class;
+        }
+
+        @Override
+        public String name() {
+            return "Able to read";
+        }
+
+        @Override
+        public String description() {
+            return "Whether the person can read";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_ABLE_TO_READ_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return false;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor MSF_EDUCATION_ABLE_TO_WRITE = new PersonAttributeTypeDescriptor() {
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+
+        @Override
+        public Class<?> format() {
+            return Boolean.class;
+        }
+
+        @Override
+        public String name() {
+            return "Able to write";
+        }
+
+        @Override
+        public String description() {
+            return "Whether the person can write";
+        }
+
+        public String uuid() {
+            return MSFCoreConfig.PERSON_ATTRIBUTE_ABLE_TO_WRITE_UUID;
+        }
+
+        @Override
+        public boolean searchable() {
+            return false;
+        }
+    };
 }

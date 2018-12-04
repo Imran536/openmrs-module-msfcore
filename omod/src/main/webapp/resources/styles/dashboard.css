@@ -106,7 +106,7 @@
     padding: 4px;
 }
 
-ul#formBreadcrumb li.doing > span, 
+ul#formBreadcrumb li.doing > span,
 ul#formBreadcrumb li span#confirmation_label,
 .dashboard .action-section h3 {
     font-size: 1.6rem;
@@ -311,8 +311,15 @@ section#vitals .title {
   background: #eee;
   line-height: 1.2em;
   font-size: 0.8rem;
-  text-align: left;
+  text-align: center;
   border-radius: 3px;
   color: #373F46;
   padding: 5px 8px;
+  float: none;
+    clear: both;
+    display: block;
+    margin-top: -5px;
+}
+.dashboard .info-section.openmrs-contrib-dashboardwidgets.ng-scope .info-body li {
+  text-align: center
 }

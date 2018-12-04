@@ -5,7 +5,7 @@ button.big {
 }
 .button.app.big {
     padding: 24px;
-    height: 96%;
+    height: 96px;
     color: #424C55;
 }
 
@@ -45,6 +45,7 @@ input[type="button"],
 input[type="submit"].confirm,
 input[type="button"].confirm,
 a.button.cancel .button.cancel,
+button.button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
@@ -149,7 +150,6 @@ input[type="submit"].confirm:hover,
     text-decoration: none;
 }
 
-#patient-search-clear-button:hover,
 .icon-delete:hover,
 .icon-remove:hover,
 .button.cancel:hover,
@@ -162,6 +162,11 @@ a.button.cancel:hover,
     color: #ff4747;
     cursor: pointer;
 }
+
+#patient-search-clear-button:hover {
+    background: #ff4747;
+}
+
 
 .main-content .visit-actions a:hover,
 .main-content .spaced a:hover,
@@ -200,6 +205,8 @@ input[type="submit"]:disabled:hover {
 }
 
 /* BUTTONS > Pagination */
+
+.ngPagerButton,
 .ui-state-default.ui-button {
     color: #373F46;
     padding: 8px;
@@ -273,9 +280,14 @@ a.view-details {
 }
 
 #patient-search-clear-button {
-    color: #373F46;
-    margin-left: -36px;
-    right: 42px;
+    background: #55D6BE;
+    box-sizing: border-box;
+    border-radius: 0 4px 4px 0;
+    color: #fff;
+    height: 40px;
+    padding: 12px 14px;
+    top: 1px;
+    right: 7px;
 }
 
 /*
@@ -337,6 +349,27 @@ button.confirm.big i.icon-arrow-right {
 button.cancel.big i.icon-arrow-left {float: left;}
 button.confirm.big i.icon-arrow-right {float: right;}
 
+/* Exit from Inpatient Care */
+input.submitButton.confirm.right {
+    align-self: flex-end;
+}
+
+htmlform[formname="Discharge (Simple)"] button.cancel,
+htmlform[formname="Admission (Simple)"] button.cancel {
+    align-self: flex-start;
+    margin-top: -48px;
+}
+
+/* Audit Logs */ 
+
+h2[onclick="toggleFiltersDisplay()"] {
+    background-color: #fff !important; 
+    cursor: pointer;
+    border-radius: 4px; 
+    box-shadow: rgba(0,0,0,0.1) 0 2px 4px;
+    padding: 4px 8px;
+}
+
 /* Visit Note */
 
 #display-encounter-diagnoses-container li i {
@@ -363,6 +396,7 @@ button.confirm.big i.icon-arrow-right {float: right;}
 }
 
 /* BUTTONS > Transitions */
+*:hover,
 a,
 a:hover,
 form input,
@@ -442,4 +476,8 @@ button {outline: none}
 
 .button.confirm.active, button.confirm.active, input[type="submit"].confirm.active, input[type="button"].confirm.active, input[type="submit"].confirm.active, a.button.confirm.active {
   background: #D0FEF5;
+}
+div#similarPatientsSlideView ul#similarPatientsSelect button.local_button{
+  padding: 12px 24px;
+  margin: 8px;
 }

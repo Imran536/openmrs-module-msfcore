@@ -24,9 +24,11 @@ public class ResultsFragmentController {
             fragmentModel.addAttribute("patient", patient);
             ResultCategory resCat = ResultsData.parseCategory(category);
             if (resCat.equals(ResultCategory.DRUG_LIST)) {
-                fragmentModel.addAttribute("pageLabel", Context.getMessageSourceService().getMessage("msfcore.drugListHistory"));
+                fragmentModel.addAttribute("pageLabel", Context.getMessageSourceService().getMessage("msfcore.dispenseDrugs"));
             } else if (resCat.equals(ResultCategory.LAB_RESULTS)) {
                 fragmentModel.addAttribute("pageLabel", Context.getMessageSourceService().getMessage("msfcore.labResultsHistory"));
+            } else if (resCat.equals(ResultCategory.REFERRAL_LIST)) {
+                fragmentModel.addAttribute("pageLabel", Context.getMessageSourceService().getMessage("msfcore.referralList"));
             }
 
             ResultsDataBuilder resultsDataBuilder = ResultsData.builder().patient(patient);

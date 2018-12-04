@@ -12,29 +12,43 @@
 
 	<script type="text/javascript">
 		if (jQuery) {
+
+            // validation of the request appointment date
+            beforeSubmit.push(function () {
+                <!-- clear the previous errors -->
+                setValue('appointment_next_date.error', '');
+
+                var encounterDate = new Date((getValue('encounterDate.value')));
+                var appointment_next_date = new Date((getValue('appointment_next_date.value')));
+
+                if (encounterDate &gt;= appointment_next_date) {
+                    getField('appointment_next_date.error').html('The appointment date must be after the date of this visit ' + encounterDate).show();
+                    return false;
+                }
+
+                return true;
+            });
 		
 			jq(document).ready(function () {
-			<ifMode mode="VIEW">
-				<!-- hide the buttons in view -->
-				jq('button.no-print').hide();
-			</ifMode>
-			});
-			
-			jq(document).ready(function () {
+				<ifMode mode="VIEW">
+					<!-- hide the buttons in view -->
+					jq('button.no-print').hide();
+				</ifMode>
+
 				<!-- handle operation buttons -->
 				jq(".msf-operation-button").on("click", function() {
-				jq("#msf-operation").attr("value", this.value);
-				return true;
+					jq("#msf-operation").attr("value", this.value);
+					return true;
+				});
+
+				jq("#appointment-type-list").on("change", function() {
+					setValue("appointment-type.value",
+					jq("#appointment-type-list").val());
 				});
 	
-			});
-			jq(document).ready(function () {
-				jq("#appointment-type-list").on("change", function() {
-				setValue("appointment-type.value",
-				jq("#appointment-type-list").val());
-			});
-	
-			jq("#appointment-type-list").val(getValue("appointment-type.value"));
+				jq("#appointment-type-list").val(getValue("appointment-type.value"));
+
+
 			});
 		}
 	</script>
