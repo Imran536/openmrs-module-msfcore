@@ -802,13 +802,13 @@
   <!-- lab orders and results concepts end -->
 
   <!-- Blood Pressure concept -->
-  <concept concept_id="7000009" retired="false" datatype_id="1" class_id="10" is_set="true" creator="1" date_created="2018-11-13 17:24:44.0" changed_by="1" date_changed="2018-11-13 17:24:44.0" retired_by="1" uuid="e98947ef-6862-4e6e-93b8-2376b6f7af87" />
-  <concept_name concept_name_id="7000011" concept_id="7000009" name="Blood Pressure" locale="en" locale_preferred="true" creator="1" date_created="2018-11-13 17:24:44.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="d0bc8704-d5a1-4c0c-b004-fb1e4103856e" changed_by="1" />
-  <concept_set concept_set_id="3000042" concept_id="5085" concept_set="7000009" sort_weight="0.0" creator="1" date_created="2018-11-13 17:24:44.0" uuid="e0bc8704-d5a1-4c0c-b004-fb1e4103856e" />
-  <concept_set concept_set_id="3000043" concept_id="5086" concept_set="7000009" sort_weight="1.0" creator="1" date_created="2018-11-13 17:24:44.0" uuid="e382e972-149a-4929-9348-6ed686b68833" />
+  <concept concept_id="7000015" retired="false" datatype_id="1" class_id="10" is_set="true" creator="1" date_created="2018-11-13 17:24:44.0" changed_by="1" date_changed="2018-11-13 17:24:44.0" retired_by="1" uuid="e98947ef-6862-4e6e-93b8-2376b6f7af87" />
+  <concept_name concept_name_id="7000019" concept_id="7000015" name="Blood Pressure" locale="en" locale_preferred="true" creator="1" date_created="2018-11-13 17:24:44.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="d0bc8704-d5a1-4c0c-b004-fb1e4103856e" changed_by="1" />
+  <concept_set concept_set_id="3000042" concept_id="5085" concept_set="7000015" sort_weight="0.0" creator="1" date_created="2018-11-13 17:24:44.0" uuid="e0bc8704-d5a1-4c0c-b004-fb1e4103856e" />
+  <concept_set concept_set_id="3000043" concept_id="5086" concept_set="7000015" sort_weight="1.0" creator="1" date_created="2018-11-13 17:24:44.0" uuid="e382e972-149a-4929-9348-6ed686b68833" />
   
   <!-- Adding Blood Pressure to Vitals List -->
-  <concept_set concept_set_id="3000041" concept_id="7000009" concept_set="7000006" sort_weight="8.0" creator="1" date_created="2018-11-13 17:24:44.0" uuid="165d4326-2a60-4cce-9d9b-99c67ab30e8a" />
+  <concept_set concept_set_id="3000041" concept_id="7000015" concept_set="7000006" sort_weight="8.0" creator="1" date_created="2018-11-13 17:24:44.0" uuid="165d4326-2a60-4cce-9d9b-99c67ab30e8a" />
 
   <!-- dispense drugs concepts start -->
   <concept concept_id="5000036" retired="0" datatype_id="2" class_id="11" is_set="1" creator="1" date_created="2018-11-16 23:36:22" changed_by="1" date_changed="2018-11-16 23:36:22" uuid="5000036AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
