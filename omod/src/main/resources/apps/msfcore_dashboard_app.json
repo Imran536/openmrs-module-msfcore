@@ -161,31 +161,6 @@
 			}
 		]
 	},
-    {
-        "id": "msfcore.obsGraph",
-        "instanceOf": "coreapps.template.dashboardWidget",
-        "description": "coreapps.obsGraph.app.description",
-        "config": {
-          "widget": "obsgraph",
-          "icon": "icon-bar-chart",
-          "label": "WEIGHT GRAPH",
-          "conceptId": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "maxResults": "10",
-          "maxAge": "1y"
-        },
-        "extensions": [
-          {
-            "id": "org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardFirstColumn",
-            "appId": "coreapps.obsGraph",
-            "order":-6,
-            "extensionPointId": "patientDashboard.firstColumnFragments",
-            "extensionParams": {
-              "provider": "coreapps",
-              "fragment": "dashboardwidgets/dashboardWidget"
-            }
-          }
-        ]
-	},
 	{
 		"id": "coreapps.resultstrendview",
 		"instanceOf": "coreapps.template.dashboardWidget",
