@@ -126,19 +126,27 @@
                                             <lookup expression="fn.getConcept('cab5578c-0c62-4582-b668-28e3f218b635').name" />
                                         </h4>
                                         <!-- Concept id=465115 name=Allergy Type -->
-                                        <obs id="allergy-type-{allergy}" conceptId="cab5578c-0c62-4582-b668-28e3f218b635" answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" style="radio" answerSeparator="" />
-                                        <br />
-                                        <div id="162553-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                            <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" style="radio" answerSeparator="" />
+                                        
+                                        <div class="flex-row">
+                                            <div class="input-group flex-col">
+                                                <label class="margin-b-0">Allergy Type</label>
+                                                <obs id="allergy-type-{allergy}" conceptId="cab5578c-0c62-4582-b668-28e3f218b635" answerConceptIds="162553,162552,162554" answerLabels="Food,Drug,Other" style="select" answerSeparator="" class="margin-t-0"/>
+                                            </div>
+                                            
+                                            <div class="input-group flex-col">
+                                                <label class="margin-b-0">Allergen</label>
+                                                <div id="162553-{allergy}" class="enableDisable allergy-{allergy}">
+                                                    <obs conceptId="1325f5d0-bbb8-402a-a6dc-21d7c6f82330" style="select" answerSeparator="" />
+                                                </div>
+                                                <div id="162552-{allergy}" class="enableDisable allergy-{allergy}">
+                                                    <obs conceptId="1141bd11-1f91-4af7-a8d7-a26394140e08" style="select" answerSeparator="" />
+                                                </div>
+                                                <div id="162554-{allergy}" class="enableDisable allergy-{allergy}">
+                                                    <obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="select" answerSeparator="" />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div id="162552-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                            <obs conceptId="1141bd11-1f91-4af7-a8d7-a26394140e08" style="radio" answerSeparator="" />
-                                        </div>
-                                        <div id="162554-{allergy}" class="enableDisable allergy-{allergy} allergy-tab">
-                                            <obs conceptId="a0740eb7-92cd-4f79-a9b2-08e0f363532e" style="radio" answerSeparator="" />
-                                        </div>
-                                    </section>
-                                    <section>
+
                                         <h4>
                                             <lookup expression="fn.message('msfcore.ncdbaseline.allergies.allergicreactions')" />
                                         </h4>
@@ -222,7 +230,7 @@
                                     </section>
 
                                     <section>
-                                        <h4>
+                                        <h4 class="margin-t-24">
                                             <lookup expression="fn.message('msfcore.ncdbaseline.allergies.severity')" />
                                         </h4>
                                         <div class="input-group">

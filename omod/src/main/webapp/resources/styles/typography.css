@@ -78,6 +78,18 @@ h6 i::before {
     margin-top: 32px;
 }
 
+.txt-size-1x {
+    font-size:1rem;
+}
+
+.txt-size-2x {
+    font-size:2rem;
+}
+
+.txt-size-3x {
+    font-size:3rem;
+}
+
 #htmlform .section .section h4,
 #htmlform .section div[id*="-toggleContainer"] h4,
 .add-box#encounter-diagnoses-target h3 {

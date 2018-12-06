@@ -1,6 +1,7 @@
 /* THESE SHOULD BE REMOVED
 In production a single concatonated and minified file should be used instead. @Import blocks paraless loading and slows down site load over an internet connection. (Z) */
 
+@import url('structure.css');
 @import url('buttons.css');
 @import url('navigation.css');
 @import url('typography.css');
@@ -31,104 +32,20 @@ Dark grey: 424C55
 White: FFFFFF
     Darker:
 */
-
-/* STRUCTURE */
-
-html {
-    box-sizing: border-box;
+.white {
+    color:#fff;
 }
 
-body {
-    font-family: "OpenSans", Arial, sans-serif;
-    -webkit-font-smoothing: subpixel-antialiased;
-    max-width: 100%;
-    margin: 0px auto;
-    color: #373F46;
-    font-size: 1em;
+.bg-teal-light {
+    background: #A2E8DB;
 }
 
-html,
-body {
-    height: 100%;
+.bdr-btm-light {
+    border-bottom: 1px solid #eee;
 }
 
-header {
-    background-color: #ffff;
-    box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
-    width: 100%;
-    border-radius: 0;
-    color: #373F46;
-    border-top: 10px solid #424C55;
-    padding: 8px;
-    position: fixed;
-    z-index: 9999;
-}
-
-header .logo {
-    margin: 4px 0 4px 16px;
-}
-
-#body-wrapper {
-    background: none;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
-}
-
-/* Containers for forms and page elements */
-
-h2 + div#filters,
-htmlform[formname="Discharge (Simple)"],
-htmlform[formname="Admission (Simple)"],
-#appointment-block-form,
-table#active-visits + input + input + div,
-.create-appointment-type,
-.scheduleAppointment,
-.patient-header+#edit-patient-identifier-dialog+h3,
-.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
-    padding: 24px;
-    background: #fff;
-}
-
-.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
-    margin-top: -10px;
-}
-
-/* Standard Drop Shadow */
-/* Merge Visits */
-
-h2 + div#filters,
-htmlform[formname="Discharge (Simple)"],
-htmlform[formname="Admission (Simple)"],
-#appointment-block-form,
-table#active-visits + input + input + div,
-.dashboard, table,
-.scheduleAppointment,
-.create-appointment-type,
-.patient-header+#edit-patient-identifier-dialog+h3,
-.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
-    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;
-}
-
-/* All four rounded corners */
-#appointment-block-form,
-.create-appointment-type {
-    border-radius: 8px;
-}
-
-/* Bottom Rounded Corners for these boxes */
-
-h2 + div#filters,
-htmlform[formname="Discharge (Simple)"],
-htmlform[formname="Admission (Simple)"],
-table#active-visits + input + input + div,
-.scheduleAppointment,
-.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
-    border-radius: 0 0 8px 8px;
-}
-
-div#simplemodal-container {
-    top: 144px !important;
+.bdr-btm-blue{
+    border-bottom: 1px solid #D1DFE8;
 }
 
 /* INTERACTIONS */
@@ -216,8 +133,11 @@ a.visited {
 }
 
 .flex-row {
-    flex-direction: row !important;
     margin: 24px 0;
+    align-items: stretch;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    overflow: hidden;
 }
 
 .flex-col {
@@ -228,10 +148,103 @@ a.visited {
     margin-right: 24px;
 }
 
+.flex-grow-1 {
+    flex-grow:1;
+}
+
+.flex-space-btwn {
+    justify-content: space-between;
+}
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.disabled {
+	color: #acacac;
+}
+
+.text-center {
+	text-align:center;
+}
+
+.center {
+    display:inline-block;
+}
+
 /* Spacers */
 
+.margin-0 {
+    margin:0;
+}
+
+.margin-t-0 {
+    margin-top: 0 !important;
+}
+.margin-t-16 {
+    margin-top: 1rem !important;
+}
+.margin-t-32 {
+    margin-top: 2rem;
+}
+.margin-b-0 {
+    margin-bottom: 0;
+}
+.margin-y-0 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.margin-t-20 {
+    margin-top: 1.25rem;
+}
+
+.margin-r-8 {
+    margin-right: 0.333rem !important;
+}
+
 .margin-r-24 {
-    margin-right: 24px;
+    margin-right: 1.5rem;
+}
+
+.margin-b-0 {
+    margin-bottom: 0;
+}
+.margin-b-8 {
+    margin-bottom: 0.5rem;
+}
+.margin-b-16 {
+    margin-bottom: 1rem;
+}
+
+.pad-16 {
+    padding:16px;
+}
+
+.pad-t-8 {  
+    padding-top:0.5rem;
+}
+
+.pad-t-24 {
+    padding-top:1.5rem;
+}
+
+.pad-b-16 {
+    padding-bottom:1rem;
+}
+.pad-b-24 {
+    padding-bottom:1.5rem;
+}
+
+.pad-y-16 {
+    padding-top:1rem;
+    padding-bottom:1rem;
+}
+
+
+.pad-x-24 {
+    padding-left:1.5rem;
+    padding-right:1.5rem;
 }
 
 /* TOASTS */
@@ -334,7 +347,6 @@ table tr:nth-child(even) {
     border-top: 8px solid #373F46;
     color: #fff;
     padding: 8px;
-    margin-bottom: 64px;
 }
 
 .dataTables_info {
@@ -538,18 +550,6 @@ div#appointmentscheduling-manageAppointments>div {
     box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
 }
 
-#filter-date {
-    padding-left: 24px;
-    padding-right: 0px;
-}
-
-#filter-date input {
-    height: 40px;
-    box-sizing: border-box;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
 /*
 .appointment-filter input,
 .appointment-filter select {
@@ -645,12 +645,14 @@ table td:last-child {
 
 /* Pagination */
 
+.pagination,
 .ngFooterPanel {
     color:#fff;
-    background: #373F46;
+    background: #424C55;
     font-size: 0.9em;
     padding: 0.5rem 0;
 }
+
 
 .ngFooterTotalItems {
     padding: 8px;
@@ -764,4 +766,102 @@ span#start-time {
     width: 32%;
     display: block;
     float: left;
+}
+
+/* LAB RESULTS / DRUG ORDERS */
+
+/* style CANCELLED & PENDING here */
+.column-status {
+	color: #F0A202;
+}
+
+.icon-edit, .icon-ok, .icon-trash, .page, .actionable {
+	cursor:pointer;
+}
+
+/* style current page highlighting here */
+
+div#results-data table {
+    box-shadow: none;
+}
+
+div#results-data table td {
+    padding: 16px;
+}
+
+div#results-data table tr th:nth-of-type(3) {
+    width:360px;
+}
+
+.current-page {
+	background-color: #acacac;
+}
+
+/* style editing fields here */
+
+td.no-wrap {
+	white-space: nowrap;
+}
+
+#patient_details {
+    margin-top: 0;
+    float: left;
+    padding: 16px 24px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 -16px -16px;
+}
+
+ul.flex-col li {
+    padding: 4px;
+}
+/* Manage Accounts */
+.dataTables_filter {
+    background: #A2E8DB;
+    border-radius: 8px 8px 0 0;
+    box-sizing: border-box;
+    padding:24px;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.dataTables_wrapper {
+    min-height: 100px;
+}
+
+#merge-patient-container {
+    width:100%;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    border:none;
+}
+#merge-patient-container form {
+    padding:24px;
+}
+#merge-patient-container h4 {
+    padding:24px 24px 0 24px;
+}
+#merge-patient-container > label {
+    margin-left:24px;
+}
+#merge-patient-container p.right {
+    /* width: 1200px; */
+    display: flex;
+    justify-content: space-between;
+    float: unset!important;
+}
+#merge-patient-container #patient-search-form {
+    border-radius:0;
+    margin:4px 0 -22px 0;
+}
+#merge-patient-container #patient-search-results-table {
+    margin-top:22px;
+}
+#merge-patient-container .fg-toolbar {
+    margin-bottom: -22px;
+}
+#merge-patient-container input#patient-search {
+    min-width: 90%; 
+    box-sizing: border-box;
+    margin-top: 0px;
 }

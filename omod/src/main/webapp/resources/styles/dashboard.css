@@ -57,6 +57,16 @@
 .patient-header .identifiers span {
     background: #757C83;
 }
+.patient-header .identifiers span#info_patient_detail {
+    background: none;
+}
+.patient-header .identifiers span#info_patient_detail small {
+    font-size:1rem;
+    color:#4EC3AD;
+}
+.patient-header .identifiers span#info_patient_detail small:hover {
+    text-decoration: underline;
+}
 
 .secondLineFragments {
     display:none;
@@ -138,6 +148,8 @@ ul#formBreadcrumb li span#confirmation_label,
 
 .dashboard .info-section {
     margin: 1rem 0.5rem 1rem 0.5rem;
+    box-shadow: rgba(0,0,0,0.2) 0 3px 8px;
+    border-radius: 8px;
 }
 
 .dashboard .info-header {

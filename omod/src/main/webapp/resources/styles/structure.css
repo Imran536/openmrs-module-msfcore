@@ -1,0 +1,149 @@
+/* STRUCTURE */
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 100%;
+    margin: 0px auto;
+    color: #373F46;
+    font-size: 1em;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, .3) 0 0 16px;
+    width: 100%;
+    border-radius: 0;
+    color: #373F46;
+    border-top: 10px solid #424C55;
+    padding: 8px;
+    position: fixed;
+    z-index: 9999;
+}
+
+header .logo {
+    margin: 4px 0 4px 16px;
+}
+
+#login header {
+    background-color: transparent;
+    box-shadow: none;
+    border-top: none;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+}
+
+#login header .logo {
+    margin: 24px 0;
+}
+
+#login header .logo img {
+    min-width:160px;
+}
+
+#login #content {
+    display: flex;
+    justify-content: center;
+}
+
+#body-wrapper {
+    background: none;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Containers for forms and page elements */
+
+div[ng-app="changeLanguage"],
+#adminui-changePassword,
+.content-box,
+h2 + div#filters,
+htmlform[formname="Discharge (Simple)"],
+htmlform[formname="Admission (Simple)"],
+#appointment-block-form,
+table#active-visits + input + input + div,
+.create-appointment-type,
+.scheduleAppointment,
+.patient-header+#edit-patient-identifier-dialog+h3,
+.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
+    padding: 24px;
+    background: #fff;
+}
+/* Only White Background */
+#merge-patient-container,
+#list-accounts_wrapper {
+    background:#fff;
+}
+
+.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
+    margin-top: -10px;
+}
+
+/* Standard Drop Shadow */
+/* Merge Visits */
+.content-box,
+.drop-shadow-mid,
+.scheduleAppointment,
+.create-appointment-type,
+#merge-patient-container,
+#list-accounts_wrapper,
+#appointment-block-form,
+h2 + div#filters,
+div[ng-app="changeLanguage"],
+htmlform[formname="Discharge (Simple)"],
+htmlform[formname="Admission (Simple)"],
+table#active-visits + input + input + div,
+.dashboard, table,
+.patient-header+#edit-patient-identifier-dialog+h3,
+.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 8px;
+}
+
+#adminui-changePassword,
+.drop-shadow-close {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
+}
+
+
+/* Bottom Rounded Corners for these boxes */
+.content-box,
+.bottom-rounded,
+h2 + div#filters,
+htmlform[formname="Discharge (Simple)"],
+htmlform[formname="Admission (Simple)"],
+table#active-visits + input + input + div,
+.scheduleAppointment,
+.patient-header+#edit-patient-identifier-dialog+h3+#mark-patient-dead {
+    border-radius: 0 0 8px 8px;
+}
+
+.top-rounded {
+    border-radius: 8px 8px 0 0;
+}
+
+/* All four rounded corners */
+.all-rounded,
+div[ng-app="changeLanguage"],
+#merge-patient-container,
+#list-accounts_wrapper,
+#adminui-changePassword,
+#appointment-block-form,
+.create-appointment-type {
+    border-radius: 8px;
+}
+
+div#simplemodal-container {
+    top: 144px !important;
+}

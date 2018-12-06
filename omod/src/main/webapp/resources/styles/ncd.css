@@ -144,7 +144,7 @@ table.baseline-aligned td {
 
 table th, table td {
   border: 0;
-  padding:5px;
+  padding: 8px 16px;
 }
 
 td.left-th {
@@ -271,10 +271,6 @@ span[id*="allergy-type-"] input[type="radio"]:checked + label {
   margin:4px;
 }
 
-.input-group {
-  padding: 4px;
-}
-
 .list-of-checkboxes {
   display: flex;
 }
@@ -344,18 +340,16 @@ td.cv-risk-options input[type="radio"] + label{
 .section button.addEntry {
   margin: 0 auto;
   display: block;
-  padding: 18px 30px;
-  border-radius: 30px;
   margin-top:32px;
 }
-.section .obs-field {
+/*.section .obs-field {
   margin-top:5px;
-}
+}*/
 /*#htmlform .section div[id*="-toggleContainer"] div {
   margin-bottom: 32px;
 }*/
 
-#htmlform .section div[id*="-toggleContainer"] div.hide-on-view,#htmlform .section div[id*="-toggleContainer"] div.column, #htmlform .section div[id*="-toggleContainer"] div.column div.input-group, #htmlform .section div[id*="-toggleContainer"] div.section {
+#htmlform .section div[id*="-toggleContainer"] div.hide-on-view,#htmlform .section div[id*="-toggleContainer"] div.column, #htmlform .section div[id*="-toggleContainer"] div.column div.input-group {
   margin-bottom: 0;
 }
 .obs-field.select-arrow {margin-top:0;}

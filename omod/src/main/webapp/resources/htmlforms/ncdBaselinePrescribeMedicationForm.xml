@@ -187,38 +187,38 @@
 							<div id="{prescription}-toggleContainer" style="display: none;">
 								<obsgroup groupingConceptId="f1af211e-64e0-46e6-bc9d-e848935e2202"> 
 									<div class="flex-col">
-										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></h4>
+										<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.name')"/></label>
 										<obs id="name-{prescription}" class="medication-name" conceptId="17110937-6cb2-42f9-b932-3f79e9506a1d"/>
 									</div>
 									<div class="flex-row">
 										<div class="flex-col">
-											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></h4>
+											<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.dose')"/></label>
 											<obs id="dose{prescription}" class="doseInput" conceptId="160856"/>
 										</div>
 										<div class="flex-col">
-											<h4>Dose Unit</h4>
+											<label>Dose Unit</label>
 											<obs id="doseUnit{prescription}" answerConceptSetIds="d09764da-2bf1-4ab6-933f-07a50add8f33" 
 												conceptId="d09764da-2bf1-4ab6-933f-07a50add8f33" class="doseInput select-arrow"  />
 										</div>
 									</div>
 									<div class="flex-row">
 										<div class="flex-col">
-											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></h4>
+											<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.frequency')"/></label>
 											<obs id="frequencyCoded{prescription}" class="frequency select-arrow" conceptId="160855" />
 										</div>
 										<div class="flex-col">
-											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/></h4>
+											<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.duration')"/></label>
 											<obs id="duration{prescription}" class="duration doseInput" conceptId="159368"/>
 										</div>
 										<div class="flex-col">
-											<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></h4>
+											<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.amount')"/></label>
 											<obs id="durationUnit{prescription}" answerConceptSetIds="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" 
 												conceptId="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" class="duration-unit select-arrow" />
 										</div>
 									</div>
 
 									<div class="flex-col">
-										<h4><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></h4>
+										<label><lookup expression="fn.message('msfcore.ncdbaseline.prescribemedication.administrativeinstructions')"/></label>
 										<obs id="instructions{prescription}" class="medication-instructions" conceptId="163106" style="textarea" rows="3" cols="80"/>
 									</div>
 									<div class="hide-on-view">
