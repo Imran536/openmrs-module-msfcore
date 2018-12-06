@@ -79,8 +79,8 @@
 							<ng-bind-html ng-bind-html="renderResultValue(result, key)"></ng-bind-html>
 						</td>
 						<td ng-if="result.actions.value.length > 0" class="print-ignore">
-							<span class="btn-small" ng-if="result.actions.value.includes('EDIT') > 0" ng-click="edit(\$event, result);">
-								<i class="icon-edit"></i> Edit
+							<span class="btn-small" ng-if="result.actions.value.includes('EDIT') > 0">
+								<i class="icon-edit" ng-click="edit(\$event, result);"> Edit</i> 
 							</span>
 							<span class="btn-small" ng-if="result.actions.value.includes('DELETE') > 0" ng-click="purge(result);">
 								<i class="icon-trash"></i> Delete

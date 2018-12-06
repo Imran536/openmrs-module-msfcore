@@ -337,10 +337,11 @@ a#patient-search-register-patient {
 .view-action.icon-file-alt::after {
     content: 'View';
 }
+/* Removed this to fix results.gsp editing
 .icon-ok::after {
     content: 'save';
 }
-
+*/
 .edit-action.icon-share-alt:after {
     content: 'Open';
 }
