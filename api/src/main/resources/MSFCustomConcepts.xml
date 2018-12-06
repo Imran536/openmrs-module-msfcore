@@ -749,6 +749,8 @@
   <concept_name concept_name_id="5000032" concept_id="5000032" voided="0" name="Urine analysis done" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:45" concept_name_type="FULLY_SPECIFIED" uuid="5000032BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
   <concept_name concept_name_id="5000033" concept_id="5000033" voided="0" name="Urine microalbumin" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000033BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
   <concept_name concept_name_id="5000035" concept_id="5000035" voided="0" name="LDL done" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000035BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <!-- This short name was added so that FBG is picked up by the patient targets widget -->
+  <concept_name concept_name_id="7000502" concept_id="463591" name="FBG" locale="en" locale_preferred="false" creator="1" date_created="2018-12-05 11:25:49.0" concept_name_type="SHORT" voided="false" uuid="3973a821-f984-4512-8d64-df65e87f2172" date_changed="2018-12-05 11:25:49.0" changed_by="1"/>
  
   <concept_numeric concept_id="5000022" units="mg/dL" allow_decimal="true" low_absolute="0.5" hi_absolute="1.1" />
   <concept_numeric concept_id="5000023" units="%" allow_decimal="true" />
@@ -797,8 +799,6 @@
   <concept_set concept_set_id="6000151" concept_id="463410" concept_set="7000009" sort_weight="8.0" creator="1" date_created="2018-11-22 11:39:41.0" uuid="587daf77-e03a-4b6c-b1e6-cc3d51a50acd"/>
   <concept_set concept_set_id="6000152" concept_id="463544" concept_set="7000009" sort_weight="9.0" creator="1" date_created="2018-11-22 11:39:41.0" uuid="8bbadb29-03fd-48f7-85cf-5f3a2d3fd032"/>
 
-
- 
   <!-- lab orders and results concepts end -->
 
   <!-- dispense drugs concepts start -->

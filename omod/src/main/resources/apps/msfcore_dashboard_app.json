@@ -96,7 +96,7 @@
 			"icon": "icon-beaker",
 			"label": "msfcore.labResults",
 			"maxAge": "20d",
-			"concepts": "5000022AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000023AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000024AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000025AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000026AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000027AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000028AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000029AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000030AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000031AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000032AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000033AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000035AAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"concepts": "5000022AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000023AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000024AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000025AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000026AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000027AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000028AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000029AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000030AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000031AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000032AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000033AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000035AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,dc965b9e-3f73-4c00-85d0-dc7061fd8d4e,a0b4549e-9bb8-40b0-a4b9-119d9835f998,7da985ec-56f2-45a8-8fc9-20fda8becbd5"
 		},
 		"extensions": [
 			{
@@ -185,5 +185,31 @@
             }
           }
         ]
-      }
+      },
+      {
+        "id": "msfcore.patientTargets",
+        "instanceOf": "coreapps.template.dashboardWidget",
+        "description": "coreapps.patientTargets.app.description",
+        "order": 10,
+        "config": {
+            "widget": "patienttargets",
+            "icon": "icon-user-md",
+            "label": "msfcore.patienttargets",
+            "concepts": "dc965b9e-3f73-4c00-85d0-dc7061fd8d4e,5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,5000023AAAAAAAAAAAAAAAAAAAAAAAAAAAAA,a0b4549e-9bb8-40b0-a4b9-119d9835f998",
+            "targetConcepts" : "06000004-3ff4-4d94-9c51-1e295cad43a1,06000002-3ff4-4d94-9c51-1e295cad43a1,06000003-3ff4-4d94-9c51-1e295cad43a1,06000001-3ff4-4d94-9c51-1e295cad43a1,06000005-3ff4-4d94-9c51-1e295cad43a1",
+            "maxRecords": "5",
+            "maxAge": "10y"
+        },
+        "extensions": [
+            {
+                "id": "org.openmrs.module.coreapps.mostRecentVitals.clinicianDashboardFirstColumn",
+                "appId": "msfcore.patientTargets",
+                "extensionPointId": "patientDashboard.firstColumnFragments",
+                "extensionParams": {
+                    "provider": "coreapps",
+                    "fragment": "dashboardwidgets/dashboardWidget"
+                }
+            }
+        ]
+    }
 ]
