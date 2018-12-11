@@ -104,11 +104,6 @@
 								<obs conceptId="MSF:A914E896-5E26-4D8A-B0C6-4E3FDA14BE56" labelNameTag="default" id="referral_out_nephrologist" style="checkbox"/>
 							</td>
 						</tr>
-						<tr>
-							<!-- Concept id=463544 name=Other specialist -->
-							<td><lookup expression="fn.getConcept('MSF:0B3DD5CD-2ADB-4B88-B95C-650B0C3B0FD9').name"/></td>
-							<td colspan="2"><obs conceptId="MSF:0B3DD5CD-2ADB-4B88-B95C-650B0C3B0FD9" id="referral_out_specialist_other"/></td>
-						</tr>
 					</table>
 					<h4><lookup expression="fn.getConcept('830817c9-e1f9-48a7-a20b-c927bca52891').name"/>:</h4>
 					<!-- Concept id=1000000 name=Reason for referral -->

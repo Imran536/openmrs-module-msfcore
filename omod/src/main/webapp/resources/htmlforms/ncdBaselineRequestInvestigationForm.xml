@@ -99,11 +99,6 @@
                             <!-- Comment name=Random glucose - mg / dL order -->
 							<td><obs conceptId="e12c6213-63f0-4747-84ff-c06773e9622b" labelNameTag="default" id="test_required_rg" style="checkbox"/></td>
 						</tr>
-						<tr>
-                            <!-- Comment id=463610 name=Other Investigation -->
-							<td><lookup expression="fn.getConcept('MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E').name"/></td>
-							<td colspan="2"><obs conceptId="MSF:576EC946-373F-4BB0-ACC5-2C3B4FB8EA4E" id="test_required_other"/></td>
-						</tr>
 					</table>
 
 		            <!-- Submit -->
