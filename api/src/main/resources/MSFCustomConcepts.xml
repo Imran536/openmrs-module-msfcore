@@ -495,6 +495,12 @@
   <concept_numeric concept_id="6000003" allow_decimal="false" />
   <concept_numeric concept_id="6000004" allow_decimal="false" />
   <concept_numeric concept_id="6000005" allow_decimal="false" />
+  
+  <concept_name concept_name_id="7000503" concept_id="6000001" name="HBA1C TARGET" locale="en" locale_preferred="false" creator="1" date_created="2018-12-11 13:13:17.0" concept_name_type="SHORT" voided="false" uuid="a693725e-441c-4822-b58b-487a37592de3" changed_by="1"/>
+  <concept_name concept_name_id="7000504" concept_id="6000002" name="SBP TARGET" locale="en" locale_preferred="false" creator="1" date_created="2018-12-11 13:13:38.0" concept_name_type="SHORT" voided="false" uuid="c71fa8d9-626b-4230-b19f-06c656c62b2b" changed_by="1"/>
+  <concept_name concept_name_id="7000505" concept_id="6000003" name="DBP TARGET" locale="en" locale_preferred="false" creator="1" date_created="2018-12-11 13:14:00.0" concept_name_type="SHORT" voided="false" uuid="ed0c92b4-05df-4d5b-94ce-4e4dbe0cd4c9" changed_by="1"/>
+  <concept_name concept_name_id="7000506" concept_id="6000004" name="FBG TARGET" locale="en" locale_preferred="false" creator="1" date_created="2018-12-11 13:14:21.0" concept_name_type="SHORT" voided="false" uuid="535b3674-460c-4cdd-a6e1-3918ef9cfdf3" changed_by="1"/>
+  <concept_name concept_name_id="7000507" concept_id="6000005" name="PEFR TARGET" locale="en" locale_preferred="false" creator="1" date_created="2018-12-11 13:14:40.0" concept_name_type="SHORT" voided="false" uuid="77331e47-ced3-404f-baf3-6f62b21b798c" changed_by="1"/>
 
   <!-- Regular patient review concepts -->
   <concept concept_id="7000000" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2018-10-09 11:23:15.0" changed_by="1" date_changed="2018-10-09 11:23:15.0" uuid="62d411d1-78c7-4c4d-9104-abe0f4bf9bab"/>
