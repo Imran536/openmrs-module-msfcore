@@ -310,8 +310,6 @@
 
   <concept_name concept_id="465098" name="Fast Blood Glucose" locale="en" creator="1" date_created="2018-09-21 08:29:29.0" concept_name_id="2291531" voided="false" uuid="a72594c8-326e-4b5f-8d60-802be74130c1" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
   <concept_name concept_id="465098" name="FBG" locale="en" creator="1" date_created="2018-09-21 08:29:29.0" concept_name_id="2291532" voided="false" uuid="1d1686b5-7ba3-40d4-b5ec-5a6dc915ea27" concept_name_type="SHORT" locale_preferred="false" changed_by="1" />
-  <concept_name concept_id="465099" name="PEFR" locale="en" creator="1" date_created="2018-09-21 08:36:56.0" concept_name_id="2291533" voided="false" uuid="d6d2bf68-1ea5-4cd2-bb28-af248fb0ba06" concept_name_type="SHORT" locale_preferred="false" changed_by="1" />
-  <concept_name concept_id="465099" name="Peak Expiratory Flow rate" locale="en" creator="1" date_created="2018-09-21 08:36:56.0" concept_name_id="2291534" voided="false" uuid="f1c1bcc0-808d-4e0c-b791-c0a7e5ed8af0" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
   <concept_name concept_id="465100" name="Review Period" locale="en" creator="1" date_created="2018-09-21 08:51:23.0" concept_name_id="2291535" voided="false" uuid="63d3115e-26d2-4e35-bc5d-ef40bada055c" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
   <concept_name concept_id="465101" name="Every 3 months" locale="en" creator="1" date_created="2018-09-21 08:52:41.0" concept_name_id="2291536" voided="false" uuid="35de8d0c-ba42-4614-b57b-4b3997a35703" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
   <concept_name concept_id="465102" name="Every 6 months" locale="en" creator="1" date_created="2018-09-21 08:53:26.0" concept_name_id="2291537" voided="false" uuid="b52f1873-a4ab-4bbc-9a75-6fbe370e1f80" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
@@ -436,7 +434,6 @@
   <concept_name  concept_name_id="7000012"  concept_id="7000010"  name="Place of Visit, If other specify"  locale="en"  locale_preferred="1"  creator="1"  date_created="2018-11-13 12:19:34"  concept_name_type="FULLY_SPECIFIED"  voided="0" uuid="5b65df44-4ba1-4d9a-ba35-8a00dec15e9a"/>
 
   <concept_numeric concept_id="465098" allow_decimal="false" />
-  <concept_numeric concept_id="465099" allow_decimal="false" />
   <concept_numeric concept_id="465100" allow_decimal="false" />
   <concept_numeric concept_id="160856" low_absolute="1" allow_decimal="false" />
   <concept_numeric concept_id="159368" low_absolute="1" allow_decimal="false" />
@@ -459,12 +456,6 @@
   <concept concept_id="7000009" retired="false" datatype_id="4" class_id="10" is_set="true" creator="1" date_created="2018-11-22 11:39:41.0" changed_by="1" date_changed="2018-11-22 11:39:41.0" retired_by="1" uuid="51d1044c-b97a-406f-93c8-324b6bee1e61"/>
   <concept_description concept_description_id="18164" concept_id="7000009" description="Set that contains all the referral orders concepts." locale="en" creator="1" date_created="2018-11-22 11:39:41.0" changed_by="1" uuid="e945c73d-741b-4faf-b604-dc85bbc02bce"/>
   <concept_name concept_name_id="7000011" concept_id="7000009" name="Referral Orders Set" locale="en" locale_preferred="true" creator="1" date_created="2018-11-22 11:39:41.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="f0739ae5-a350-4d13-8e1d-2f39c576a667" changed_by="1"/>
-  
-  <concept_numeric concept_id="463596" allow_decimal="false" />
-  <concept_numeric concept_id="463412" allow_decimal="false" />
-  <concept_numeric concept_id="463413" allow_decimal="false" />
-  <concept_numeric concept_id="465098" allow_decimal="false" />
-  <concept_numeric concept_id="465099" allow_decimal="false" />
 
   <!-- Request appointment concepts -->
   <concept concept_id="6000000" retired="0" datatype_id="3" class_id="7" is_set="0" creator="1" date_created="2018-10-01 14:46:04" changed_by="1" date_changed="2018-10-01 14:46:04" uuid="f3a76818-3ff4-4d94-9c51-be295cad43a1" />
@@ -514,10 +505,8 @@
   <concept concept_id="7000008" retired="false" datatype_id="4" class_id="11" is_set="false" creator="1" date_created="2018-10-30 15:10:51.0" changed_by="1" date_changed="2018-10-30 15:10:51.0" uuid="f1af211e-64e0-46e6-bc9d-e848935e2202"/>
 
   <concept concept_id="465098" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465098-0765-4d57-8433-463aeec1f441"/>
-  <concept concept_id="463596" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00463596-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="6000006" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="06000006-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="465213" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465213-0765-4d57-8433-463aeec1f441"/>
-  <concept concept_id="463632" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00463632-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="465214" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465214-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="465215" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465215-0765-4d57-8433-463aeec1f441"/>
   <concept concept_id="465216" retired="false" datatype_id="1" class_id="7" is_set="false" creator="1" date_created="2018-10-09 11:26:52.0" changed_by="1" date_changed="2018-10-09 11:26:52.0" uuid="00465216-0765-4d57-8433-463aeec1f441"/>
@@ -539,15 +528,13 @@
   <concept_name concept_name_id="7000006" concept_id="7000003" name="Review period" locale="en" locale_preferred="true" creator="1" date_created="2018-10-09 11:26:52.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="41d42e09-e789-4bc4-bd61-1917c11be6a2"/>
   <concept_name concept_name_id="7000010" concept_id="7000008" name="Prescribed Medication Group" locale="en" locale_preferred="true" creator="1" date_created="2018-10-30 15:10:51.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="a9c55b98-06aa-4d78-86fc-36606d086933"/>
 
-  <concept_name concept_id="465098" name="FBG" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000011" voided="false" uuid="06000011-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="463596" name="HbA1c" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000012" voided="true" uuid="06000012-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="6000006" name="Total Chol" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000013" voided="false" uuid="06000013-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="465213" name="Albuminuria" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000014" voided="false" uuid="06000014-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="463632" name="Creatinine" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000015" voided="true" uuid="06000015-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="465214" name="eGFR" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000016" voided="false" uuid="06000016-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="465215" name="Visual acuity" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000017" voided="false" uuid="06000017-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="465216" name="DM foot check" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000018" voided="false" uuid="06000018-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
-  <concept_name concept_id="6000007" name="CV risk" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000019" voided="false" uuid="06000019-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465098" name="FBG review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000011" voided="false" uuid="06000011-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="6000006" name="Total cholesterol review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000013" voided="false" uuid="06000013-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465213" name="Urine microalbumin review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000014" voided="false" uuid="06000014-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465214" name="eGFR review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000016" voided="false" uuid="06000016-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465215" name="Visual acuity review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000017" voided="false" uuid="06000017-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="465216" name="DM foot check review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000018" voided="false" uuid="06000018-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+  <concept_name concept_id="6000007" name="CV risk review" locale="en" creator="1" date_created="2018-09-21 08:55:24.0" concept_name_id="6000019" voided="false" uuid="06000019-0aaf-4aac-a9e4-65552b6684dd" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
   
   <concept_numeric concept_id="7000002" allow_decimal="false"/>
   <concept_numeric concept_id="7000003" allow_decimal="false"/>
@@ -717,7 +704,8 @@
   <concept concept_id="5000032" retired="0" datatype_id="10" class_id="4" is_set="0" creator="1" date_created="2017-12-16 23:36:22" changed_by="1" date_changed="2017-12-16 23:36:22" uuid="5000032AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000033" retired="0" datatype_id="10" class_id="4" is_set="0" creator="1" date_created="2017-12-16 23:36:22" changed_by="1" date_changed="2017-12-16 23:36:22" uuid="5000033AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   <concept concept_id="5000035" retired="0" datatype_id="10" class_id="4" is_set="0" creator="1" date_created="2017-12-16 23:36:22" changed_by="1" date_changed="2017-12-16 23:36:22" uuid="5000035AAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
- 
+  <concept concept_id="465099" retired="false" datatype_id="1" class_id="2" is_set="false" creator="1" date_created="2018-09-21 08:36:56.0" changed_by="1" date_changed="2018-09-21 08:36:56.0" retired_by="1" uuid="a0b4549e-9bb8-40b0-a4b9-119d9835f998" />
+   
   <concept_name concept_name_id="5000019" concept_id="5000019" voided="0" name="Creatinine Order" locale="en" locale_preferred="1" creator="1" date_created="2017-12-15 15:44:59" concept_name_type="FULLY_SPECIFIED" uuid="5000019BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
   <concept_name concept_name_id="5000010" concept_id="5000010" voided="0" name="HbA1C Order" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:15:27" concept_name_type="FULLY_SPECIFIED" uuid="5000010BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
   <concept_name concept_name_id="5000011" concept_id="5000011" voided="0" name="Patient has glucometer Order" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:16:13" concept_name_type="FULLY_SPECIFIED" uuid="5000011BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
@@ -736,22 +724,26 @@
   <concept_name concept_name_id="7000017" concept_id="7000013" name="Fasting glucose - mg/ dL order" locale="en" locale_preferred="true" creator="1" date_created="2018-11-21 14:16:02.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="010fe73c-2709-441b-8548-2aaa6c54fbac" changed_by="1"/>
   <concept_name concept_name_id="7000018" concept_id="7000014" name="Random glucose - mg / dL order" locale="en" locale_preferred="true" creator="1" date_created="2018-11-21 14:17:41.0" concept_name_type="FULLY_SPECIFIED" voided="false" uuid="e479cd7d-9e95-4c7e-a2b6-a621fa77eebf" changed_by="1"/>
  
-  <concept_name concept_name_id="5000022" concept_id="5000022" voided="0" name="Creatinine" locale="en" locale_preferred="1" creator="1" date_created="2017-12-16 23:36:22" concept_name_type="FULLY_SPECIFIED" uuid="5000022BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000023" concept_id="5000023" voided="0" name="HbA1C" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:15:27" concept_name_type="FULLY_SPECIFIED" uuid="5000023BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000024" concept_id="5000024" voided="0" name="Patient has glucometer" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:16:13" concept_name_type="FULLY_SPECIFIED" uuid="5000024BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000025" concept_id="5000025" voided="0" name="ECG" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:16:40" concept_name_type="FULLY_SPECIFIED" uuid="5000025BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000026" concept_id="5000026" voided="0" name="Echo" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:17:45" concept_name_type="FULLY_SPECIFIED" uuid="5000026BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000027" concept_id="5000027" voided="0" name="Total cholesterol" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:19:08" concept_name_type="FULLY_SPECIFIED" uuid="5000027BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000028" concept_id="5000028" voided="0" name="ALT" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:19:39" concept_name_type="FULLY_SPECIFIED" uuid="5000028BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000029" concept_id="5000029" voided="0" name="K" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:20:42" concept_name_type="FULLY_SPECIFIED" uuid="5000029BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000030" concept_id="5000030" voided="0" name="TSH" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:21:08" concept_name_type="FULLY_SPECIFIED" uuid="5000030BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000031" concept_id="5000031" voided="0" name="INR" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:21:28" concept_name_type="FULLY_SPECIFIED" uuid="5000031BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000032" concept_id="5000032" voided="0" name="Urine analysis done" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:45" concept_name_type="FULLY_SPECIFIED" uuid="5000032BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000033" concept_id="5000033" voided="0" name="Urine microalbumin" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000033BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <concept_name concept_name_id="5000035" concept_id="5000035" voided="0" name="LDL done" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000035BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
-  <!-- This short name was added so that FBG is picked up by the patient targets widget -->
-  <concept_name concept_name_id="7000502" concept_id="463591" name="FBG" locale="en" locale_preferred="false" creator="1" date_created="2018-12-05 11:25:49.0" concept_name_type="SHORT" voided="false" uuid="3973a821-f984-4512-8d64-df65e87f2172" date_changed="2018-12-05 11:25:49.0" changed_by="1"/>
- 
+  <concept_name concept_name_id="5000022" concept_id="5000022" voided="0" name="Creatinine result" locale="en" locale_preferred="1" creator="1" date_created="2017-12-16 23:36:22" concept_name_type="FULLY_SPECIFIED" uuid="5000022BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000023" concept_id="5000023" voided="0" name="HbA1C result" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:15:27" concept_name_type="FULLY_SPECIFIED" uuid="5000023BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000024" concept_id="5000024" voided="0" name="Patient has glucometer result" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:16:13" concept_name_type="FULLY_SPECIFIED" uuid="5000024BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000025" concept_id="5000025" voided="0" name="ECG result" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:16:40" concept_name_type="FULLY_SPECIFIED" uuid="5000025BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000026" concept_id="5000026" voided="0" name="Echocardio result" locale="en" locale_preferred="1" creator="1" date_created="2017-12-14 20:17:45" concept_name_type="FULLY_SPECIFIED" uuid="5000026BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000027" concept_id="5000027" voided="0" name="Total cholesterol result" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:19:08" concept_name_type="FULLY_SPECIFIED" uuid="5000027BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000028" concept_id="5000028" voided="0" name="ALT (SGPT) result" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:19:39" concept_name_type="FULLY_SPECIFIED" uuid="5000028BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000029" concept_id="5000029" voided="0" name="K (potassium) result" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:20:42" concept_name_type="FULLY_SPECIFIED" uuid="5000029BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000030" concept_id="5000030" voided="0" name="TSH result" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:21:08" concept_name_type="FULLY_SPECIFIED" uuid="5000030BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000031" concept_id="5000031" voided="0" name="INR result" locale="en" locale_preferred="0" creator="1" date_created="2017-12-14 20:21:28" concept_name_type="FULLY_SPECIFIED" uuid="5000031BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000032" concept_id="5000032" voided="0" name="Urine analysis result" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:45" concept_name_type="FULLY_SPECIFIED" uuid="5000032BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000033" concept_id="5000033" voided="0" name="Urine microalbumin result" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000033BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_name_id="5000035" concept_id="5000035" voided="0" name="LDL done result" locale="en" locale_preferred="1" creator="1" date_created="2017-10-31 17:49:46" concept_name_type="FULLY_SPECIFIED" uuid="5000035BBBBBBBBBBBBBBBBBBBBBBBBBBBBB" />
+  <concept_name concept_id="465099" name="PEFR result" locale="en" creator="1" date_created="2018-09-21 08:36:56.0" concept_name_id="2291534" voided="false" uuid="f1c1bcc0-808d-4e0c-b791-c0a7e5ed8af0" concept_name_type="FULLY_SPECIFIED" locale_preferred="true" changed_by="1" />
+   
+  <!-- This short names were added to be used by the patient targets widget -->
+  <concept_name concept_name_id="7000502" concept_id="463591" name="FBG target" locale="en" locale_preferred="false" creator="1" date_created="2018-12-05 11:25:49.0" concept_name_type="SHORT" voided="false" uuid="3973a821-f984-4512-8d64-df65e87f2172" date_changed="2018-12-05 11:25:49.0" changed_by="1"/>
+  <concept_name concept_name_id="7000020" concept_id="5000023" name="HBA1C target" locale="en" locale_preferred="false" creator="1" date_created="2018-12-05 11:25:49.0" concept_name_type="SHORT" voided="false" uuid="e250e702-291f-4b65-80f1-9268fbaad862" date_changed="2018-12-05 11:25:49.0" changed_by="1"/>
+  <concept_name concept_id="465099" name="PEFR target" locale="en" creator="1" date_created="2018-09-21 08:36:56.0" concept_name_id="2291533" voided="false" uuid="d6d2bf68-1ea5-4cd2-bb28-af248fb0ba06" concept_name_type="SHORT" locale_preferred="false" changed_by="1" />
+  
   <concept_numeric concept_id="5000022" units="mg/dL" allow_decimal="true" low_absolute="0.5" hi_absolute="1.1" />
   <concept_numeric concept_id="5000023" units="%" allow_decimal="true" />
   <concept_numeric concept_id="5000025" units="" allow_decimal="true" />
@@ -761,8 +753,6 @@
   <concept_numeric concept_id="5000029" units="mmol/L" allow_decimal="true" />
   <concept_numeric concept_id="5000030" units="mIU/L" allow_decimal="true" />
   <concept_numeric concept_id="5000031" units="" allow_decimal="true" />
-  <concept_numeric concept_id="463591" allow_decimal="true" display_precision="1"/>
-  <concept_numeric concept_id="463593" allow_decimal="true" display_precision="1"/>
   <concept_numeric concept_id="465099" allow_decimal="false"/>
 	
   <concept_set concept_set_id="5000022" concept_set="5000019" concept_id="5000022" sort_weight="0.0" creator="1" date_created="2018-09-21 09:03:05.0" uuid="5000022CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" />
