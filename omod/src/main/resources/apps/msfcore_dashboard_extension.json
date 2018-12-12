@@ -30,6 +30,14 @@
 	"label":"msfcore.referralList",
 	"url":"msfcore/resultHistory.page?patientId={{patient.patientId}}&category=referralList",
 	"icon":"icon-ambulance"
+  },
+  {
+	"id":"mshforms.fullPatientSummary",
+	"extensionPointId" : "patientDashboard.overallActions",
+	"type":"link",
+	"label":"msfcore.fullPatientSummary",
+	"url":"msfcore/fullPatientSummary.page?patientId={{patient.patientId}}",
+	"icon":"icon-suitcase"
   }
   
 ]

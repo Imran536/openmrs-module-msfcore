@@ -5,6 +5,53 @@
 <script src="${ui.resourceLink('msfcore', 'scripts/msf.utils.js')}"></script>
 <link href="${ui.resourceLink('msfcore', 'styles/patientSummary.css')}" rel="stylesheet" type="text/css" media="all">
 
+<style>
+footer {
+  font-size: 9px;
+  color: #f00;
+  text-align: center;
+}
+
+body{
+	counter-reset: footerPage;
+	counter-reset: page;
+}
+@page {
+    size: A4;
+    margin: 5mm 5mm 5mm 5mm;
+  	counter-increment: page;
+}
+	
+@media screen {
+  footer {
+    display: none;
+  }
+}
+
+@media print {	
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+  
+  footer:before{
+  	 counter-increment: footerPage;
+  }
+  
+  footer:after{
+  	content: "Footer: " counter(footerPage) " Page: " counter(page);
+  }
+  .content-block, p, table {
+    page-break-inside: avoid;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
+</style>
+
 <script type="text/javascript">
     jQuery(function() {
     	jQuery("h2").text("${ui.message('msfcore.patientSummary')}");
@@ -38,6 +85,11 @@
 	   		"<% patientSummary.clinicalNotes.each { n -> %>|s|${n.value}<% } %>".split("|s|").filter(v=>v!=''),
 	    1);
 	    
+	    // add visits
+		tabulateCleanedItemsIntoAnElement("#visits", 
+			"First Visit: ${patientSummary.visitSummary.firstVisitDate} |s|Second Visit: ${patientSummary.visitSummary.lastVisitDate}|s|Total Visits: ${patientSummary.visitSummary.totalVisits}|s|Last Seen By: ${patientSummary.visitSummary.lastSeenBy}".split("|s|").filter(v=>v!=''),
+		4);
+
 	    var representation = "${patientSummary.representation}";
     	if(representation == 'SUMMARY') {
 	    	// add vitals
@@ -54,18 +106,24 @@
 	    	
 	    	// add diagnoses
 	    	tabulateCleanedItemsIntoAnElement("#diagnoses", 
-	    		"<% patientSummary.diagnoses.each { d -> %>|s|${d.name}<% } %>".split("|s|").filter(v=>v!=''),
-	    	1);
-	    	
-	    	// add lab test results
-	    	tabulateCleanedItemsIntoAnElement("#lab-tests", 
-	    		"<% patientSummary.recentLabResults.each { m -> %>|s|${m.name}: ${m.value}<% } %>".split("|s|").filter(v=>v!=''),
+	    		"<% patientSummary.diagnoses.each { d -> %>|s|${d.label} ${d.name}|s|Date recorded: ${d.dateRecorded}<% } %>".split("|s|").filter(v=>v!=''),
 	    	2);
 	    	
-	    	// add medications
-	    	tabulateCleanedItemsIntoAnElement("#medications", 
-	    		"<% patientSummary.currentMedications.each { m -> %>|s|${m.value}<% } %>".split("|s|").filter(v=>v!=''),
-	    	1);
+			// add medication details
+	    	tabulateCleanedItemsIntoAnElementWithHeader("#medication-details", 
+	    		"<% patientSummary.medicationList.each { d -> %>|s|${d.name}|s|${d.frequency}|s|${d.quantity}|s|${d.duration}|s|${d.prescriptionDate}<% } %>".split("|s|").filter(v=>v!=''),
+	    	5);
+	    	
+	    	// add referrals
+	    	tabulateCleanedItemsIntoAnElementWithHeader("#referrals", 
+	    		"<% patientSummary.patientReferrals.each { m -> %>|s|${m.referredTo}|s|${m.referralDate}|s|${m.provider}<% } %>".split("|s|").filter(v=>v!=''),
+	    	3);
+
+		    // add lab test results
+	    	tabulateCleanedItemsIntoAnElementWithHeader("#lab-tests", 
+	    		"<% patientSummary.recentLabResults.each { m -> %>|s|${m.name} |s| ${m.value} |s|${m.unit} |s| ${m.refRange} |s| ${m.encounterDate}<% } %>".split("|s|").filter(v=>v!=''),
+	    	5);
+	    	
     	} else if(representation == 'FULL') {
     		jQuery(document).prop('title', "${ui.message('msfcore.patientFullSummary')}");
     		jQuery("h2").text("${ui.message('msfcore.patientFullSummary')}");
@@ -84,14 +142,27 @@
 			<img src="${ui.resourceLink("msfcore", "images/msf_logo.png")}"  height="50" width="100"/>
 		</div>
 		<div class="right">
-			${patientSummary.facility}
+			<div>${patientSummary.address.address1}</div>
+			<div>${patientSummary.address.address2}</div>
+			<div>${patientSummary.address.city}</div>
+			<div>${patientSummary.reportDate}</div>
+			<div>${patientSummary.facility}</div>
 		</div>
 	</div>
 	
-	<h2/>
+	<h2></h2>
+	
+	<div>
+	<div class="left">Patient ID: ${patientSummary.patientIdentifier}</div>
+	<div class="right">${patientSummary.programName}</div>
+	</div>
+	
 	
 	<h4 >${ui.message("msfcore.patientSummary.demograpicDetails")}</h4>
 	<div id="demograpics"></div>
+	
+	<h4>${ui.message("msfcore.ncdfollowup.visitdetails.title")}</h4>
+	<div id="visits"></div>
 	
 	<h4>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")}</h4>
 	<div id="vitals"></div>
@@ -106,10 +177,51 @@
 	<div id="clinical-history"></div>
 	
 	<h4>${ui.message("msfcore.patientSummary.recentLabTest")}</h4>
-	<div id="lab-tests"></div>
+	<div>
+		<table id="lab-tests">
+			<tr>
+				<th>Test</th>
+				<th>Result</th>
+				<th>Unit</th>
+				<th>Reference Range</th>
+				<th>Encounter Date</th>
+			</tr>
+		</table>
+	</div>
 	
 	<h4>${ui.message("msfcore.patientSummary.currentMedication")}</h4>
-	<div id="medications"></div>
+	<div>
+		<table id="medication-details">
+			<tr>
+				<th>Drug</th>
+				<th>Frequency</th>
+				<th>Quantity</th>
+				<th>Duration</th>
+				<th>Prescription Date</th>
+			</tr>
+		</table>
+	</div>
+	
+	<h4>Referrals</h4>
+	<div>
+		<table id="referrals">
+			<tr>
+				<th>Referred To</th>
+				<th>Referreal Date</th>
+				<th>Provider</th>
+			</tr>
+		</table>
+	</div>
+	
+	<br/>
+	<div>Last Appointment: ${patientSummary.lastAppointmentDate}</div>
+	<br/>
+	<div>Next Appointment: ${patientSummary.nextAppointmentDate}</div>
+	<br/>
+	
+	<footer>
+      This is the text that goes at the bottom of every page.
+    </footer>	
 	
 	<h4>${ui.message("msfcore.patientSummary.clinicalNotes")}</h4>
 	<div id="clinical-notes"></div>
