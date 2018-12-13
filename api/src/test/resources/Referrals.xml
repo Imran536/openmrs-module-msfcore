@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <orders order_id="58" order_type_id="18" concept_id="5000044" orderer="1" encounter_id="15" date_activated="2018-11-14 02:11:38.0" creator="1" date_created="2018-11-14 02:11:38.0"  patient_id="7" urgency="ROUTINE" order_number="ORD-58" order_action="NEW" care_setting="1"  voided="false" instructions="n/a" uuid="44rrc453-fc20-4f1b-a351-7eff54b4daf8"/>
+  <orders order_id="59" order_type_id="18" concept_id="5000045" orderer="1" encounter_id="15" date_activated="2018-11-14 02:11:38.1" creator="1" date_created="2018-11-14 02:11:38.0"  patient_id="7" urgency="ROUTINE" order_number="ORD-59" order_action="NEW" care_setting="1"  voided="false" instructions="n/a" uuid="44rrc453-fc20-4f1b-a351-7eff54b4daf9"/>
+  <orders order_id="60" order_type_id="18" concept_id="5000046" orderer="1" encounter_id="15" date_activated="2018-11-14 02:11:38.2" creator="1" date_created="2018-11-14 02:11:38.0"  patient_id="7" voided="true" voided_by="1" date_voided="2018-11-14 09:24:10.0" void_reason="Testing 1" urgency="ROUTINE" order_number="ORD-60" order_action="NEW" care_setting="1"  instructions="n/a" uuid="44rrc453-fc20-4f1b-a351-7eff54b4dag0"/>
+  
+  <obs obs_id="60" person_id="7" status="FINAL" concept_id="5000042" encounter_id="15" order_id="58" obs_datetime="2018-11-14 02:00:00.0" location_id="1" value_text="needs emergency care else the heart fails soon" creator="1" date_created="2018-11-14 14:09:35.0" voided="false" uuid="00cc7f49-e80a-4056-9285-bd798be13c10"/>
+  <obs obs_id="61" person_id="7" status="FINAL" concept_id="5000043" encounter_id="15" order_id="58" obs_datetime="2018-11-14 02:00:00.0" location_id="1" value_text="c2299800-cca9-11e0-9572-0800200c9a66" creator="1" date_created="2018-11-14 14:09:35.0" voided="false" uuid="00cc7f49-e80a-4056-9285-bd798be13c11"/>
+</dataset>  

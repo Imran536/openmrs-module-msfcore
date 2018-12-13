@@ -128,11 +128,51 @@ ul#formBreadcrumb li.doing .question-legend .icon-ok, ul#formBreadcrumb li.doing
     float: right;
 }
 
-.simple-form-ui section fieldset select:focus, .simple-form-ui section fieldset input:focus, .simple-form-ui section #confirmationQuestion select:focus, .simple-form-ui section #confirmationQuestion input:focus, .simple-form-ui #confirmation fieldset select:focus, .simple-form-ui #confirmation fieldset input:focus, .simple-form-ui #confirmation #confirmationQuestion select:focus, .simple-form-ui #confirmation #confirmationQuestion input:focus, .simple-form-ui form section fieldset select:focus, .simple-form-ui form section fieldset input:focus, .simple-form-ui form section #confirmationQuestion select:focus, .simple-form-ui form section #confirmationQuestion input:focus, .simple-form-ui form #confirmation fieldset select:focus, .simple-form-ui form #confirmation fieldset input:focus, .simple-form-ui form #confirmation #confirmationQuestion select:focus, .simple-form-ui form #confirmation #confirmationQuestion input:focus {
+.simple-form-ui section fieldset select:focus,
+.simple-form-ui section fieldset input:focus,
+.simple-form-ui section #confirmationQuestion select:focus,
+.simple-form-ui section #confirmationQuestion input:focus,
+.simple-form-ui #confirmation fieldset select:focus,
+.simple-form-ui #confirmation fieldset input:focus,
+.simple-form-ui #confirmation #confirmationQuestion select:focus,
+.simple-form-ui #confirmation #confirmationQuestion input:focus,
+.simple-form-ui form section fieldset select:focus,
+.simple-form-ui form section fieldset input:focus,
+.simple-form-ui form section #confirmationQuestion select:focus,
+.simple-form-ui form section #confirmationQuestion input:focus,
+.simple-form-ui form #confirmation fieldset select:focus,
+.simple-form-ui form #confirmation fieldset input:focus,
+.simple-form-ui form #confirmation #confirmationQuestion select:focus,
+.simple-form-ui form #confirmation #confirmationQuestion input:focus {
     outline: none;
     border-bottom:2px solid #55D6BE;
 }
 
 .simple-form-ui section, .simple-form-ui #confirmation, .simple-form-ui form section, .simple-form-ui form #confirmation {
     border-left: none;
+}
+div#similarPatients.highlighted {
+  position: absolute;
+  bottom: -40px;
+  margin:0;
+  padding: 10px 0;
+  font-size: 1.3rem;
+  font-family: "OpenSans", Arial, sans-serif;
+  background-color: #FF0000;
+  width: 100%;
+  box-shadow: 0 -9px 50px 0px #333;
+  border-radius: 8px 8px 0 0;
+}
+div#similarPatients.highlighted .left{
+  padding-left: 20px !important;
+}
+div#similarPatientsSlideView {
+  position: absolute;
+  bottom: -176px;
+  background: #fff;
+  padding: 20px;
+
+}
+div#similarPatientsSlideView ul#similarPatientsSelect.matchingPatientContainer.select{
+  margin:0;
 }

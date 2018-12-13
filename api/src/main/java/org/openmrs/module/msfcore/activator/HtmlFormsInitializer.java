@@ -2,6 +2,7 @@ package org.openmrs.module.msfcore.activator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.FormService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.formentryapp.FormEntryAppService;
@@ -93,7 +94,10 @@ public class HtmlFormsInitializer {
      * Stop the initializer
      */
     public void stopped() {
-        //TODO: Perhaps disable the forms?
+        // Remove form metadata
+        log.warn("Removing form metadata");
+        AdministrationService as = Context.getAdministrationService();
+        as.executeSQL("delete from form_resource;", false);
     }
 
     /**

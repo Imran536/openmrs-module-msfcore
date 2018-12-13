@@ -18,11 +18,14 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Drug;
+import org.openmrs.DrugOrder;
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
 import org.openmrs.LocationAttributeType;
 import org.openmrs.Obs;
 import org.openmrs.Order;
+import org.openmrs.Order.Action;
 import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -96,6 +99,8 @@ public class MSFCoreDao extends MSFCoreBaseDao {
         if (concepts != null && !concepts.isEmpty()) {
             crit.add(Restrictions.in("concept", concepts));
         }
+        // exclude discontinuing orders
+        crit.add(Restrictions.not(Restrictions.eq("action", Action.DISCONTINUE)));
 
         applyPaginationToCriteria(pagination, crit);
         crit.addOrder(desc("dateActivated"));
@@ -104,11 +109,8 @@ public class MSFCoreDao extends MSFCoreBaseDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Obs> getObservationsByPersonAndOrderAndConcept(Person person, Order order, Concept concept) {
+    public List<Obs> getObservationsByOrderAndConcept(Order order, Concept concept) {
         Criteria crit = getSession().createCriteria(Obs.class);
-        if (person != null) {
-            crit.add(Restrictions.eq("person", person));
-        }
         if (order != null) {
             crit.add(Restrictions.eq("order", order));
         }
@@ -116,5 +118,13 @@ public class MSFCoreDao extends MSFCoreBaseDao {
             crit.add(Restrictions.eq("concept", concept));
         }
         return crit.list();
+    }
+
+    public DrugOrder getDrugOrder(Integer id) {
+        return (DrugOrder) getSession().get(DrugOrder.class, id);
+    }
+
+    public Drug getDrugByConcept(Concept medication) {
+        return (Drug) getSession().createCriteria(Drug.class).add(Restrictions.eq("concept", medication)).uniqueResult();
     }
 }

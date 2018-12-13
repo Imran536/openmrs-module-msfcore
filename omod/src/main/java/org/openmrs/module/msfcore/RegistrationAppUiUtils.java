@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import org.openmrs.ConceptName;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -40,6 +41,22 @@ public class RegistrationAppUiUtils {
             }
         }
 
+        return null;
+    }
+
+    public String getPersonAttributeValue(Patient patient, String attributeTypeUuid) {
+        if (patient != null) {
+            PersonAttribute attr = patient.getAttribute(Context.getPersonService().getPersonAttributeTypeByUuid(attributeTypeUuid));
+            if (attr != null) {
+                String conceptId = attr.getValue();
+                ConceptName conceptName = Context.getConceptService().getConcept(Integer.parseInt(conceptId)).getName();
+                if (conceptName != null) {
+                    return conceptName.getName();
+                } else {
+                    return null;
+                }
+            }
+        }
         return null;
     }
 

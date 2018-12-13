@@ -11,7 +11,7 @@
     "id":"mshforms.drugListHistory",
     "extensionPointId":"patientDashboard.overallActions",
     "type":"link",
-    "label":"msfcore.drugListHistory",
+    "label":"msfcore.dispenseDrugs",
     "url":"msfcore/resultHistory.page?patientId={{patient.patientId}}&category=drugList",
     "icon":"icon-medkit"
   },
@@ -22,5 +22,14 @@
     "label":"msfcore.labResultsHistory",
     "url":"msfcore/resultHistory.page?patientId={{patient.patientId}}&category=labResults",
     "icon":"icon-beaker"
+  },
+  {
+	"id":"mshforms.referralList",
+	"extensionPointId":"patientDashboard.overallActions",
+	"type":"link",
+	"label":"msfcore.referralList",
+	"url":"msfcore/resultHistory.page?patientId={{patient.patientId}}&category=referralList",
+	"icon":"icon-ambulance"
   }
+  
 ]

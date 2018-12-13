@@ -1,40 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-                  
- 	<changeSet author="k-joseph" id="20180718-1618">
- 		<preConditions onFail="MARK_RAN">
-			<not><indexExists indexName="idgen_identifier_source_unique_uuid" /></not>
+
+	<changeSet author="k-joseph" id="20180718-1618">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<indexExists
+					indexName="idgen_identifier_source_unique_uuid" />
+			</not>
 		</preConditions>
-        <addUniqueConstraint columnNames="uuid" constraintName="idgen_identifier_source_unique_uuid" tableName="idgen_identifier_source"/>
+		<addUniqueConstraint columnNames="uuid"
+			constraintName="idgen_identifier_source_unique_uuid"
+			tableName="idgen_identifier_source" />
 	</changeSet>
 	<changeSet id="20180724-1119" author="k-joseph">
 		<preConditions onFail="MARK_RAN">
 			<sqlCheck expectedResult="0">
-				SELECT COUNT(*) FROM scheduler_task_config
-				WHERE schedulable_class = 'org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler'
+				SELECT COUNT(*) FROM
+				scheduler_task_config
+				WHERE schedulable_class =
+				'org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler'
 			</sqlCheck>
 		</preConditions>
 		<comment>Inserting Auto Deletion of outdated audit logs task into 'schedule_task_config' table</comment>
 		<insert tableName="scheduler_task_config">
 			<column name="name" value="Clear OutDated Audit Logs" />
-			<column name="description" value="Deletes outdated audit logs basing on Global property: msfcore.daysToKeepLogs" />
-			<column name="schedulable_class" value="org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler" />
+			<column name="description"
+				value="Deletes outdated audit logs basing on Global property: msfcore.daysToKeepLogs" />
+			<column name="schedulable_class"
+				value="org.openmrs.module.msfcore.tasks.AuditLogDeletionScheduler" />
 			<column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
 			<column name="start_time" valueDate="2018-07-24T13:30:59" />
-			<column name="start_on_startup" valueNumeric="1"/>
+			<column name="start_on_startup" valueNumeric="1" />
 			<column name="repeat_interval" value="86400" />
 			<column name="date_created" valueDate="CURRENT_TIMESTAMP" />
 			<column name="created_by" value="1" />
-			<column name="uuid" value="8defc5be-8f1b-11e8-9eb6-529269fb1459" />
+			<column name="uuid"
+				value="8defc5be-8f1b-11e8-9eb6-529269fb1459" />
 		</insert>
 	</changeSet>
 	<changeSet id="20180724-1551" author="k-joseph">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="msfcore_audit_log" /></not>
+			<not>
+				<tableExists tableName="msfcore_audit_log" />
+			</not>
 		</preConditions>
 		<comment>
 			Create msfcore_audit_log table
@@ -61,41 +74,65 @@
 			</column>
 		</createTable>
 
-		<addForeignKeyConstraint constraintName="msfcore_audit_log_user_fk"
-			baseTableName="msfcore_audit_log"
-			baseColumnNames="user_id" referencedTableName="users"
-			referencedColumnNames="user_id" />
-		<addForeignKeyConstraint constraintName="msfcore_audit_log_patient_fk"
+		<addForeignKeyConstraint
+			constraintName="msfcore_audit_log_user_fk"
+			baseTableName="msfcore_audit_log" baseColumnNames="user_id"
+			referencedTableName="users" referencedColumnNames="user_id" />
+		<addForeignKeyConstraint
+			constraintName="msfcore_audit_log_patient_fk"
 			baseTableName="msfcore_audit_log" baseColumnNames="patient_id"
 			referencedTableName="patient" referencedColumnNames="patient_id" />
-		<addForeignKeyConstraint constraintName="msfcore_audit_log_provider_fk"
+		<addForeignKeyConstraint
+			constraintName="msfcore_audit_log_provider_fk"
 			baseTableName="msfcore_audit_log" baseColumnNames="provider_id"
-            referencedTableName="provider" referencedColumnNames="provider_id" />
-       <addForeignKeyConstraint constraintName="msfcore_audit_log_location_fk"
+			referencedTableName="provider" referencedColumnNames="provider_id" />
+		<addForeignKeyConstraint
+			constraintName="msfcore_audit_log_location_fk"
 			baseTableName="msfcore_audit_log" baseColumnNames="location_id"
-			referencedTableName="location" referencedColumnNames="location_id"/>
+			referencedTableName="location" referencedColumnNames="location_id" />
 	</changeSet>
-	
+
 	<changeSet id="20180905-1754" author="k-joseph">
 		<preConditions onFail="MARK_RAN">
 			<sqlCheck expectedResult="0">
-				SELECT COUNT(*) FROM scheduler_task_config
-				WHERE schedulable_class = 'org.openmrs.module.msfcore.tasks.MSFIdentifierMantenanceScheduler'
+				SELECT COUNT(*) FROM
+				scheduler_task_config
+				WHERE schedulable_class =
+				'org.openmrs.module.msfcore.tasks.MSFIdentifierMantenanceScheduler'
 			</sqlCheck>
 		</preConditions>
 		<comment>Inserting msf id maintenance task into 'schedule_task_config' table</comment>
 		<insert tableName="scheduler_task_config">
 			<column name="name" value="MSF ID maintenance" />
-			<column name="description" value="Mantains MSF primary identifier" />
-			<column name="schedulable_class" value="org.openmrs.module.msfcore.tasks.MSFIdentifierMantenanceScheduler" />
+			<column name="description"
+				value="Mantains MSF primary identifier" />
+			<column name="schedulable_class"
+				value="org.openmrs.module.msfcore.tasks.MSFIdentifierMantenanceScheduler" />
 			<column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
 			<column name="start_time" valueDate="2018-09-05T16:30:59" />
-			<column name="start_on_startup" valueNumeric="1"/>
+			<column name="start_on_startup" valueNumeric="1" />
 			<column name="repeat_interval" value="86400" />
 			<column name="date_created" valueDate="CURRENT_TIMESTAMP" />
 			<column name="created_by" value="1" />
-			<column name="uuid" value="fc339d1c-b11b-11e8-96f8-529269fb1459" />
+			<column name="uuid"
+				value="fc339d1c-b11b-11e8-96f8-529269fb1459" />
 		</insert>
+	</changeSet>
+
+	<changeSet id="20181008-1440" author="edrisse">
+		<update tableName="global_property">
+			<column name="property_value" type="text" value="d09764da-2bf1-4ab6-933f-07a50add8f33" />
+			<where>property = 'order.drugDosingUnitsConceptUuid'</where>
+		</update>
+		<update tableName="global_property">
+			<column name="property_value" type="text" value="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+			<where>property = 'order.durationUnitsConceptUuid'</where>
+		</update>
+		<update tableName="global_property">
+			<column name="property_value" type="text" value="162394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+			<where>property = 'order.drugRoutesConceptUuid'</where>
+		</update>
+		<comment>Set correct values for drug order related GP</comment>
 	</changeSet>
 	
 	<changeSet author="k-joseph" id="20181031-0506">
@@ -104,4 +141,12 @@
 			<where>property='concept.labResults'</where>
 		</update>
 	</changeSet>
+	
+	<changeSet author="guimino" id="20181126-1005">
+		<update tableName="global_property">
+			<column name="property_value" value="5000022,5000023,5000024,5000025,5000026,5000027,5000028,5000029,5000030,5000031,5000032,5000033,5000035,463591,463593,465099"/>
+			<where>property='concept.labResults'</where>
+		</update>
+	</changeSet>
+
 </databaseChangeLog>

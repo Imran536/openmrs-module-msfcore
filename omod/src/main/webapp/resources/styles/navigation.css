@@ -45,7 +45,7 @@ header .user-options li.change-location a i {
 
 header .user-options li.change-location:hover,
 header .user-options li.change-location .focus {
-    background: rgb(211, 5, 9);
+    background:#55D6BE;
 }
 
 header .user-options li.change-location:hover a span,
@@ -58,17 +58,13 @@ header .user-options li.change-location a.focus i {
 header #session-location {
     display: none;
     position: absolute;
-    top:24px;
+    top:48px;
     right: 144px;
     width: 200px;
     left: auto;
     border: none;
     box-shadow: rgba(0, 0, 0, .3) 0 8px 24px;
-}
-
-header #session-location ul.select {
-   width:160px;
-   margin:0;
+    border-radius: 8px;
 }
 
 header #session-location li {
@@ -78,13 +74,13 @@ header #session-location li {
     padding:8px;
 }
 header #session-location li:hover {
-    color: #55D6BE;
-    background: #fff;
+    color: #fff;
+    background: #55D6BE;
 }
 header #session-location li.selected {
-    color: #55D6BE;
+    color: #fff;
     font-family:'OpenSansSemiBold';
-    background: #fff;
+    background: #4EC3AD;
 }
 
 /* NAV > Breadcrumbs */

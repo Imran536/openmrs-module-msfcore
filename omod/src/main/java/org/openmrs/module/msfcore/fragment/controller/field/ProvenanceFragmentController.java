@@ -45,6 +45,20 @@ public class ProvenanceFragmentController {
 
         model.addAttribute("oldFacilityCodeUuid", MSFCoreConfig.PERSON_ATTRIBUTE_OLD_FACILITY_CODE_UUID);
         model.addAttribute("otherIdNameUui", MSFCoreConfig.PERSON_ATTRIBUTE_OTHER_ID_NAME_UUID);
+        model.addAttribute("ableToRead", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_ABLE_TO_READ_UUID));
+        model.addAttribute("ableToReadUuid", MSFCoreConfig.PERSON_ATTRIBUTE_ABLE_TO_READ_UUID);
+        model.addAttribute("ableToWrite", Context.getService(MSFCoreService.class).getAllConceptAnswerNames(
+                        MSFCoreConfig.CONCEPT_ABLE_TO_WRITE_UUID));
+        model.addAttribute("ableToWriteUuid", MSFCoreConfig.PERSON_ATTRIBUTE_ABLE_TO_WRITE_UUID);
         model.put("phoneNumberUuid", MSFCoreConfig.PERSON_ATTRIBUTE_PHONE_NUMBER_UUID);
+
+        model.put("fatherUuid", MSFCoreConfig.PERSON_ATTRIBUTE_FATHER_UUID);
+        model.put("motherUuid", MSFCoreConfig.PERSON_ATTRIBUTE_MOTHER_UUID);
+        model.put("sisterUuid", MSFCoreConfig.PERSON_ATTRIBUTE_SISTER_UUID);
+        model.put("brotherUuid", MSFCoreConfig.PERSON_ATTRIBUTE_BROTHER_UUID);
+        model.put("auntUuid", MSFCoreConfig.PERSON_ATTRIBUTE_AUNT_UUID);
+        model.put("uncleUuid", MSFCoreConfig.PERSON_ATTRIBUTE_UNCLE_UUID);
+        model.put("otherUuid", MSFCoreConfig.PERSON_ATTRIBUTE_OTHER_UUID);
     }
 }

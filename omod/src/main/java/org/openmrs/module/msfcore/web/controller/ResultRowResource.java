@@ -18,10 +18,12 @@ public class ResultRowResource extends BaseDataResource {
      * Disguising a result update as a create request
      */
     @Override
-    public Object create(SimpleObject propertiesToCreate, RequestContext context) throws ResponseException {
-        SimpleObject response = new SimpleObject();
+    public String create(SimpleObject propertiesToCreate, RequestContext context) throws ResponseException {
+        String response = "";
         List<Obs> obs = ResultsData.updateResultRow(propertiesToCreate);
-        response.add("uuid", obs.get(0).getUuid());
+        for (Obs o : obs) {
+            response += ", " + o.getUuid();
+        }
         return response;
     }
 }

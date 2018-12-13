@@ -2,6 +2,8 @@
 <dataset>
 
 
+ <concept concept_id="159400" retired="0" datatype_id="2" class_id="5" is_set="0" creator="1" date_created="2010-08-25 13:53:04" changed_by="1" uuid="159400AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+
  <concept  concept_id="135315"  retired="false"  datatype_id="4"  class_id="4"  is_set="false"  creator="1"  date_created="2007-11-03 00:00:00"  uuid="135315AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
  <concept  concept_id="159374"  retired="false"  datatype_id="4"  class_id="5"  is_set="false"  creator="1"  date_created="2010-08-24 14:17:44"  uuid="159374AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
  <concept  concept_id="161011"  retired="false"  datatype_id="3"  class_id="11"  is_set="false"  creator="1"  date_created="2012-07-31 19:06:39"  uuid="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
@@ -41,7 +43,7 @@
  <concept  concept_id="1072"  retired="false"  short_name=""  description=""  datatype_id="4"  class_id="11"  is_set="0"  creator="1"  date_created="2005-01-06 00:00:00"  changed_by="1"  date_changed="2016-04-07 04:19:51" uuid="1072AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
  <concept  concept_id="1073"  retired="false"  short_name=""  description=""  datatype_id="4"  class_id="11"  is_set="0"  creator="1"  date_created="2005-01-06 00:00:00"  changed_by="1"  date_changed="2014-12-01 21:22:58" uuid="1073AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
  <concept  concept_id="1074"  retired="false"  short_name=""  description=""  datatype_id="4"  class_id="11"  is_set="0"  creator="1"  date_created="2005-01-06 00:00:00"  changed_by="1"  date_changed="2016-04-07 04:18:42" uuid="1074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
- <concept  concept_id="161244"  retired="false"  datatype_id="2"  class_id="11"  is_set="0"  creator="1"  date_created="2012-10-16 21:09:08"  changed_by="1"  date_changed="2014-09-18 15:15:29" uuid="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+ <concept  concept_id="161244"  retired="false"  datatype_id="2"  class_id="11"  is_set="1"  creator="1"  date_created="2012-10-16 21:09:08"  changed_by="1"  date_changed="2014-09-18 15:15:29" uuid="161244AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
 
  <concept  concept_id="163106"  retired="false"  datatype_id="3"  class_id="7"  is_set="0"  creator="1"  date_created="2015-11-06 02:28:11"  changed_by="1"  date_changed="2015-11-06 02:28:21" uuid="163106AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
 
@@ -68,6 +70,11 @@
  <concept_answer  concept_answer_id="4394"  concept_id="161244"  answer_concept="1073"  creator="1"  date_created="2012-10-16 21:10:36"  uuid="4394CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"  sort_weight="4394"/>
  <concept_answer  concept_answer_id="4395"  concept_id="161244"  answer_concept="1074"  creator="1"  date_created="2012-10-16 21:10:36"  uuid="4395CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"  sort_weight="4395"/>
 
+
+ <concept_answer concept_answer_id="3861" concept_id="159400" answer_concept="1065"  creator="1" date_created="2012-06-24 16:38:02" uuid="3861CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" sort_weight="3861"/>
+ <concept_answer concept_answer_id="3862" concept_id="159400" answer_concept="1066"  creator="1" date_created="2012-06-24 16:38:02" uuid="3862CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" sort_weight="3862"/>
+ <concept_answer concept_answer_id="3863" concept_id="159400" answer_concept="1067"  creator="1" date_created="2012-06-24 16:38:02" uuid="3863CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" sort_weight="3863"/>
+
  <concept_description  concept_description_id="10783"  concept_id="135315"  description="Rapid and excessive rise of temperature accompanied by muscular rigidity following general anesthesia."  locale="en"  creator="1"  date_created="2007-10-18 04:28:24" uuid="10783FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
 
  <concept_description  concept_description_id="16006"  concept_id="159374"  description="Times per week the patient has wheezing or dyspnea during the day time, as used while assessing the severity of Asthma and other problems."  locale="en"  creator="1"  date_created="2010-08-24 14:17:44"  uuid="16006FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
@@ -83,6 +90,8 @@
  <concept_description  concept_description_id="1076"  concept_id="1073"  description="Generic temporal answer to question."  locale="en"  creator="1"  date_created="2005-01-06 00:00:00"  changed_by="1"  date_changed="2014-12-01 21:22:58"  uuid="1076FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
  <concept_description  concept_description_id="1077"  concept_id="1074"  description="Generic temporal answer to question."  locale="en"  creator="1"  date_created="2005-01-06 00:00:00"  changed_by="1"  date_changed="2016-04-07 04:18:42"  uuid="1077FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
  <concept_description  concept_description_id="17053"  concept_id="161244"  description="Time period for which something occurred."  locale="en"  creator="1"  date_created="2012-10-16 21:09:08"  changed_by="1"  date_changed="2014-09-18 15:15:29"  uuid="17053FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
+
+ <concept_description concept_description_id="16032" concept_id="159400" description="Whether the patient can read or not." locale="en" creator="1" date_created="2010-08-25 13:53:04" changed_by="1" date_changed="2016-04-21 20:49:02" uuid="16032FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"/>
 
  <concept_name  concept_id="163106"  name="Consignes pour le patient et / ou de la famille"  locale="fr"  creator="1"  date_created="2015-11-06 02:28:11"  concept_name_id="134720"  voided="0"  uuid="134720BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  changed_by="1"/>
  <concept_name  concept_id="163106"  name="Education au patient et / ou de la famille"  locale="fr"  creator="1"  date_created="2015-11-06 02:28:11"  concept_name_id="134721"  voided="0"  voided_by="1"  uuid="134721BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  locale_preferred="0"  changed_by="1"/>
@@ -218,6 +227,8 @@
  <concept_name  concept_id="1074"  name="Mwa"  locale="ht"  creator="1"  date_created="2016-04-07 04:18:42"  concept_name_id="136079"  voided="0"  uuid="136079BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  changed_by="1"/>
  <concept_name  concept_id="161244"  name="Unit of time"  locale="en"  creator="1"  date_created="2012-10-16 21:09:08"  concept_name_id="110444"  voided="0"  uuid="110444BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  changed_by="1"/>
  <concept_name  concept_id="161244"  name="Unidad de tiempo"  locale="es"  creator="1"  date_created="2013-03-12 23:35:27"  concept_name_id="123590"  voided="0"  uuid="123590BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"  concept_name_type="FULLY_SPECIFIED"  locale_preferred="1"  changed_by="1"/>
+
+ <concept_name concept_id="159400" name="Able to read" locale="en" creator="1" date_created="2010-08-25 13:53:04" concept_name_id="106483" voided="0" voided_by="1"  uuid="106483BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" changed_by="1"/>
 
  <concept_numeric  concept_id="160856"  allow_decimal="0"  />
 

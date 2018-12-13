@@ -90,10 +90,47 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient, a
     </div>
 </div>
 <script type="text/javascript">
+    var getOrderIndex = function(sectionName) {
+        if (sectionName.includes('Followup')) { // follow up sections
+            if (sectionName.includes('Visit Details')) return 100;
+            if (sectionName.includes('Diagnosis')) return 200;
+            if (sectionName.includes('Complications Since Last Visit')) return 300;
+            if (sectionName.includes('Prescribe Medication')) return 400;
+            if (sectionName.includes('Clinical note')) return 500;
+            if (sectionName.includes('Refer Patient')) return 600;
+            if (sectionName.includes('Request Investigation')) return 700;
+            if (sectionName.includes('Request Appointment')) return 800;
+        } else { // baseline sections
+            if (sectionName.includes('Medical History')) return 1;
+            if (sectionName.includes('Lifestyle')) return 2;
+            if (sectionName.includes('Allergies')) return 3;
+            if (sectionName.includes('Diagnosis')) return 4;
+            if (sectionName.includes('Complications')) return 5;
+            if (sectionName.includes('Request Investigation')) return 6;
+            if (sectionName.includes('Prescribe Medication')) return 7;
+            if (sectionName.includes('Patient Targets')) return 8;
+            if (sectionName.includes('Regular Patient Review')) return 9;
+            if (sectionName.includes('Clinical Note')) return 10;
+            if (sectionName.includes('Request Appointment')) return 11;
+            if (sectionName.includes('Refer Patient')) return 12;
+        }
+    }
+
     jq(document).ajaxStop(function() {
         jq('<ul id="encounterTypeList"></ul>').insertBefore('#encountersList');
+
+        // Add order indexes to encounters
+        jq('#encountersList li.encounter').each(function(index, encounter){
+            encounter.orderIndex = getOrderIndex(encounter.innerText) // encounter.innerText contains the section's title
+        })
+
+        // Sort encounters
+        var sortedEncounters = jq('#encountersList li.encounter').sort(function(a,b) {
+            return a.orderIndex - b.orderIndex
+        })
+
         // move encounters with a similar encounter type to the same list
-        jq('#encountersList li.encounter').each(function(){
+        sortedEncounters.each(function(){
             var encounter_type = jq(this).attr('data-encounter-type-uuid');
             // check if this element exists within the encounterTypeList
             if (!jq('#' + encounter_type + '-li').length) {

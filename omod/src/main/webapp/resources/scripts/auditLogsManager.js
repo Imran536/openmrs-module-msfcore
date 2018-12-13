@@ -19,9 +19,6 @@ jQuery(function() {
   jQuery("#patient-search").keyup(function() {
     jQuery("#patient-search-results").show();
   });
-  jQuery("#submit-form").click(function() {
-    jQuery("#filter-form").submit();
-  });
 });
 
 window.onload = function() {

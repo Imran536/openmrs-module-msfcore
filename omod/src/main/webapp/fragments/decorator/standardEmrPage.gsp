@@ -18,6 +18,9 @@
 
         <% ui.includeCss("appui", "header.css") %>
         ${ ui.resourceLinks() }
+        <!-- MSF: We may override the header or else just style it here -->
+        <link href="${ui.resourceLink('msfcore', 'styles/msf.css')}" rel="stylesheet" type="text/css" media="all">
+        <!-- /MSF: We may override the header or else just style it here -->
     </head>
     <body>
         <script type="text/javascript">
@@ -36,10 +39,6 @@
         </script>
 
 ${ ui.includeFragment("appui", "header") }
-
-<!-- MSF: We may override the header or else just style it here -->
-<link href="${ui.resourceLink('msfcore', 'styles/msf.css')}" rel="stylesheet" type="text/css" media="all">
-<!-- /MSF: We may override the header or else just style it here -->
 
 <ul id="breadcrumbs"></ul>
 

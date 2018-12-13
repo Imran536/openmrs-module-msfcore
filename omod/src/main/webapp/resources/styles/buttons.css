@@ -1,30 +1,3 @@
-/* BUTTONS > Home Tiles */
-
-button.big {
-    max-width:100%;
-}
-.button.app.big {
-    padding: 24px;
-    height: 96%;
-    color: #424C55;
-}
-
-.button.app.big:hover {
-    background: #fff;
-    box-shadow: rgba(0, 0, 0, .2) 0 4px 16px;
-    transform: scale(1.01);
-}
-
-.button.app.big i {
-    color: #acacac;
-    margin-bottom: 8px;
-    font-size:40px;
-}
-
-.button.app.big:hover i {
-    color: #55D6BE;
-}
-
 /* BUTTONS > Cancel & Confirm
 
 - The rules below are very verbose and specific in order to override the OpenMRS Reference App stylesheet.
@@ -45,6 +18,7 @@ input[type="button"],
 input[type="submit"].confirm,
 input[type="button"].confirm,
 a.button.cancel .button.cancel,
+button.button.cancel,
 button.cancel,
 input[type="button"].cancel,
 input[type="submit"].cancel,
@@ -61,11 +35,41 @@ a.button.task:visited,
     border: none;
     border-radius: 24px;
     box-shadow: rgba(0, 0, 0, .4) 0 1px 4px;
+    box-sizing: border-box;
     color: #373F46;
     font-family: 'OpenSansSemiBold', Arial, sans-serif;
-    padding: 12px 24px;
+    height: 44px;
+    padding: 12px 16px;
     margin: 8px;
     text-align: center;
+}
+
+/* BUTTONS > Home Tiles */
+
+button.big {
+    max-width:100%;
+}
+.button.app.big {
+    padding: 24px;
+    height: 8.5rem;
+    width: 11rem;
+    color: #424C55;
+}
+
+.button.app.big:hover {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, .2) 0 4px 16px;
+    transform: scale(1.01);
+}
+
+.button.app.big i {
+    color: rgba(62, 155, 138, 0.5);
+    margin-bottom: 8px;
+    font-size:40px;
+}
+
+.button.app.big:hover i {
+    color: #55D6BE;
 }
 
 /* Visit Buttons */
@@ -149,7 +153,6 @@ input[type="submit"].confirm:hover,
     text-decoration: none;
 }
 
-#patient-search-clear-button:hover,
 .icon-delete:hover,
 .icon-remove:hover,
 .button.cancel:hover,
@@ -163,6 +166,11 @@ a.button.cancel:hover,
     cursor: pointer;
 }
 
+#patient-search-clear-button:hover {
+    background: #ff4747;
+}
+
+button:hover,
 .main-content .visit-actions a:hover,
 .main-content .spaced a:hover,
 .button.confirm:hover,
@@ -200,6 +208,8 @@ input[type="submit"]:disabled:hover {
 }
 
 /* BUTTONS > Pagination */
+
+.ngPagerButton,
 .ui-state-default.ui-button {
     color: #373F46;
     padding: 8px;
@@ -232,6 +242,7 @@ input[type="submit"]:disabled:hover {
     opacity: 1;
 }
 
+.btn-small, .page, .actionable,
 #encountersList .encounter-details li:last-child > .details-action a,
 #deleteVisitLink, #editVisitDatesLink, #editVisitLink,
 .edit-info,
@@ -258,6 +269,17 @@ a.view-details {
     text-decoration: none;
 }
 
+.btn-small {
+    font-size: 0.75rem;
+}
+.btn-small i {
+    font-size: 1rem;
+}
+
+.btn-block {
+    width:100%;
+}
+
 #viewAllAppointmentTypes a,
 .date-range-picker-clear-link {
     cursor: pointer;
@@ -273,9 +295,13 @@ a.view-details {
 }
 
 #patient-search-clear-button {
-    color: #373F46;
-    margin-left: -36px;
-    right: 42px;
+    background: #55D6BE;
+    box-sizing: border-box;
+    border-radius: 0 4px 4px 0;
+    color: #fff;
+    height: 40px;
+    padding: 12px 14px;
+    right: 7px;
 }
 
 /*
@@ -284,7 +310,7 @@ Causes an issue on Manage Service Types
 .delete-item:first-of-type {
     margin-right: 0;
 }*/
-
+.btn-small
 .view-action.icon-file-alt::after,
 #patient-search-clear-button::after,
 .icon-pencil.edit-action::after,
@@ -311,10 +337,15 @@ a#patient-search-register-patient {
 .view-action.icon-file-alt::after {
     content: 'View';
 }
-
+/* Removed this to fix results.gsp editing
+.icon-ok::after {
+    content: 'save';
+}
+*/
 .edit-action.icon-share-alt:after {
     content: 'Open';
 }
+
 .icon-pencil.edit-action::after,
 .delete-item.icon-pencil::after {
     content: 'Edit';
@@ -336,6 +367,27 @@ button.confirm.big i.icon-arrow-right {
 }
 button.cancel.big i.icon-arrow-left {float: left;}
 button.confirm.big i.icon-arrow-right {float: right;}
+
+/* Exit from Inpatient Care */
+input.submitButton.confirm.right {
+    align-self: flex-end;
+}
+
+htmlform[formname="Discharge (Simple)"] button.cancel,
+htmlform[formname="Admission (Simple)"] button.cancel {
+    align-self: flex-start;
+    margin-top: -48px;
+}
+
+/* Audit Logs */ 
+
+h2[onclick="toggleFiltersDisplay()"] {
+    background-color: #fff !important; 
+    cursor: pointer;
+    border-radius: 4px; 
+    box-shadow: rgba(0,0,0,0.1) 0 2px 4px;
+    padding: 4px 8px;
+}
 
 /* Visit Note */
 
@@ -363,6 +415,7 @@ button.confirm.big i.icon-arrow-right {float: right;}
 }
 
 /* BUTTONS > Transitions */
+*:hover,
 a,
 a:hover,
 form input,
@@ -442,4 +495,8 @@ button {outline: none}
 
 .button.confirm.active, button.confirm.active, input[type="submit"].confirm.active, input[type="button"].confirm.active, input[type="submit"].confirm.active, a.button.confirm.active {
   background: #D0FEF5;
+}
+div#similarPatientsSlideView ul#similarPatientsSelect button.local_button{
+  padding: 12px 24px;
+  margin: 8px;
 }

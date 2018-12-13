@@ -69,7 +69,7 @@ public class MorbidityAnalysisReport extends BaseMSFReportManager {
     public List<ReportDesign> constructReportDesigns(ReportDefinition reportDefinition) {
         List<ReportDesign> l = new ArrayList<ReportDesign>();
         ReportDesign design = ReportManagerUtil.createExcelDesign("3572ec50-c8ae-11e8-a8d5-f2801f1b9fd1", reportDefinition);
-        design.setName(getName() + " Excell Design");
+        design.setName(getName() + " Excel Design");
         l.add(design);
         return l;
     }

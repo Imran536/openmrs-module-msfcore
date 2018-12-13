@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.Provider;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentRequest;
@@ -38,11 +39,12 @@ public class RequestApointmentFormAction implements FormAction {
         if (VALID_FORM_UUIDS.contains(formUuid)) {
             Patient patient = session.getEncounter().getPatient();
             Set<Obs> observations = session.getEncounter().getObsAtTopLevel(false);
-            requestAppointment(patient, observations);
+            Provider requestor = session.getEncounter().getEncounterProviders().iterator().next().getProvider();
+            requestAppointment(patient, observations, requestor);
         }
     }
 
-    public AppointmentRequest requestAppointment(Patient patient, Set<Obs> observations) {
+    public AppointmentRequest requestAppointment(Patient patient, Set<Obs> observations, Provider requestor) {
         initializeServices();
         String notes = "";
         String appointmentTypeName = "";
@@ -87,7 +89,9 @@ public class RequestApointmentFormAction implements FormAction {
         appointmentRequest.setMinTimeFrameUnits(TimeFrameUnits.DAYS);
         appointmentRequest.setMinTimeFrameValue(DateUtils.getDaysBetweenDates(now, requestedDate));
         appointmentRequest.setStatus(AppointmentRequestStatus.PENDING);
-        appointmentRequest.setRequestedOn(new Date());
+        appointmentRequest.setRequestedOn(requestedDate);
+        appointmentRequest.setRequestedBy(requestor);
+
         appointmentService.saveAppointmentRequest(appointmentRequest);
 
         return appointmentRequest;

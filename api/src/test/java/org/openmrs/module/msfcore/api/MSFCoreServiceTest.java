@@ -12,7 +12,6 @@ package org.openmrs.module.msfcore.api;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openmrs.CareSetting.CareSettingType;
 import org.openmrs.Concept;
 import org.openmrs.DrugOrder;
 import org.openmrs.Encounter;
@@ -126,27 +124,6 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         Assert.assertEquals(Integer.valueOf(2), pagination.getTotalItemsNumber());
         Assert.assertEquals(1, orders.size());
         Assert.assertEquals("1", orders.get(0).getOrderNumber());
-    }
-
-    public void saveTestOrders_shouldCreateTestOrders() throws Exception {
-        executeDataSet("MSFCoreService.xml");
-
-        Encounter encounter = Context.getEncounterService().getEncounterByUuid("27126dd0-04a4-4f3b-91ae-66c4907f6e5f");
-        MSFCoreService service = Context.getService(MSFCoreService.class);
-
-        // Order 1 is linked to a voided obs so it should be voided
-        Assert.assertFalse(Context.getOrderService().getOrder(1).getVoided());
-        service.saveTestOrders(encounter);
-        Assert.assertTrue(Context.getOrderService().getOrder(1).getVoided());
-
-        Encounter loadedEncounter = Context.getEncounterService().getEncounter(encounter.getId());
-        List<Obs> obs = new ArrayList<Obs>(loadedEncounter.getObs());
-        Assert.assertEquals(3, obs.size());
-        Assert.assertNotNull(obs.get(0).getOrder().getOrderId());
-        Assert.assertEquals(obs.get(0).getConcept(), obs.get(0).getOrder().getConcept());
-        Assert.assertEquals(obs.get(1).getConcept(), obs.get(1).getOrder().getConcept());
-        Assert.assertEquals(obs.get(2).getConcept(), obs.get(2).getOrder().getConcept());
-        Assert.assertEquals(CareSettingType.OUTPATIENT.name(), obs.get(0).getOrder().getCareSetting().getName().toUpperCase());
     }
 
     public void generatePatientProgram_returnNullIfPatientProgramIsNull() {
@@ -293,11 +270,11 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
 
     private PatientProgram generatePatientProgram(boolean enrollment, PatientProgram patientProgram, Encounter encounter,
                     ProgramWorkflowState... states) {
-        Map<String, ProgramWorkflowState> stages = new HashMap<String, ProgramWorkflowState>();
+        final Map<String, ProgramWorkflowState> stages = new HashMap<>();
 
         // hack to avoid invalid property setting issues
         if (states.length > 0) {
-            for (ProgramWorkflowState stage : states) {
+            for (final ProgramWorkflowState stage : states) {
                 stage.setConcept(Context.getConceptService().getConcept(22));
                 stage.setProgramWorkflow(new ProgramWorkflow());
                 if (stage.getInitial() == null) {
@@ -314,24 +291,20 @@ public class MSFCoreServiceTest extends BaseModuleContextSensitiveTest {
         }
         return Context.getService(MSFCoreService.class).generatePatientProgram(enrollment, stages, patientProgram, encounter);
     }
-
     @Test
     public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveCorrectObs() {
         executeDataSet("MSFCoreService.xml");
 
-        Assert.assertEquals("207d0cc1-tt20-4bd6-8a0f-06b4ae1e53e0", Context.getService(MSFCoreService.class)
-                        .getObservationsByPersonAndOrderAndConcept(Context.getPersonService().getPerson(7),
-                                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(463392)).get(0)
-                        .getUuid());
+        Assert.assertEquals(5, Context.getService(MSFCoreService.class).getObservationsByOrderAndConcept(
+                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(5000023)).get(0).getId().intValue());
     }
 
     @Test
     public void getObservationsByPatientAndOrderAndConcept_shouldRetrieveNoObsIfConceptDoesntMatch() {
         executeDataSet("MSFCoreService.xml");
 
-        Assert.assertEquals(0, Context.getService(MSFCoreService.class).getObservationsByPersonAndOrderAndConcept(
-                        Context.getPersonService().getPerson(7), Context.getOrderService().getOrder(1),
-                        Context.getConceptService().getConcept(463389)).size());
+        Assert.assertEquals(0, Context.getService(MSFCoreService.class).getObservationsByOrderAndConcept(
+                        Context.getOrderService().getOrder(1), Context.getConceptService().getConcept(5000012)).size());
     }
 
     @Test

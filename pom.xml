@@ -121,6 +121,7 @@
 		<htmlformentryVersion>3.7.0</htmlformentryVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <webservices.restVersion>2.21.0</webservices.restVersion>
+        <metadatadeployVersion>1.10.0</metadatadeployVersion>
         <lombokVersion>1.18.0</lombokVersion>
         <javaCompilerTarget>1.8</javaCompilerTarget>
         <javaCompilerSource>1.8</javaCompilerSource>

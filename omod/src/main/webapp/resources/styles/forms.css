@@ -15,6 +15,7 @@ htmlform,
 }
 
 input,
+select,
 form input,
 form select,
 form textarea,
@@ -25,13 +26,20 @@ form ul.select,
 .form ul.select,
 input[type="search"] {
     background: #fff;
-    border: none;
-    border-bottom: 2px solid #ccc;
+    border: 1px solid rgba(155,155,155, 0.75);
+    border-bottom: 2px solid rgba(200, 200, 200, 0.7);
     border-radius:4px;
-    outline: none;
-    /*min-width: 10%; Problematic on Modal Inputs */
-    padding: 8px 16px;
     box-shadow: inset rgba(0,0,0,0.3) 0 0 2px;
+    box-sizing: border-box;
+    outline: none;
+    padding: 8px 16px;
+}
+
+input,
+select,
+form input,
+form select {
+    height:40px;
 }
 
 select,
@@ -44,8 +52,9 @@ select,
 .simple-form-ui select#gender-field {
    height: 100%;
 }
-form input {
-    margin-top: 0;
+
+form input, form select {
+    margin-top: 4px;
 }
 
 /* NCD LABELS
@@ -72,6 +81,10 @@ form input[type="checkbox"],
     padding: 6px;
 }
 
+form input[type="radio"] {
+    height: 16px;
+}
+
 form input[type="radio"]:checked {
     background: #55D6BE;
 }
@@ -87,6 +100,8 @@ form input[type="checkbox"]:checked:after,
 .form input[type="checkbox"]:checked:after {
     font-size: 24px;
     color: #fff;
+    top: 1px;
+    left: 5px;
 }
 
 form input:focus,
@@ -100,6 +115,16 @@ form ul.select:focus,
     background: #fff;
     border-bottom: 2px solid #55D6BE;
     outline: none;
+}
+
+.input-group {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.input-group.flex-col {
+    align-items: start;
 }
 
 .input-group textarea {
@@ -120,6 +145,26 @@ daterangepicker button {
     padding:2px;
 }
 
+.angular-datepicker .datepicker-input,
+.angular-datepicker .icon-calendar {
+    top: -1px;
+}
+
+#filter-date input {
+    height: 40px;
+    padding: 8px;
+}
+
+#filter-date input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+/*
+#filter-date input[type=date]::-webkit-calendar-picker-indicator {
+    -webkit-appearance: none;
+    display: none;
+}*/
+
 /*
 #appointmentscheduling-patientAppointments i.icon-calendar.small.add-on {
     margin-left: -32px;
@@ -130,14 +175,15 @@ daterangepicker button {
     margin-left: 0.25rem;
 }
 
-div#active-visits_filter.dataTables_filter,
-form#patient-search-form {
-    background: #55D6BE;
-    border-radius: 8px 8px 0 0;
+form#patient-search-form,
+div#active-visits_filter.dataTables_filter {
+    background: #A2E8DB;
+    border-radius: 8px;
     box-shadow: rgba(0,0,0,0.1) 0 -2px 8px;
     box-sizing: border-box;
-    margin-bottom: 0;
-    padding: 16px;
+    color: #424C55;
+    margin-bottom: -8px;
+    padding: 16px 16px 24px 16px;
     width: 100%;
 }
 
@@ -151,7 +197,7 @@ form#patient-search-form {
 }
 
 form input#patient-search {
-    min-width: 56%;
+    min-width: 50%;
     box-sizing: border-box;
     margin-top:28px;
 }
@@ -199,18 +245,45 @@ ul#formBreadcrumb li:last-child {
 .selectedAppointmentTypesList,
 .selectedAppointmentTypesList > .add-on {
     background: #55D6BE;
-    box-shadow: rgba(0,0,0,0.3) 0 1px 4px;
     border-radius: 0 4px 4px 0;
-    color:#fff;
+    color: #fff;
     cursor: pointer;
     display: inline-block;
     padding: 9px 8px;
+    margin-left: -6px;
+    border-bottom: 2px solid #4EC3AD;
+    height: 20px;
 }
 
 .selectedAppointmentTypesList {
-    border:none;
-    border-radius: 4px 0 0 4px;
-    padding:0;
+    border: none;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 3px;
+    height: 24px;
+}
+.selectedAppointmentTypesList > .add-on {
+    margin: -3px -3px 0px 0;
+    height: 12px;
+    border: none;
+}
+
+a.date-range-picker-clear-link.add-on:hover,
+i.icon-remove.add-on:hover {
+    background: #ff4747;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.date-range-picker-clear-link.add-on:hover {
+    border-bottom: 2px solid #ff4747;
+}
+
+.selectmultipleInput {
+    border: inherit;
+    margin-bottom: 8px;
+    clear: right;
 }
 
 .selectedAppointmentTypesList span {
@@ -222,14 +295,27 @@ ul#formBreadcrumb li:last-child {
     left:-6px !important;
 }
 
+span[id*="startDate"] span.add-on, 
+span[id*="stopDate"] span.add-on {
+    left: 0px !important;
+    top: 1px;
+}
 
 a.date-range-picker-clear-link.add-on {
-    margin-left: -5px;
-    padding: 10px 8px;
-    top: -2px;
-    background: #fff;
-    color: red;
+    margin-left: -6px;
+    padding: 9px 8px;
+    top: -3px;
+    color: #fff;
+    font-family: 'OpenSansSemiBold';
+    border-left: 1px solid #4EC3AD;
 }
+
+
+.date-range-picker-div .angular-datepicker .icon-calendar, 
+a.date-range-picker-clear-link.add-on {
+    left: -77px !important;
+}
+
 
 input#retrospectiveVisitStartDate-display,
 input#retrospectiveVisitStartDate-field {
@@ -243,14 +329,16 @@ input#retrospectiveVisitStartDate-field {
 
 /* TWEAKS TO STAGING */
 
-form input[type="checkbox"],
+form input[type="checkbox"], 
 .form input[type="checkbox"] {
-    padding: 12px;
+    padding: 15px;
     border: 1px solid #ccc;
     box-shadow: inset rgba(0,0,0,0.1) 0 0 4px;
     background: #fff;
-    margin: 0;
-    margin-right: 8px;
+    margin: 4px 8px 0 0;
+    height: 32px;
+    width: 32px;
+    box-sizing: border-box;
 }
 
 .section form label,
@@ -262,8 +350,6 @@ form label,
 .form label {
     display: block;
     text-align: left;
-    margin-bottom: 4px;
-    margin-top: 0px;
 }
 
 form input[type=radio] + label,
@@ -272,32 +358,38 @@ form input[type=radio] + label,
     float: left;
 }
 
+form.flex-col > .input-group {
+    max-width: 360px;
+}
+
 .input-group input[type=radio] + label {
     margin-right: 24px;
 }
 
 #login-form ul.select, #login-form #sessionLocation {
-    width: 95%;
+    width: 100%;
     padding: 16px;
     box-sizing: border-box;
+    box-shadow: none;
+    border: none;
+    background: #E0F7F3;
+    margin-right: 0px;
 }
 
 form#login-form {
-    width: 40%;
-    margin: 9rem auto;
+    max-width: 34%;
+    min-width: 360px;
     background: #fff;
     border-radius: 8px;
     box-shadow: rgba(0,0,0,0.3) 0 8px 16px;
 }
 
 ul.select li {
-    width: 43%;
+    width: calc( 50% - 34px );
     padding: 8px;
     color: #4EC3AD;
-    border: 1px solid #ccc;
-    border-radius:4px;
-    box-shadow: rgba(0,0,0,0.1) 0 0 1px;
-    margin:4px;
+    border-radius: 4px;
+    margin: 8px;
 }
 
 ul.select li:hover {
@@ -313,31 +405,19 @@ ul.select li.selected {
 
 form#login-form fieldset {
     border: none;
+    padding:0;
 }
 
-form#login-form fieldset legend {
-    padding: 16px;
-    color: #fff;
-    font-size: 2rem;
-    text-align: center;
+.form-header {
     background: #424C55;
-    width: 105%;
     box-sizing: border-box;
     padding: 24px;
-    margin: -20px 0 32px -22px;
-    float: left;
-    border-radius: 8px 8px 0 0;
 }
 
 #login-form p input[type=submit] {
     width: 100%;
     float: left;
     margin: 16px 22%;
-}
-
-#cantLogin {
-    float: left;
-    margin: 16px 36%;
 }
 
 /* Add New Allergies */
@@ -384,4 +464,33 @@ div#actions {
 
 #appointment-block-form table {
     box-shadow: none;
+}
+
+span.error, label.error {
+    border: 2px dotted #fb0303;
+    color: #fb0303;
+}
+
+input.error {
+    background-color: #ffffff;
+    border: 1px solid #0808fd;
+    border-radius: 0;
+}
+
+/* Login Form Error */
+
+form[id="login-form"] #error-message {
+    background: #FEE8E8;
+    color: #fb0303;
+    margin: 0 0 24px -22px;
+    padding: 8px 16px 24px 16px;
+    text-align: center;
+}
+
+/* Unique styling for Change Language because the page is poorly coded */
+.adminui-section-padded-top input[type="checkbox"] {
+    height: 16px;
+    padding: 4px;
+    width: 16px;
+    clear: both;
 }
