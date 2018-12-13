@@ -30,4 +30,9 @@ public class OMRSConstants {
     public static String MESSAGE_UNITS_PER_MINUTE = "uicommons.units.perMinute";
     public static String MESSAGE_UNITS_PERCENT = "uicommons.units.percent";
     public static String MESSAGE_UNITS_BLOOD_GLUCOSE = "msfcore.units.bloodGlucose";
+
+    public static String GP_CONCEPT_ID_MEDICATION_GROUP = "concept.medicationGroup";
+    public static String GP_CONCEPT_ID_LAB_RESULTS_LATEST = "concept.labResultsUpdated";
+    public static String GP_CONCEPT_DISPENSE_DRUG = "concept.dispenseDrug";
+    public static String GP_CONCEPT_REFERRAL_FEEDBACK = "concept.referralFeedback";
 }

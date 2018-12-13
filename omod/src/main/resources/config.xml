@@ -205,6 +205,26 @@
 		<defaultValue>463571</defaultValue>
 		<description>Concept id for the concept defining blood glucose</description>
 	</globalProperty>
+	<globalProperty>
+		<property>concept.medicationGroup</property>
+		<defaultValue>7000008</defaultValue>
+		<description>Concept id for the concept defining medication group</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.labResultsUpdated</property>
+		<defaultValue>463596,463630,463631,463632,463629,463582,463583,463574</defaultValue>
+		<description>Concept ids for the concepts defining updated lab results</description>
+	</globalProperty>
+		<globalProperty>
+		<property>concept.dispenseDrug</property>
+		<defaultValue>5000036</defaultValue>
+		<description>Concept id for the concept defining Dispense Drug</description>
+	</globalProperty>
+	<globalProperty>
+		<property>concept.referralFeedback</property>
+		<defaultValue>5000042</defaultValue>
+		<description>Concept id for the concept defining referral feedback</description>
+	</globalProperty>
 	
 	<packagesWithMappedClasses>org.openmrs.module.msfcore.audit</packagesWithMappedClasses>
 	

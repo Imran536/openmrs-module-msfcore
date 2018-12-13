@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Demographics {
+public class PatientDiagnosis {
+    private String label;
     private String name;
-    private Age age;
-    private String gender;
+    private String dateRecorded;
 }

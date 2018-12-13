@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Demographics {
-    private String name;
-    private Age age;
-    private String gender;
+public class PlannedAppointment {
+    @Builder.Default
+    private String type;
+    @Builder.Default
+    private String date;
 }
