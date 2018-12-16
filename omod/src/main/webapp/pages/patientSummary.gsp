@@ -154,11 +154,15 @@ body{
 			<div>${patientSummary.address.address1}</div>
 			<div>${patientSummary.address.address2}</div>
 			<div>${patientSummary.address.city}</div>
+			<div>${patientSummary.address.country}</div>			
+			<br/>
 			<div>${patientSummary.reportDate}</div>
 		</div>
 	</div>
 	
 	<h2></h2>
+	
+	<br><br>
 	
 	<div>
 		<div class="left">Patient ID: ${patientSummary.patientIdentifier}</div>
@@ -172,7 +176,7 @@ body{
 	<h4>${ui.message("msfcore.ncdfollowup.visitdetails.title")}</h4>
 	<div id="visits"></div>
 	
-	<h4>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")}</h4>
+	<h4>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")} - ${patientSummary.vitals.get(0).dateCreated}</h4>
 	<div id="vitals"></div>
 	
 	<h4>${ui.message("msfcore.patientSummary.workingDiagnosis")}</h4>
@@ -243,7 +247,7 @@ body{
 	</div>
 	
 	<footer>
-		<div><p>Footer </p></div>
+		<div><p>Printed By: ${patientSummary} </p></div>
     </footer>
     
 </div>

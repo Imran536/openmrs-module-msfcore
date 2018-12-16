@@ -82,10 +82,15 @@
 	    		"<% patientSummary.visitDiagnosis.each { d -> %>|s|${d.name}|s|${d.status}|s|${d.visitDate}<% } %>".split("|s|").filter(v=>v!=''),
 	    	3);
 	    	
-	    	// add medication details
+			// add medication details
 	    	tabulateCleanedItemsIntoAnElementWithHeader("#medication-details", 
-	    		"<% patientSummary.medicationList.each { d -> %>|s|${d.name}|s|${d.frequency}|s|${d.quantity}|s|${d.duration}|s|${d.prescriptionDate}<% } %>".split("|s|").filter(v=>v!=''),
-	    	5);
+	    		"<% patientSummary.medicationList.each { d -> %>|s|${d.name}|s|${d.frequency}|s|${d.quantity}|s|${d.duration}|s|${d.dispensed}|s|${d.prescriptionDate}|s|${d.status}<% } %>".split("|s|").filter(v=>v!=''),
+	    	7);
+	    	
+	    	// add referrals
+	    	tabulateCleanedItemsIntoAnElementWithHeader("#referrals", 
+	    		"<% patientSummary.patientReferrals.each { m -> %>|s|${m.referredTo}|s|${m.referralDate}|s|${m.feedback}|s|${m.provider}<% } %>".split("|s|").filter(v=>v!=''),
+	    	4);
 	    	
 	    	// add appointment details
 	    	tabulateCleanedItemsIntoAnElementWithHeader("#appointment-details",
@@ -110,13 +115,14 @@
 		    	"<% patientSummary.allergies.each { a -> %>|s|${ui.message('msfcore.allergy')}${a.name}|s|${ui.message('msfcore.reactions')}<% a.reactions.each { r -> %>${r}, <% } %>|s|${ui.message('msfcore.severity')}${a.severity}<% } %>"
 		    		.split("|s|").filter(v=>v!=''),
 		    3);
+		    
 		    // add lab test results
 	    	tabulateCleanedItemsIntoAnElementWithHeader("#lab-tests", 
 	    		"<% patientSummary.recentLabResults.each { m -> %>|s|${m.name} |s| ${m.value} |s|${m.unit} |s| ${m.refRange} |s| ${m.encounterDate}<% } %>".split("|s|").filter(v=>v!=''),
 	    	5);
     	}    	
     	jQuery("#print-patient-summary").click(function(e) {
-    		printPageWithIgnore(".summary-actions-wrapper");
+    		printPageWithIgnoreInclude(".summary-actions-wrapper");
     	});
     });
 </script>
@@ -129,6 +135,8 @@
 			<div>${patientSummary.address.address1}</div>
 			<div>${patientSummary.address.address2}</div>
 			<div>${patientSummary.address.city}</div>
+			<div>${patientSummary.address.country}</div>			
+			<br/>
 			<div>${patientSummary.reportDate}</div>
 		</div>
 	</div>
@@ -148,7 +156,7 @@
 	<h4>${ui.message("msfcore.ncdfollowup.visitdetails.title")}</h4>
 	<div id="visits-summary"></div>
 	
-	<h4>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")}</h4>
+	<h4>${ui.message("msfcore.patientSummary.recentVitalsAndObservations")} - ${patientSummary.vitals.get(0).dateCreated}</h4>
 	<div id="vitals"></div>
 	
 	<h4>${ui.message("msfcore.ncdfollowup.visitdetails.title")}</h4>
@@ -193,27 +201,42 @@
 	
 	<div id="followup-note-div"></div>
 	
-	<h4>${ui.message("msfcore.patientSummary.labTests.header")}</h4>
-	<div id="lab-tests">
+	<h4>${ui.message("msfcore.patientSummary.recentLabTest")}</h4>
+	<div>
 		<table id="lab-tests">
 			<tr>
 				<th>Test</th>
 				<th>Result</th>
+				<th>Unit</th>
 				<th>Reference Range</th>
 				<th>Encounter Date</th>
 			</tr>
 		</table>
 	</div>
 	
-	<h4>${ui.message("msfcore.medicationDetails.header")}</h4>
-	<div id="medication-details">
+	<h4>${ui.message("msfcore.patientSummary.currentMedication")}</h4>
+	<div>
 		<table id="medication-details">
 			<tr>
 				<th>Drug</th>
 				<th>Frequency</th>
 				<th>Quantity</th>
 				<th>Duration</th>
+				<th>Dispensed</th>
 				<th>Prescription Date</th>
+				<th>Status</th>
+			</tr>
+		</table>
+	</div>
+	
+	<h4>Referrals</h4>
+	<div>
+		<table id="referrals">
+			<tr>
+				<th>Referred To</th>
+				<th>Referreal Date</th>
+				<th>Feedback</th>
+				<th>Provider</th>				
 			</tr>
 		</table>
 	</div>
@@ -228,15 +251,6 @@
 		</table>
 	</div>
 	
-	<div id="patient-summary-signature">
-		<div class="left">
-			<b>${ui.message("msfcore.patientSummary.provider")}</b>${patientSummary.provider}
-		</div>
-		<div class="right">
-			<b>${ui.message("msfcore.patientSummary.signature")}</b>
-		</div>
-	</div>
-	
 	<h4>${ui.message("msfcore.diagnosisDetails.header")}</h4>
 	<div>
 		<table id="diagnosis-details">
@@ -246,6 +260,15 @@
 				<th>Diagnosis Date</th>
 			</tr>
 		</table>
+	</div>
+	
+	<div id="patient-summary-signature">
+		<div class="left">
+			<b>${ui.message("msfcore.patientSummary.provider")}</b>${patientSummary.provider}
+		</div>
+		<div class="right">
+			<b>${ui.message("msfcore.patientSummary.signature")}</b>
+		</div>
 	</div>
 </div>
 

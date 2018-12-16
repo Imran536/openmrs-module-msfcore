@@ -1,5 +1,6 @@
 package org.openmrs.module.msfcore.api.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.openmrs.AllergyReaction;
 import org.openmrs.Concept;
 import org.openmrs.ConceptDatatype;
@@ -99,9 +101,9 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         } else if (obs.getConcept().getDatatype().getUuid().equals(ConceptDatatype.BOOLEAN_UUID) && obs.getValueBoolean() != null) {
             ob.value(cleanObservationValue(Boolean.toString(obs.getValueBoolean())));
         } else if (obs.getConcept().getDatatype().getUuid().equals(ConceptDatatype.DATE_UUID) && obs.getValueDate() != null) {
-            ob.value(cleanObservationValue(Context.getDateFormat().format(obs.getValueDate())));
+            ob.value(cleanObservationValue(getFormattedDateAsInReport(obs.getValueDate())));
         } else if (obs.getConcept().getDatatype().getUuid().equals(ConceptDatatype.DATETIME_UUID) && obs.getValueDatetime() != null) {
-            ob.value(cleanObservationValue(Context.getDateTimeFormat().format(obs.getValueDatetime())));
+            ob.value(cleanObservationValue(getFormattedDateAsInReport(obs.getValueDatetime())));
         } else if (obs.getConcept().getDatatype().getUuid().equals(ConceptDatatype.CODED_UUID) && obs.getValueCoded() != null) {
             ob.value(cleanObservationValue(obs.getValueCoded().getName().getName()));
         } else if (obs.getConcept().getDatatype().getUuid().equals(ConceptDatatype.COMPLEX_UUID) && obs.getValueComplex() != null) {
@@ -111,7 +113,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
 
         //Full representation
         //TODO: Drug order
-        ob.encounterDate(obs.getEncounter().getDateCreated().toString());;
+        ob.encounterDate(getFormattedDateTimeAsInReport(obs.getEncounter().getDateCreated()));
         if (Representation.FULL.equals(representation)) {
             // TODO set both visit and encounter dates
         }
@@ -148,7 +150,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             return Context.getMessageSourceService().getMessage(OMRSConstants.MESSAGE_UNITS_BLOOD_GLUCOSE);
         } else {
             ConceptNumeric cn = Context.getConceptService().getConceptNumeric(concept.getConceptId());
-            return cn == null ? "" : Context.getConceptService().getConceptNumeric(concept.getConceptId()).getUnits();
+            //            return cn == null || cn.getUnits() == null ? "" : Context.getConceptService().getConceptNumeric(concept.getConceptId()).getUnits();
+            return cn == null || cn.getUnits() == null ? "" : cn.getUnits();
         }
     }
 
@@ -243,7 +246,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             if (vitalsBuilder == null) {
                 vitalsBuilder = Vitals.builder();
             }
-            vitalsBuilder.dateCreated(Context.getDateFormat().format(obs.getDateCreated()));
+            vitalsBuilder.dateCreated(getFormattedDateAsInReport(obs.getDateCreated()));
             if (obsEncounter == null || obsEncounter.equals(obs.getEncounter())) {
                 if (missedObs != null) {
                     setVital(vitalsBuilder, missedObs);
@@ -323,7 +326,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
     }
 
     private List<Concept> getLabResultsConcepts() {
-        return getConcepts(OMRSConstants.GP_CONCEPT_ID_LAB_RESULTS_LATEST);
+        return getConcepts(OMRSConstants.GP_CONCEPT_ID_LAB_RESULTS);
     }
 
     private void addObsToHistory(Patient patient, List<Observation> clinicalHistoryObs, String gp) {
@@ -345,7 +348,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         int index = 0;
         for (Visit visit : visits) {
             ClinicalHistory clinicalHistory = ClinicalHistory.builder().build();
-            clinicalHistory.setDate(Context.getDateFormat().format(visit.getStartDatetime()));
+            clinicalHistory.setDate(getFormattedDateAsInReport(visit.getStartDatetime()));
             addObsToFullHistory(patient, clinicalHistory.getMedical(), OMRSConstants.GP_CONCEPT_ID_PAST_MEDICATION_HISTORY, visit
                             .getStartDatetime(), visit.getStopDatetime());
             addObsToFullHistory(patient, clinicalHistory.getSocial(), OMRSConstants.GP_CONCEPT_ID_SOCIAL_HISTORY, visit.getStartDatetime(),
@@ -450,7 +453,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                 }
             }
             medication.setDuration(sb.toString());
-            medication.setPrescriptionDate(Context.getDateFormat().format(obs.getEncounter().getEncounterDatetime()));
+            medication.setPrescriptionDate(getFormattedDateAsInReport(obs.getEncounter().getEncounterDatetime()));
             patientSummary.getMedicationList().add(medication);
         }
     }
@@ -486,7 +489,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             setFacility(patientSummarybuilder);
             // set demographics
             patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
-                            new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).gender(patient.getGender()).build());
+                            new Age(patient.getBirthdate(), new Date(), getCustomSDF())).gender(patient.getGender()).build());
 
             patientSummary = patientSummarybuilder.build();
             // set recent vitals and observations
@@ -549,7 +552,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             setMedicationDetails(patient, patientSummary);
 
             //set report date
-            patientSummary.setReportDate(Context.getDateFormat().format(new Date()));
+            patientSummary.setReportDate(getFormattedDateAsInReportTitle(new Date()));
 
             return patientSummary;
         } else if (Representation.FULL.equals(representation)) {
@@ -558,7 +561,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             setFacility(patientSummarybuilder);
             // set demographics
             patientSummarybuilder.demographics(Demographics.builder().name(patient.getPersonName().getFullName()).age(
-                            new Age(patient.getBirthdate(), new Date(), Context.getDateFormat())).gender(patient.getGender()).build());
+                            new Age(patient.getBirthdate(), new Date(), getCustomSDF())).gender(patient.getGender()).build());
 
             patientSummary = patientSummarybuilder.build();
 
@@ -610,13 +613,41 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             setPlannedAppointments(patient, patientSummary);
 
             //set report date
-            patientSummary.setReportDate(Context.getDateFormat().format(new Date()));
+            patientSummary.setReportDate(getFormattedDateAsInReportTitle(new Date()));
+
+            patientSummary.setPrintedBy(Context.getAuthenticatedUser().getUsername());
 
             setPatientAddress(patient, patientSummary);
 
             return patientSummary;
         }
         return patientSummary;
+    }
+
+    private SimpleDateFormat getCustomSDF() {
+        String pattern = "dd.MMM.yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat;
+    }
+
+    private SimpleDateFormat getCustomSDFWithTime() {
+        String pattern = "hh.mma dd.MMMMM.yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat;
+    }
+
+    private String getFormattedDateAsInReport(Date date) {
+        return getCustomSDF().format(date);
+    }
+
+    private String getFormattedDateTimeAsInReport(Date date) {
+        return getCustomSDFWithTime().format(date);
+    }
+
+    private String getFormattedDateAsInReportTitle(Date date) {
+        String pattern = "dd MMMMM yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(date);
     }
 
     private void setPatientIdentifier(Patient patient, PatientSummary patientSummary) {
@@ -649,8 +680,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
     private void setLastAndNextAppointment(Patient patient, PatientSummary patientSummary) {
         String lastAppDate = "", nextAppDate = "";
         try {
-            lastAppDate = Context.getDateFormat().format(
-                            Context.getService(AppointmentService.class).getLastAppointment(patient).getVisit().getDateCreated());
+            lastAppDate = getFormattedDateAsInReport(Context.getService(AppointmentService.class).getLastAppointment(patient).getVisit()
+                            .getDateCreated());
         } catch (NullPointerException e) {
             e.printStackTrace();
             lastAppDate = "_";
@@ -660,9 +691,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         }
 
         try {
-            nextAppDate = Context.getDateFormat().format(
-                            Context.getService(AppointmentService.class).getScheduledAppointmentsForPatient(patient).get(0).getVisit()
-                                            .getDateCreated());
+            nextAppDate = getFormattedDateAsInReport(Context.getService(AppointmentService.class).getScheduledAppointmentsForPatient(
+                            patient).get(0).getVisit().getDateCreated());
         } catch (NullPointerException e) {
             e.printStackTrace();
             nextAppDate = "_";
@@ -679,7 +709,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             if (order.getOrderType().getUuid().equals(MSFCoreConfig.REFERRAL_ORDER_TYPE_UUID) && !order.getVoided()) {
                 PatientReferral pr = PatientReferral.builder().build();
                 pr.setReferredTo(order.getConcept().getName().getName());
-                pr.setReferralDate(Context.getDateFormat().format(order.getDateCreated()));
+                pr.setReferralDate(getFormattedDateAsInReport(order.getDateCreated()));
                 pr.setProvider(order.getEncounter().getEncounterProviders().iterator().next().getProvider().getName());
                 //Adding feedback
                 for (Obs obs : Context.getObsService().getObservationsByPersonAndConcept(patient.getPerson(),
@@ -725,7 +755,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             String d = diagnosis.getDiagnosis().getCoded() != null ? diagnosis.getDiagnosis().getCoded().getName().getName() : diagnosis
                             .getDiagnosis().getNonCoded();
             PatientDiagnosisBuilder dB = PatientDiagnosis.builder().name(d).dateRecorded(
-                            Context.getDateTimeFormat().format(diagnosis.getEncounter().getEncounterDatetime()));
+                            getFormattedDateAsInReport(diagnosis.getEncounter().getEncounterDatetime()));
             if (diagnosis.getRank() == 1) {
                 dB.label("Primary Diagnosis:");
                 patientSummary.getDiagnoses().add(dB.build());
@@ -757,7 +787,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
                             .getDiagnosis().getNonCoded();
             DiseaseBuilder dB = Disease.builder().name(d).status(
                             diagnosis.getCertainty().name() != null ? diagnosis.getCertainty().name() : "None").visitDate(
-                            diagnosis.getDateCreated() != null ? Context.getDateFormat().format(diagnosis.getDateCreated()) : "None");
+                            diagnosis.getDateCreated() != null ? getFormattedDateAsInReport(diagnosis.getDateCreated()) : "None");
             patientSummary.getVisitDiagnosis().add(dB.build());
         }
     }
@@ -768,7 +798,7 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
             if (encounter.getEncounterType().getEncounterTypeId() != encTypeId) {
                 org.openmrs.module.msfcore.patientSummary.Encounter enc = org.openmrs.module.msfcore.patientSummary.Encounter.builder()
                                 .build();
-                enc.setDate(Context.getDateFormat().format(encounter.getEncounterDatetime()));
+                enc.setDate(getFormattedDateTimeAsInReport(encounter.getEncounterDatetime()));
                 enc.setType(encounter.getEncounterType().getName());
                 try {
                     enc.setProvider(((EncounterProvider) encounter.getEncounterProviders().iterator().next()).getProvider().getName());
@@ -790,8 +820,8 @@ public class PatientSummaryServiceImpl extends BaseOpenmrsService implements Pat
         if (visits != null && visits.size() > 0) {
             ArrayList<Visit> visitsList = new ArrayList<Visit>();
             visitsList.addAll(visits);
-            visitSummary.setFirstVisitDate(Context.getDateFormat().format(visits.get(0).getDateCreated()));
-            visitSummary.setLastVisitDate(Context.getDateFormat().format(visits.get(visits.size() - 1).getDateCreated()));
+            visitSummary.setFirstVisitDate(getFormattedDateAsInReport(visits.get(0).getStartDatetime()));
+            visitSummary.setLastVisitDate(getFormattedDateAsInReport(visits.get(visits.size() - 1).getStartDatetime()));
             visitSummary.setTotalVisits(Integer.toString(visits.size()));
             try {
                 visitSummary.setLastSeenBy(visits.get(visits.size() - 1).getEncounters().iterator().next().getEncounterProviders()

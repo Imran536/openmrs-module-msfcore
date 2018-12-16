@@ -14,7 +14,7 @@ public class PatientReferral {
     @Builder.Default
     private String referralDate;
     @Builder.Default
-    private String provider;
+    private String provider = "_";
     @Builder.Default
-    private String feedback;
+    private String feedback = "_";
 }

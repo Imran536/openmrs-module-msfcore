@@ -15,6 +15,10 @@ table {
 	box-shadow:none;
 }
 
+table th{
+	text-align: left;
+}
+
 h2 {
 	text-align: center;
 }

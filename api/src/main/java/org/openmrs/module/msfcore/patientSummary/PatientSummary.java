@@ -17,6 +17,8 @@ import lombok.NoArgsConstructor;
 public class PatientSummary {
     private Representation representation;
     @Builder.Default
+    private String printedBy = "";
+    @Builder.Default
     private String reportDate = "";
     @Builder.Default
     private String facility = "";
