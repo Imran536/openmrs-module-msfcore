@@ -3,57 +3,7 @@
 %>
 
 <script src="${ui.resourceLink('msfcore', 'scripts/msf.utils.js')}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
 <link href="${ui.resourceLink('msfcore', 'styles/patientSummary.css')}" rel="stylesheet" type="text/css" media="all">
-
-<style>
-footer {
-  font-size: 9px;
-  color: #f00;
-  text-align: center;
-}
-
-body{
-	counter-reset: footerPage;
-}
-
-@page {
-    size: A4;
-    margin: 5mm 5mm 5mm 5mm;
-	@bottom-right { 
-		content: counter(page) " / " counter(pages); 
-	}
-}
-	
-@media screen {
-  footer {
-    display: none;
-  }
-}
-
-@media print {	
-  footer {
-    position: fixed;
-    bottom: 0;
-	counter-increment: footerPage;
-  }
-  
-  footer:after{
- 	counter-increment: footerPage;
-  	content: "Page: " counter(footerPage) ";
-  }
-  
-  .content-block, p, table {
-    page-break-inside: avoid;
-  }
-
-  html, body {
-    width: 210mm;
-    height: 297mm;
-  }
-}
-</style>
 
 <script type="text/javascript">
     jQuery(function() {
@@ -245,10 +195,6 @@ body{
 			<b>${ui.message("msfcore.patientSummary.signature")}</b>
 		</div>
 	</div>
-	
-	<footer>
-		<div><p>Printed By: ${patientSummary} </p></div>
-    </footer>
     
 </div>
 
