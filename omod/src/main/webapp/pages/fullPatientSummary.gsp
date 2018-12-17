@@ -76,12 +76,7 @@
 	    	tabulateCleanedItemsIntoAnElementWithHeader("#historial-vitals", 
 	    		"<% patientSummary.vitals.each { d -> %>|s|${d.dateCreated}|s|${ui.message("msfcore.height")}${d.height.value} ${d.height.unit}, ${ui.message("msfcore.weight")}${d.weight.value} ${d.weight.unit}, ${ui.message("msfcore.bmi")}${d.bmi.value}, ${ui.message("msfcore.temperature")}${d.temperature.value} ${d.temperature.unit}, ${ui.message("msfcore.pulse")}${d.pulse.value} ${d.pulse.unit}, ${ui.message("msfcore.respiratoryRate")}${d.respiratoryRate.value} ${d.respiratoryRate.unit}, ${ui.message("msfcore.bloodPressure")}${d.bloodPressure.value}, ${ui.message("msfcore.bloodOxygenSaturation")}${d.bloodOxygenSaturation.value} ${d.bloodOxygenSaturation.unit}<% } %>".split("|s|").filter(v=>v!='')
 	    	, 2);
-	    	
-	    	// add diagnosis details
-	    	tabulateCleanedItemsIntoAnElementWithHeader("#diagnosis-details", 
-	    		"<% patientSummary.visitDiagnosis.each { d -> %>|s|${d.name}|s|${d.status}|s|${d.visitDate}<% } %>".split("|s|").filter(v=>v!=''),
-	    	3);
-	    	
+	    	    	
 			// add medication details
 	    	tabulateCleanedItemsIntoAnElementWithHeader("#medication-details", 
 	    		"<% patientSummary.medicationList.each { d -> %>|s|${d.name}|s|${d.frequency}|s|${d.quantity}|s|${d.duration}|s|${d.dispensed}|s|${d.prescriptionDate}|s|${d.status}<% } %>".split("|s|").filter(v=>v!=''),
@@ -252,15 +247,6 @@
 	</div>
 	
 	<h4>${ui.message("msfcore.diagnosisDetails.header")}</h4>
-	<div>
-		<table id="diagnosis-details">
-			<tr>
-				<th>Diagnosis</th>
-				<th>Status</th>
-				<th>Diagnosis Date</th>
-			</tr>
-		</table>
-	</div>
 	
 	<div id="patient-summary-signature">
 		<div class="left">
